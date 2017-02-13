@@ -169,7 +169,7 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd class="">
-                                    <a href="javascript:;" _href="member-list.html">
+                                    <a href="javascript:;" _href="?r=user/index">
                                         <cite>会员列表</cite>
                                     </a>
                                 </dd>

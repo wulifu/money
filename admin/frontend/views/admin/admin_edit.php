@@ -64,14 +64,14 @@ filter:alpha(opacity=0);/* 兼容IE */
 </div>
 <div style="float: center;">
 <div style="float: left;" class="x-body">
-    <form class="layui-form" action="?r=admin/adds" method="post" enctype="multipart/form-data">
+    <form class="layui-form" action="?r=admin/edits" method="post" enctype="multipart/form-data">
        
         <div class="layui-form-item">
             <label for="link" class="layui-form-label">
                 <span class="x-red">*</span>管理员名称
             </label>
            <div class="layui-input-inline">
-                <input title="" type="text" id="link" name="admin" required="" lay-verify="required"
+                <input title="" value="<?php echo $admin?>" type="text" id="link" name="admin" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
            
@@ -81,7 +81,7 @@ filter:alpha(opacity=0);/* 兼容IE */
                 <span class="x-red"></span>管理员头像
             </label>
            <div class="layui-input-inline">
-                    <A class=btn_addPic href="javascript:void(0);"><SPAN><EM>+</EM>上传头像</SPAN> <input class=filePrew type="file" name="photo" tabIndex="3" size="3" onchange="previewImage(this)" > </A>
+                    <A class=btn_addPic href="javascript:void(0);"><SPAN><EM></EM>修改头像</SPAN> <input class=filePrew type="file" name="photo" tabIndex="3" size="3" value="<?php echo $photo?>" onchange="previewImage(this)" > </A>
 
 
 
@@ -92,7 +92,7 @@ filter:alpha(opacity=0);/* 兼容IE */
                         <span class="x-red">*</span>密码
                     </label>
                     <div class="layui-input-inline">
-                        <input type="password" id="L_pass" name="password" required="" lay-verify="pass"
+                        <input type="password"  value="<?php echo $password?>"  id="L_pass" name="password" required="" lay-verify="pass"
                         autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">
@@ -104,7 +104,7 @@ filter:alpha(opacity=0);/* 兼容IE */
                         <span class="x-red">*</span>确认密码
                     </label>
                     <div class="layui-input-inline">
-                        <input type="password" id="L_repass"  required="" lay-verify="repass"
+                        <input type="password"  value="<?php echo $password?>"  id="L_repass"  required="" lay-verify="repass"
                         autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -112,8 +112,9 @@ filter:alpha(opacity=0);/* 兼容IE */
         <div class="layui-form-item">
             <label for="L_repass" class="layui-form-label">
             </label>
-            <input type="hidden" value="<?php echo strtotime(date('Y-m-d H:i:s')); ?>" name="time_res">
-            <input type="submit" value="增加" class="layui-btn" lay-filter="add" lay-submit="">&nbsp
+            <input type="hidden"  value="<?php echo $time_res?>"  name="time_res">
+            <input type="hidden"  value="<?php echo $a_id?>"  name="a_id">
+            <input type="submit" value="修改" class="layui-btn" lay-filter="add" lay-submit="">&nbsp
            <a href="?r=admin/index"> <input type="botten" style="width: 65px; background-color: red" value="返回" class="layui-btn" ></a>
 
 
@@ -121,7 +122,7 @@ filter:alpha(opacity=0);/* 兼容IE */
     </form>
 </div>
 <div  class="x-avtar"  width="120px" height="120px" style="margin-left: -750px; "  id="preview">   
- <img  id="imghead"  width="120px" height="120px" style="margin:25px auto 0 auto;"  src="./images/f11.png" alt="">     
+ <img  id="imghead"  width="120px" height="120px" style="margin:25px auto 0 auto;"  src="<?php echo $photo?>" alt="">  
 </div>
 </div>
 <script src="./lib/layui/layui.js" charset="utf-8">
