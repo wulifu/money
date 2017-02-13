@@ -64,7 +64,7 @@
         <div class="layui-form-item">
             <label for="L_repass" class="layui-form-label">
             </label>
-            <input type="submit" value="增加" class="layui-btn" lay-filter="add" lay-submit="">
+            <input type="submit" value="增s加" class="layui-btn" lay-filter="add" lay-submit="">
 <!--            <button  class="layui-btn" lay-filter="add" lay-submit="">-->
 <!--                增加-->
 <!--            </button>-->
