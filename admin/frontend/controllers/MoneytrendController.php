@@ -110,11 +110,11 @@ class MoneytrendController extends controller
         //  DayCount2 = 网站当天支出总金额
 
         /* 查询所有用户余额  计算网站所有资金*/
-        $data = User::findBySql('SELECT moeny FROM user')->asArray()->all();
+        $data = User::findBySql('SELECT money FROM user')->asArray()->all();
         /* 统计总金额 */
         $count = '';
         foreach ($data as $key => $value) {
-            $count+=$value['moeny'];
+            $count+=$value['money'];
         }
 
         /* 处理当天日期 */
