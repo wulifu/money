@@ -22,7 +22,7 @@
                         X-admin v1.0
                     </a>
                     <ul class="layui-nav" lay-filter="">
-                      <li class="layui-nav-item"><img src="./images/logo.png" class="layui-circle" style="border: 2px solid #A9B7B7;" width="35px" alt=""></li>
+                      <li class="layui-nav-item"><img src="./images/f11.png" class="layui-circle" style="border: 2px solid #A9B7B7;" width="35px" alt=""></li>
                       <li class="layui-nav-item">
                         <a href="javascript:;">admin</a>
                         <dl class="layui-nav-child"> <!-- 二级菜单 -->
@@ -43,6 +43,35 @@
             <div class="layui-side layui-bg-black x-side">
                 <div class="layui-side-scroll">
                     <ul class="layui-nav layui-nav-tree site-demo-nav" lay-filter="side">
+                        <li class="layui-nav-item">
+                            <a class="javascript:;" href="javascript:;">
+                                <i class="layui-icon" style="top: 3px;">&#xe630;</i><cite>资金管理</cite>
+                            </a>
+                            <dl class="layui-nav-child">
+                                <dd class="">
+                                    <a href="javascript:;" _href="?r=moneytrend/index">
+                                        <cite>资金动向查看</cite>
+                                    </a>
+                                </dd>
+                            </dl>
+                            <dl class="layui-nav-child">
+                                <dd class="">
+                                    <a href="javascript:;" _href="?r=withdrawals/index">
+                                        <cite>用户提现申请</cite>
+                                    </a>
+                                </dd>
+                            </dl>
+                            <dl class="layui-nav-child">
+                            <dd class="">
+                                <a href="javascript:;" _href="?r=moneytrend/moenycount">
+                                    <cite>网站资金统计</cite>
+                                </a>
+                            </dd>
+                            </dl>
+                        </li>
+
+
+
                         <li class="layui-nav-item">
                             <a class="javascript:;" href="javascript:;">
                                 <i class="layui-icon" style="top: 3px;">&#xe607;</i><cite>问题管理</cite>
@@ -122,15 +151,22 @@
                         </li>
                         <li class="layui-nav-item">
                             <a class="javascript:;" href="javascript:;">
-                                <i class="layui-icon" style="top: 3px;">&#xe642;</i><cite>订单管理</cite>
+                                <i class="layui-icon" style="top: 3px;">&#xe642;</i><cite>投资项目管理</cite>
                             </a>
                             <dl class="layui-nav-child">
                                 <dd class="">
                                     <dd class="">
-                                        <a href="javascript:;" _href="./welcome.html">
-                                            <cite>订单列表（待开发）</cite>
+                                        <a href="javascript:;" _href="?r=project/index">
+                                            <cite>项目列表</cite>
                                         </a>
                                     </dd>
+                                </dd>
+                                <dd class="">
+                                <dd class="">
+                                    <a href="javascript:;" _href="?r=project/add">
+                                        <cite>投资项目添加</cite>
+                                    </a>
+                                </dd>
                                 </dd>
                             </dl>
                         </li>
@@ -169,7 +205,7 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd class="">
-                                    <a href="javascript:;" _href="member-list.html">
+                                    <a href="javascript:;" _href="?r=user/index">
                                         <cite>会员列表</cite>
                                     </a>
                                 </dd>
@@ -206,15 +242,22 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd class="">
-                                    <a href="javascript:;" _href="./admin-list.html">
+                                    <a href="javascript:;" _href="?r=admin/index">
                                         <cite>管理员列表</cite>
                                     </a>
                                 </dd>
                                 <dd class="">
-                                    <a href="javascript:;" _href="./admin-role.html">
-                                        <cite>角色管理</cite>
+                                    <a href="javascript:;" _href="?r=admin/add">
+                                        <cite>新增管理员</cite>
                                     </a>
                                 </dd>
+
+                                <dd class="">
+                                    <a href="javascript:;" _href="./admin-list.html">
+                                        <cite>管理员操作记录</cite>
+                                    </a>
+                                </dd>
+                               
                                 <dd class="">
                                     <a href="javascript:;" _href="./admin-cate.html">
                                         <cite>权限分类</cite>
