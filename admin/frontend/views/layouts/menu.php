@@ -43,9 +43,23 @@
     <div class="layui-side layui-bg-black x-side">
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree site-demo-nav" lay-filter="side">
+                
+                        <li class="layui-nav-item">
+                            <a class="javascript:;" href="javascript:;">
+                                <i class="layui-icon" style="top: 3px;">&#xe630;</i><cite>资金管理</cite>
+                            </a>
+                            <dl class="layui-nav-child">
+                                <dd class="">
+                                    <a href="?r=moenytrend/index">
+                                        <cite>资金动向查看</cite>
+                                    </a>
+                                </dd>
+                            </dl>
+                        </li>
+
                 <li class="layui-nav-item">
                     <a class="javascript:;" href="javascript:;">
-                        <i class="layui-icon" style="top: 3px;">&#xe607;</i><cite>问题管理</cite>
+                        <i class="layui-icon" style="top: 3px;">&#xe607;</i><cite>资金管理</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd class="">
