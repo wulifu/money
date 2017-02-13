@@ -94,8 +94,8 @@ body{
 /*我的账户 顶部*/
 .top{
 	width: 100%;
-	height: 200px;
-	background:#aaa;/*url(/images/290154-105.jpg);#E0E0E0; */
+	height: 180px;
+	background:url(/images/banner_heiban.jpg);/*#E0E0E0;#aaa; */
 }
 .datum{
 	width: 100%;
@@ -117,7 +117,7 @@ body{
 	margin-top: 20px;
 	width: 100%;
 	height:80px;
-	background:#8E8E8E;
+	/*background:#8E8E8E;*/
 }
 .property div{
 	float: left;
@@ -136,10 +136,14 @@ body{
 
 }
 .rate span{
-	/*display: block;*/
-	width: 200px;
+	display: block;
+	width: 80%;
+	margin: 0 auto;
 	font-size: 14px;
 	line-height: 20px;
 	background: #E0E0E0;
+	color: #F75000;
+	font-family: "微软雅黑";
+	border-radius:5px;
 }
 /*C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe*/
