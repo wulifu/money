@@ -13,7 +13,7 @@ use yii\db\Query;
 /**
  * 会员管理
  */
-class UserController extends Controller
+class UserController extends CommonController
 {
 	public $layout = 'menu';
     public $enableCsrfValidation = false;
