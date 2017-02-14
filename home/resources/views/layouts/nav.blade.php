@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/css.css">
 </head>
 <body>
 <div class="nav">
@@ -23,7 +24,7 @@
         <li>
             <a href="">
                 <span><i class="Hui-iconfont this">&#xe60d;</i></span>
-                <span>我的</span>
+                <span  class="this">我的</span>
             </a>
         </li>
     </ul>
