@@ -14,7 +14,7 @@ use yii\web\UploadedFile;
 /**
  * 管理员管理
  */
-class AdminController extends Controller
+class AdminController extends CommonController
 {
     public $layout = 'menu';
     public $enableCsrfValidation = false;
@@ -72,6 +72,20 @@ class AdminController extends Controller
         $db = \Yii::$app->db->createCommand();
         $res = $db->insert('admin',$data)->execute();
         if ($res) {
+          //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 1, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => $data['admin'], 
+                        'content' => '管理员', 
+
+              );
+                 
+$db->insert('admin_log',$log)->execute();
+
+
           $this->message('新建成功','?r=admin/index',1,1);
         }
     }
@@ -173,10 +187,12 @@ class AdminController extends Controller
         //搜索
     public function actionSou()
     {
-      $b_time = Yii::$app->request->post('b_time');
-      $e_time = Yii::$app->request->post('e_time');
+      $b_tim = Yii::$app->request->post('b_time');
+      $e_tim = Yii::$app->request->post('e_time');
+      $b_time = strtotime($b_tim);
+      $e_time = strtotime($e_tim);
       $username = Yii::$app->request->post('username');
-    var_dump($b_time);die;
+  //  var_dump($b_time);die;
       $query=new Query();
     $query->from('admin');
     if (!empty($b_time) && empty($e_time) && empty($username)) {
@@ -222,6 +238,27 @@ class AdminController extends Controller
 
     return $this->renderPartial('admin_list',['data'=>$data,'pagination' => $pagination,]);    
     }
+
+    public function actionLog()
+    {
+          $query = new Query();  
+         $list = $query->from("admin_log")->all();  
+          //
+ krsort($list);
+
+         $pagination = new Pagination([    
+         'totalCount' =>count($list),  
+         'pageSize' =>10,//pageSize 每页显示的条数    
+        ]);     
+         $data = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+   //   
+          krsort($data);
+         // 
+         return $this->renderPartial('admin_log',['data'=>$data,'pagination' => $pagination,]);    
+
+    }
+
+
 
      /**
        * [message 消息页面]

@@ -47,8 +47,7 @@
                   </div>
                 </div> 
             </form>
-              
-            <xblock><a href="javascript:location.replace(location.href);"><button  class="layui-btn layui-btn-danger" onclick="dels()"><i class="layui-icon">&#xe640;</i>批量删除</button></a></xblock>
+            
             
              
               <table class="layui-table">
@@ -59,23 +58,23 @@
                         <th>
                             ID
                         </th>
-                        
                         <th>
-                            姓名
+                            日期
+                        </th>   
+                        <th>
+                            操作者
                         </th>
                         <th>
-                            手机号
+                            对象类型
+                        </th>  
+                        <th>
+                            动作
+                        </th>
+                         <th>
+                           操作内容 
                         </th>
                         <th>
-                            可用资金(单位：元)
-                        </th>
-                       
-                        <th>
-                            加入时间
-                        </th>
-                      
-                        <th>
-                            操作
+                           对象名称
                         </th>
                     </tr>
                 </thead>
@@ -84,54 +83,57 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input title="<?= $datas['user_id']; ?>"  name="chk" id="con" class="checkbox" type="checkbox" value="<?= $datas['user_id']; ?>">
+                            <input title=""  name="chk" id="con" class="checkbox" type="checkbox" value="">
                         </td>
                         <td>
-                        <?= $datas['user_id']; ?>
+                            <?php echo $datas['log_id'];?>
                         </td>
                         <td>
-                          <?= $datas['username']; ?>
-                        </td>
-                        <td >
-                        <?php
-                        echo substr($datas['phone'], 0, 3); 
-                           ?>
-                           ****
-                           <?php
-                        echo substr($datas['phone'], -4, 4); 
-                           ?>
-                        </td>
-                        <td>
-                        <?php
-                        echo number_format($datas['money'], 2); 
-                        ?>
-                          
-                        </td>
-                        <td>
-                         <span class="layui-btn layui-btn-normal layui-btn-mini">
                              <?php
                            echo date('Y-m-d H:i:s', $datas['time']); 
                              ?>
-                             </span>
+                        </td>
+                        <td >
+                        <?php echo $datas['admin'];?>
+                        </td>
+                        <td>
+                        <?php
+                        if ($datas['type'] == 0) {
+                            echo "用户";
+                        }elseif ($datas['type'] == 1) {
+                           echo "操作";
+                        }
+                        ?>
+                        </td>
+                        <td>
+     <!--                <?php echo $datas['action'];?> -->
+                    <?php
+                        if ($datas['action'] == 0) {
+                            echo "登录系统";
+                        }elseif ($datas['action'] == 1) {
+                           echo "新建";
+                        }elseif ($datas['action'] == 2) {
+                           echo "修改";
+                        }elseif ($datas['action'] == 3) {
+                           echo "删除";
+                        }
+
+
+                    ?>
+
+                        </td>
+                        <td>
+                       
+                    <?php echo $datas['content'];?>
+                        
                         </td>
                         
-                        <td class="td-manage">
-                            <a style="text-decoration:none" onclick="member_stop(this,'10001')" href="javascript:;" title="停用">
-                                <i class="layui-icon">&#xe601;</i>
-                            </a>
-                            <a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-edit.html','4','','510')"
-                            class="ml-5" style="text-decoration:none">
-                                <i class="layui-icon">&#xe642;</i>
-                            </a>
-                            <a style="text-decoration:none"  onclick="member_password('修改密码','member-password.html','10001','600','400')"
-                            href="javascript:;" title="修改密码">
-                                <i class="layui-icon">&#xe631;</i>
-                            </a>
-                            <a title="删除" href="?r=user/del&user_id=<?php echo $datas['user_id'];?>" 
-                            style="text-decoration:none">
-                                <i class="layui-icon">&#xe640;</i>
-                            </a>
+                         <td>
+                         <abbr style="color: blue">
+                    <?php echo $datas['object'];?>
+                          </abbr>
                         </td>
+         
                     </tr>
                 </tbody>
                      <?php endforeach; ?>   
@@ -210,59 +212,6 @@
               
             });
 
-            //批量删除提交
-             function delAll () {
-                layer.confirm('确认要删除吗？',function(index){
-                    //捉到所有被选中的，发异步进行删除
-                    layer.msg('删除成功', {icon: 1});
-                });
-             }
-             /*用户-添加*/
-            function member_add(title,url,w,h){
-                x_admin_show(title,url,w,h);
-            }
-            /*用户-查看*/
-            function member_show(title,url,id,w,h){
-                x_admin_show(title,url,w,h);
-            }
-
-             /*用户-停用*/
-            function member_stop(obj,id){
-                layer.confirm('确认要停用吗？',function(index){
-                    //发异步把用户状态进行更改
-                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="layui-icon">&#xe62f;</i></a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="layui-btn layui-btn-disabled layui-btn-mini">已停用</span>');
-                    $(obj).remove();
-                    layer.msg('已停用!',{icon: 5,time:1000});
-                });
-            }
-
-            /*用户-启用*/
-            function member_start(obj,id){
-                layer.confirm('确认要启用吗？',function(index){
-                    //发异步把用户状态进行更改
-                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="layui-icon">&#xe601;</i></a>');
-                    $(obj).parents("tr").find(".td-status").html('<span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>');
-                    $(obj).remove();
-                    layer.msg('已启用!',{icon: 6,time:1000});
-                });
-            }
-            // 用户-编辑
-            function member_edit (title,url,id,w,h) {
-                x_admin_show(title,url,w,h); 
-            }
-            /*密码-修改*/
-            function member_password(title,url,id,w,h){
-                x_admin_show(title,url,w,h);  
-            }
-            /*用户-删除*/
-            function member_del(obj,id){
-                layer.confirm('确认要删除吗？',function(index){
-                    //发异步删除数据
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!',{icon:1,time:1000});
-                });
-            }
             </script>
             <script>
         var _hmt = _hmt || [];
@@ -276,42 +225,3 @@
     </body>
 </html>
 
-<script>
-var chk = document.getElementsByName('chk');
-function aa(){
-    for(var i=0; i<chk.length; i++){
-        chk[i].checked=true;
-    }
-}
-function aa(){
-    for(var i=0; i<chk.length; i++){
-        if(chk[i].checked){
-            chk[i].checked=false;
-        }else{
-            chk[i].checked=true;
-        }
-    }
-}
-
-function dels(){
-    var str='';
-    var box=document.getElementsByName('chk');
-    var aa=document.getElementById('aa');
-    for(var i=0;i<chk.length;i++){
-        if(chk[i].checked){
-            str=str+chk[i].title+',';
-        }
-    }
-    str=str.substring(str.length-1,',');
-    //alert(str);die;
-    var ajax=new XMLHttpRequest();
-    ajax.onreadystatechange=function(){
-        if(ajax.readyState==4){
-            document.getElementById('rep').innerHTML=ajax.responseText;
-        }
-    }
-    ajax.open('get','?r=user/delall&user_id='+str);
- 
-    ajax.send(null);  
-}
-</script>

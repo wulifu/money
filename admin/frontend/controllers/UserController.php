@@ -35,8 +35,10 @@ class UserController extends CommonController
     //搜索
     public function actionSou()
     {
-    	$b_time = Yii::$app->request->post('b_time');
-    	$e_time = Yii::$app->request->post('e_time');
+    	 $b_tim = Yii::$app->request->post('b_time');
+      $e_tim = Yii::$app->request->post('e_time');
+      $b_time = strtotime($b_tim);
+      $e_time = strtotime($e_tim);
     	$username = Yii::$app->request->post('username');
     
     	$query=new Query();
