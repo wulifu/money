@@ -7,6 +7,7 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="css/account.css">
     <link rel="stylesheet" type="text/css" href="css/css.css">
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <title>驻马店人社</title>
@@ -35,6 +36,56 @@
     <div class="rate">
         <span>今日收益0.00元&nbsp;年化收益率 3.89%</span>
     </div>
+</div>
+<div class="memu">
+    <ul>
+        <li>
+            <a href="">
+                <span><i class="Hui-iconfont">&#xe627;</i></span>
+                <span>我的账单</span>
+                <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span><i class="Hui-iconfont">&#xe6ca;</i></span>
+                <span>充值</span>
+                <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span><i class="Hui-iconfont">&#xe63a;</i></span>
+                <span>提现</span>
+                <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span><i class="Hui-iconfont">&#xe616;</i></span>
+                <span>我的投资项目</span>
+                <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="memu memu-two">
+    <ul>
+        <li>
+            <a href="">
+                <span><i class="Hui-iconfont">&#xe6b6;</i></span>
+                <span>我的</span>
+                <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span><i class="Hui-iconfont">&#xe6ab;</i></span>
+                <span>邀请好友</span>
+                <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
+            </a>
+        </li>
+    </ul>
 </div>
 <!--top结束-->
 {{--<div class="main">--}}

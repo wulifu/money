@@ -143,7 +143,7 @@ class AdminController extends Controller
   // var_dump($image);die;
               //上传目录，进行命名
               $dir='uploads/';
-              //这个文件要创建到web的目录下
+              //这个文件要创建到web的目录下x`
               //文件的绝对路径
               $name = $dir.time().$image->name;
               //保存文件函数，在手册上有，将图片保存到本地
@@ -253,7 +253,7 @@ class AdminController extends Controller
        {
              $data['url'] = "javascript:history.back(-1);";
        }
-       die( $this->renderPartial('admin_mes',$data)  );
+       die( $this->renderPartial('mes',$data)  );
 
      }
     
