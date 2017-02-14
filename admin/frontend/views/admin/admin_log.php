@@ -2,6 +2,11 @@
     use yii\helpers\Html;    
     use yii\widgets\LinkPager;    
 ?>    
+<style> 
+.divcss5-a,.divcss5-b{ width:98%; height:550px;  border:0px solid #F00} 
+.divcss5-b{ margin-left:10px;overflow-y:scroll; overflow-x:scroll;} 
+
+</style> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +33,7 @@
         </div>
         <div class="x-body">
      
-            <form class="layui-form x-center" action="?r=user/sou" method="post" style="width:800px">
+            <form class="layui-form x-center" action="?r=admin/logsou" method="post" style="width:800px">
                 <div class="layui-form-pane" style="margin-top: 15px;">
                   <div class="layui-form-item">
                     <label class="layui-form-label">日期范围</label>
@@ -48,7 +53,7 @@
                 </div> 
             </form>
             
-            
+            <div class="divcss5-b">
              
               <table class="layui-table">
                 <thead>
@@ -78,6 +83,7 @@
                         </th>
                     </tr>
                 </thead>
+                
              <?php foreach ($data as $datas): ?>      
       
                 <tbody>
@@ -137,19 +143,11 @@
                     </tr>
                 </tbody>
                      <?php endforeach; ?>   
+                     
             </table>
-       
+       </div>
         <div id="page">
-        <div style="margin-left: 450px;" id="layui-laypage-0" class="layui-box layui-laypage layui-laypage-default" >
-            <?= LinkPager::widget([
-                'pagination' => $pagination,
-                'nextPageLabel' => '下一页',
-                'prevPageLabel' => '上一页',
-                'firstPageLabel' => '首页',
-                'lastPageLabel' => '尾页',
-                'maxButtonCount'=>3,
-            ]);?>
-        </div>
+  
     </div>
          <style>
 

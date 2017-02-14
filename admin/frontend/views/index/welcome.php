@@ -23,20 +23,19 @@
                            echo date('Y-m-d H:i:s', $time_last); 
                              ?></p>
             <fieldset class="layui-elem-field layui-field-title site-title">
-              <legend><a name="default">最新动态</a></legend>
+              <legend><a name="default">信息统计</a></legend>
             </fieldset>
             <table class="layui-table">
                 <thead>
                     <tr>
-                      <!--   <th>统计</th>
+                        <th>统计</th>
                         <th>资讯库</th>
                         <th>图片库</th>
                         <th>产品库</th>
                         <th>用户</th>
-                        <th>管理员</th> -->
+                        <th>管理员</th>
                     </tr>
                 </thead>
-               
                 <tbody>
                     <tr>
                         <td>总数</td>

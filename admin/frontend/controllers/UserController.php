@@ -10,6 +10,7 @@ use common\models\User;
 use yii\data\Pagination;
 use yii\db\Query;
 
+
 /**
  * 会员管理
  */
@@ -94,6 +95,17 @@ class UserController extends CommonController
 
 		     if ($res) 
 		     {
+                      //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$user_id, 
+                        'content' => '会员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
 		 		$this->redirect('?r=user/index');
 		 	 }
     }
@@ -106,6 +118,18 @@ class UserController extends CommonController
 
 		     if ($res) 
 		     {
+                     //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+                $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$user_id, 
+                        'content' => '会员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
 		 		$this->redirect('?r=user/index');
 		 	 }
     
