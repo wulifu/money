@@ -31,3 +31,7 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('account','AccountController@index');
+Route::get('datum','AccountController@datum');
+Route::get('getProperty','AccountController@getProperty');
+Route::get('getBill','AccountController@getBill');
+Route::get('getIsBinding','AccountController@getIsBinding');
