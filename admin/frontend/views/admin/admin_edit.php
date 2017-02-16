@@ -62,8 +62,8 @@ filter:alpha(opacity=0);/* 兼容IE */
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
-<div style="float: center;">
-<div style="float: left;" class="x-body">
+
+<div style="float: left " class="x-body">
     <form class="layui-form" action="?r=admin/edits" method="post" enctype="multipart/form-data">
        
         <div class="layui-form-item">
@@ -95,7 +95,7 @@ filter:alpha(opacity=0);/* 兼容IE */
                         <input type="password"  value="<?php echo $password?>"  id="L_pass" name="password" required="" lay-verify="pass"
                         autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">
+                    <div class="layui-form-mid layui-word-aux" style=""iu
                         6到16个字符
                     </div>
                 </div>
@@ -124,7 +124,7 @@ filter:alpha(opacity=0);/* 兼容IE */
 <div  class="x-avtar"  width="120px" height="120px" style="margin-left: -750px; "  id="preview">   
  <img  id="imghead"  width="120px" height="120px" style="margin:25px auto 0 auto;"  src="<?php echo $photo?>" alt="">  
 </div>
-</div>
+
 <script src="./lib/layui/layui.js" charset="utf-8">
 </script>
 <script src="./js/x-layui.js" charset="utf-8">

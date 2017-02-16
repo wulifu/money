@@ -16,10 +16,12 @@
     <body>
         <div class="x-body">
             <blockquote class="layui-elem-quote">
-                欢迎使用x-admin 后台模版！<span class="f-14">v1.0</span>官方交流群： 519492808
+                欢迎  <?php echo $admin?>
             </blockquote>
-            <p>登录次数：18 </p>
-            <p>上次登录IP：222.35.131.79.1  上次登录时间： 2017-01-01 11:19:55</p>
+            <p>登录次数：<?php echo $land?> </p>
+            <p>上次登录IP：<?php echo $reip?>  上次登录时间：   <?php
+                           echo date('Y-m-d H:i:s', $time_last); 
+                             ?></p>
             <fieldset class="layui-elem-field layui-field-title site-title">
               <legend><a name="default">信息统计</a></legend>
             </fieldset>
