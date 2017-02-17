@@ -138,9 +138,11 @@ class ProjectController extends Controller
         $user=Finance_detailed::find();
         $user->select=array('money','time','user_id');
         $res=$user->where(['fin_id'=>$fin_id])->asArray()->all();
-        foreach($res as $key=>$val){
-            $arr=User::find()->select('phone')->where(['user_id'=>$val['user_id']])->asArray()->all();
-            $res[$key]['phone']=$arr[0]['phone'];
+        foreach($res as $key=>$val) {
+            $arr = User::find()->select('phone')->where(['user_id' => $val['user_id']])->asArray()->all();
+            if (!empty($arr)) {
+                $res[$key]['phone'] = $arr[0]['phone'];
+            }
         }
         return $this->renderPartial('list', [
             'res' => $res,

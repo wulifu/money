@@ -31,3 +31,7 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('account','AccountController@index');
+//投资项目
+Route::get('project','ProjectController@index');
+Route::get('details','ProjectController@details');
+
