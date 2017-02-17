@@ -3,18 +3,19 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\db\ActiveRecord;
+
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider; 
 use app\models\Admin;
 use yii\data\Pagination;
 use yii\db\Query;
+use yii\db\ActiveRecord;
 use yii\web\UploadedFile;  
 
 /**
  * 管理员管理
  */
-class AdminController extends Controller
+class AdminController extends CommonController
 {
     public $layout = 'menu';
     public $enableCsrfValidation = false;
@@ -72,6 +73,19 @@ class AdminController extends Controller
         $db = \Yii::$app->db->createCommand();
         $res = $db->insert('admin',$data)->execute();
         if ($res) {
+          //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 1, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => $data['admin'], 
+                        'content' => '管理员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
+
+
           $this->message('新建成功','?r=admin/index',1,1);
         }
     }
@@ -82,6 +96,18 @@ class AdminController extends Controller
 
          if ($res) 
          {
+           //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$a_id, 
+                        'content' => '管理员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
+
         $this->message('删除成功','?r=admin/index',1,1);
        }else
        {
@@ -99,6 +125,18 @@ class AdminController extends Controller
 
          if ($res) 
          {
+           //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+          $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$a_id, 
+                        'content' => '管理员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
         $this->redirect('?r=admin/index');
        }
     
@@ -111,6 +149,7 @@ class AdminController extends Controller
        $res = Admin::find()->where(['a_id' => $a_id])->asArray()->one();   
     // var_dump($res);die;
        if ($res) {
+         
          return  $this->renderPartial('admin_edit',$res);
        }else
        {
@@ -162,6 +201,18 @@ class AdminController extends Controller
      $res = $db=\Yii::$app->db ->createCommand()->update('admin',$data,"a_id = $a_id") ->execute(); 
   
        if ($res == 1) {
+           //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+        $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 2, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$a_id, 
+                        'content' => '管理员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
          $this->message('修改成功','?r=admin/index',1,1);
        }else
        {
@@ -173,10 +224,12 @@ class AdminController extends Controller
         //搜索
     public function actionSou()
     {
-      $b_time = Yii::$app->request->post('b_time');
-      $e_time = Yii::$app->request->post('e_time');
+      $b_tim = Yii::$app->request->post('b_time');
+      $e_tim = Yii::$app->request->post('e_time');
+      $b_time = strtotime($b_tim);
+      $e_time = strtotime($e_tim);
       $username = Yii::$app->request->post('username');
-    var_dump($b_time);die;
+  //  var_dump($b_time);die;
       $query=new Query();
     $query->from('admin');
     if (!empty($b_time) && empty($e_time) && empty($username)) {
@@ -222,6 +275,67 @@ class AdminController extends Controller
 
     return $this->renderPartial('admin_list',['data'=>$data,'pagination' => $pagination,]);    
     }
+
+    public function actionLog()
+    {
+          $query = new Query();  
+         $data = $query->from("admin_log")->all();  
+          //
+ krsort($data);
+
+         return $this->renderPartial('admin_log',['data'=>$data,]);    
+
+    }
+    public function actionLogsou()
+    {
+       $b_tim = Yii::$app->request->post('b_time');
+      $e_tim = Yii::$app->request->post('e_time');
+      $b_time = strtotime($b_tim);
+      $e_time = strtotime($e_tim);
+      $username = Yii::$app->request->post('username');
+  //  var_dump($b_time);die;
+      $query=new Query();
+    $query->from('admin');
+    if (!empty($b_time) && empty($e_time) && empty($username)) {
+       $query->andFilterWhere(
+            ['>','time',$b_time]
+        );
+    }elseif (!empty($b_time) && !empty($e_time) && empty($username)) {
+      $query->andFilterWhere(
+            ['between', 'time', $b_time, $e_time]
+        );
+    }elseif (!empty($b_time) && !empty($e_time) && !empty($username)) {
+      $query->andFilterWhere(
+            ['between', 'time', $b_time, $e_time]
+        );
+        $query->andFilterWhere(
+             ['like', 'admin', $username] 
+        );
+    }elseif (empty($b_time) && !empty($e_time) && empty($username)) {
+      $query->andFilterWhere(
+            ['<','time',$e_time]
+        );
+       
+    }elseif (empty($b_time) && !empty($e_time) && !empty($username)) {
+      $query->andFilterWhere(
+            ['<','time',$e_time]
+        );
+         $query->andFilterWhere(
+             ['like', 'admin', $username] 
+        );   
+    }elseif (empty($b_time) && empty($e_time) && !empty($username)) {
+    
+         $query->andFilterWhere(
+             ['like', 'admin', $username] 
+        );
+       
+    } 
+    $data=$query->from('admin_log')->all();
+  krsort($data);
+    return $this->renderPartial('admin_log',['data'=>$data,]);   
+    }
+
+
 
      /**
        * [message 消息页面]

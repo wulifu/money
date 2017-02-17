@@ -9,6 +9,8 @@ use yii\filters\AccessControl;
 use yii\data\Pagination;
 use app\models\Finance_detailed;
 use app\models\User;
+use yii\db\Query;
+
 header("content-type:text/html;charset=utf-8");
 /**
  * 投资项目管理
@@ -32,6 +34,21 @@ class ProjectController extends Controller
          'product_brief'=>$data['product_brief'], 'interest_rule'=>$data['interest_rule'],
           'due_process'=>$data['due_process'],'investment_dsc'=>$data['investment_dsc']])->execute();
         if($res){
+             //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+
+            $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 1, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => $data['pro_name'], 
+                        'content' => '项目列表', 
+
+              );       
+
+          $a=$db->insert('admin_log',$log)->execute();
+        
              return $this->redirect('?r=project/index');
         }else{
             return $this->redirect('?r=project/add');
@@ -124,6 +141,18 @@ class ProjectController extends Controller
         $fin_id=yii::$app->request->get('fin_id');
         $user=Finance_project::deleteAll('fin_id in ('."$fin_id".')');
         if($user){
+               //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+            $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$fin_id, 
+                        'content' => '项目列表', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
             echo 1;
         }else{
             echo 0;
@@ -138,9 +167,11 @@ class ProjectController extends Controller
         $user=Finance_detailed::find();
         $user->select=array('money','time','user_id');
         $res=$user->where(['fin_id'=>$fin_id])->asArray()->all();
-        foreach($res as $key=>$val){
-            $arr=User::find()->select('phone')->where(['user_id'=>$val['user_id']])->asArray()->all();
-            $res[$key]['phone']=$arr[0]['phone'];
+        foreach($res as $key=>$val) {
+            $arr = User::find()->select('phone')->where(['user_id' => $val['user_id']])->asArray()->all();
+            if (!empty($arr)) {
+                $res[$key]['phone'] = $arr[0]['phone'];
+            }
         }
         return $this->renderPartial('list', [
             'res' => $res,
@@ -154,6 +185,18 @@ class ProjectController extends Controller
         $fin_id=yii::$app->request->get('fin_id');
         $res=yii::$app->db->createCommand()->update('finance_project',['status'=>0],"fin_id='$fin_id'")->execute();
         if($res){
+                   //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+            $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 2, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$fin_id, 
+                        'content' => '项目状态', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
             echo 1;
         }
     }

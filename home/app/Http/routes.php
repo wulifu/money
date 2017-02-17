@@ -31,7 +31,16 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('account','AccountController@index');
+
+
 Route::get('datum','AccountController@datum');
 Route::get('getProperty','AccountController@getProperty');
 Route::get('getBill','AccountController@getBill');
 Route::get('getIsBinding','AccountController@getIsBinding');
+
+
+//投资项目
+Route::get('project','ProjectController@index');
+Route::get('details','ProjectController@details');
+
+
