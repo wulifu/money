@@ -43,7 +43,7 @@
                     <div class="layui-input-inline">
                       <input type="text" name="username"  placeholder="请输入登录名" autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-input-inline" style="width:80px">
+                    <div class="layui-input-inline" style="width:80px">.
                                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
 
                     </div>

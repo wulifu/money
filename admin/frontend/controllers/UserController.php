@@ -10,10 +10,11 @@ use common\models\User;
 use yii\data\Pagination;
 use yii\db\Query;
 
+
 /**
  * 会员管理
  */
-class UserController extends Controller
+class UserController extends CommonController
 {
 	public $layout = 'menu';
     public $enableCsrfValidation = false;
@@ -35,8 +36,10 @@ class UserController extends Controller
     //搜索
     public function actionSou()
     {
-    	$b_time = Yii::$app->request->post('b_time');
-    	$e_time = Yii::$app->request->post('e_time');
+    	 $b_tim = Yii::$app->request->post('b_time');
+      $e_tim = Yii::$app->request->post('e_time');
+      $b_time = strtotime($b_tim);
+      $e_time = strtotime($e_tim);
     	$username = Yii::$app->request->post('username');
     
     	$query=new Query();
@@ -92,6 +95,17 @@ class UserController extends Controller
 
 		     if ($res) 
 		     {
+                      //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$user_id, 
+                        'content' => '会员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
 		 		$this->redirect('?r=user/index');
 		 	 }
     }
@@ -104,6 +118,18 @@ class UserController extends Controller
 
 		     if ($res) 
 		     {
+                     //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+                $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$user_id, 
+                        'content' => '会员', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
 		 		$this->redirect('?r=user/index');
 		 	 }
     

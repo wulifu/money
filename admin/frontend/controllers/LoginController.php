@@ -27,14 +27,49 @@ class LoginController extends Controller
 	    public function actionLogins()
 	    { 
 	    	$data = Yii::$app->request->post();
+
 	    	$re = Admin::find()->andWhere(['admin' => $data['username'], 'password' => $data['pass']])->count('a_id');
+	    	
+	      
 	       if ($re == 1) {
+	 		$da = Admin::find()->where(['admin' => $data['username']])->asArray()->one();
+	       	$land = $da['land'] + 1;
+	       $reip=$_SERVER["REMOTE_ADDR"]; 
+	       $time_last = strtotime(date('Y-m-d H:i:s'));
+	       $datas = array('reip' => $reip,
+	       					'time_last' => $time_last,
+	       					'land' => $land,
+	       							 ); 
+
+	       $session = Yii::$app->session;
+			$session['admin']=$data['username'];
+			$admin = $data['username'];
+			$res = $db=\Yii::$app->db ->createCommand()->update('admin',$datas,"admin = '$admin'") ->execute(); 
+ //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+			$db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 0, 
+                        'type' => 0, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => '', 
+                        'content' => '', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
 	     $this->message('登陆成功','?r=index/index',1,1);
 	       }else
 	       {
 	       	 $this->message('登录名或密码错误','?r=login/index',1,0);
 	       }
 	 
+	    }
+	    //推出 登陆
+	    public function actionOut()
+	    {
+	    	$session = Yii::$app->session;
+	    	$session->remove('admin');
+	    	$this->message('请稍后...','?r=login/index',1,1);
 	    }
 
 	    /**
@@ -67,7 +102,7 @@ class LoginController extends Controller
        {
              $data['url'] = "javascript:history.back(-1);";
        }
-       die( $this->renderPartial('login_mes',$data)  );
+       die( $this->renderPartial('mes',$data)  );
 
      }
     

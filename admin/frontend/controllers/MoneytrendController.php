@@ -8,7 +8,8 @@ use app\models\User;
 use frontend\models\Money_trends;
 use yii\web\UploadedFile;
 use yii\web\Session;
-
+use yii\db\Query;
+    
 class MoneytrendController extends controller
 {
     /* 公共模板 */
@@ -170,6 +171,18 @@ class MoneytrendController extends controller
         $res = $info->delete();
         if($res)
         {
+            //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+            $db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$id, 
+                        'content' => '资金动向记录', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
             echo 1;
         }
         else
@@ -190,6 +203,18 @@ class MoneytrendController extends controller
         $res = Money_trend::deleteAll("m_id in ($ids)");
         if($res)
         {
+            $db = \Yii::$app->db->createCommand();
+             //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 3, 
+                        'type' => 1, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => 'id='.$ids, 
+                        'content' => '资金动向记录', 
+
+              );       
+          $db->insert('admin_log',$log)->execute();
             echo 1;
         }
         else
