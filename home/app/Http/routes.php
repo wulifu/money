@@ -35,3 +35,5 @@ Route::get('datum','AccountController@datum');
 Route::get('getProperty','AccountController@getProperty');
 Route::get('getBill','AccountController@getBill');
 Route::get('getIsBinding','AccountController@getIsBinding');
+Route::get('recharge','AccountController@recharge');
+Route::get('binding','AccountController@binding');
