@@ -1,0 +1,109 @@
+body{
+	padding:0;
+	margin:0;
+	background: #e0e0e0;
+	height: 500px;
+	width: 100%;
+	font-family: "微软雅黑";
+}
+
+/* 顶部 */
+.title{
+	height: 80px;
+	width: 100%;
+	background: #f75000;
+}
+.title span{
+	line-height: 80px;
+	display: block;
+}
+.title span h4{
+	display: block;
+	margin-left:40%; 
+	/*line-height: 80px;*/
+	color:white;
+}
+.title span a{
+	float: left;
+	display: block;
+	color:white;
+	text-decoration:none;
+}
+
+/* 图片 */
+/*.img img{
+	width: 400px;
+	height: 200px;
+}*/
+
+/* 输入框*/
+.input{
+	background: white;
+	width: 100%;
+	height: 40px;
+	border: 1px solid white;	
+}
+
+.img img{
+	width: 100%;
+	height: 100px;
+}
+
+.input div{
+	line-height: 40px;
+}
+.input div span{
+	margin-left: 25px;
+	margin-right: 20px;
+}
+.input div input{
+	margin-right: 30px;
+	border: none;
+	outline:inherit;
+}
+
+/* xx小手 */
+.qx{
+	cursor:pointer;
+	position: absolute;
+	right: 10%;
+}
+
+.zhaohui a{
+	position: absolute;
+	right: 8%;
+	color:	#808080;
+}
+
+/* 底部 */
+.sub button{
+	width: 92%;
+	height: 40px;
+	line-height:5px;
+	margin-top: 45px;
+	margin-left: 4%;
+	color:white;
+	border:none;
+	border-radius: 10px;
+	background: #f75000;
+}
+
+.tsy{
+	margin-top: 24px;
+	padding-top: 5px;
+	/*padding-bottom: 5px;*/
+	/*background: #FFA07A;*/
+	background: #696969;
+	width: 50%;
+	height: 30px;
+	border: 1px solid #e0e0e0;
+	border-radius: 30px;
+	position: absolute;
+	left:25%;
+}
+
+.tsy p{
+	text-align: center;
+	width:100%;
+	color:#F5F5F5;
+}

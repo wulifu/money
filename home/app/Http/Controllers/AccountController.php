@@ -13,7 +13,7 @@ class AccountController extends Controller
     //
     public function index(){
 
-        $user_id = 1;//模拟用户id
+        $user_id = 2;//模拟用户id
         $user = DB::table('user')->select('username','money')->where('user_id',$user_id)->first();
 
         return view('account.index',['user'=>$user]);
