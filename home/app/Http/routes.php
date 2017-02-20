@@ -31,3 +31,4 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('account','AccountController@index');
+Route::any('index','IndexController@index');
