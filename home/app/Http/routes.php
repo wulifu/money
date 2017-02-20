@@ -37,3 +37,11 @@ Route::get('getBill','AccountController@getBill');
 Route::get('getIsBinding','AccountController@getIsBinding');
 Route::get('recharge','AccountController@recharge');
 Route::get('binding','AccountController@binding');
+
+Route::any('index','IndexController@index');
+
+//投资项目
+Route::get('project','ProjectController@index');
+Route::get('details','ProjectController@details');
+
+

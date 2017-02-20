@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item" id="loginbtn">
-                        <input type="submit" name="" value="sdsdd" class="layui-btn">
+                        <input type="submit" name="" value="登陆" class="layui-btn">
                             
                             <!-- <button  class="layui-btn" lay-filter="save" lay-submit="">
                                 登 录

@@ -8,6 +8,8 @@ use app\models\User;
 use app\models\Binging;
 use yii\web\UploadedFile;
 use yii\web\Session;
+use yii\db\Query;
+use yii\db\ActiveRecord;
 
 class WithdrawalsController extends controller
 {
