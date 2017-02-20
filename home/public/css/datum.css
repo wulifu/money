@@ -138,6 +138,7 @@ body{
     color: #fff;
     font-family: "微软雅黑";
     border-radius:10px;
+    cursor:pointer;
 }
 
 /*修改密码*/
@@ -154,12 +155,49 @@ body{
     padding-bottom: 20px;
 }
 .primary{
-    width: 100%;
+    /*width: 100%;*/
     line-height: 30px;
     background: #fff;
     margin-top: 70px;
     padding-left: 10px;
 }
+.primary1{
+    /*width: 100%;*/
+    line-height: 30px;
+    background: #fff;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+.primary1 select{
+    padding-left: 10px;
+    width: 60%;
+    border: none;
+    color:#7B7B7B;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+.primary1 select option{
+    text-align: center;
+    /*width: 50%;*/
+    color:#7B7B7B;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+.primary1 input{
+    border: none;
+    background: transparent;
+    width: 60%;
+    height: 30%;
+    outline: none;
+    font-size: 1em;
+    font-family: "Microsoft YaHei";
+    color: #b3b3b3;
+    letter-spacing: 1px;
+    padding-left: 15px;
+
+}
+
+
 .primary:nth-child(2){
     margin-top: 10px;
 }
@@ -180,204 +218,49 @@ body{
     padding-left: 15px;
 }
 
-
-/*我的账单*/
-.bill{
-    padding-bottom: 50px;
-    display: none;
+/* 实名认证 */
+.change-name{
     width: 100%;
     position: absolute;
-}
-.bill-main{
-    margin-top: 50px;
-}
-.bill-main ul li{
-    display: block;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    border-top: 1px solid #ccc;
+    color:#7B7B7B;
+    font-size: 14px;
     font-family: "微软雅黑";
-    font-size: 12px;
-    padding-left: 10px;
-}
-
-.bill-main ul li span:nth-child(1){
-    font-size: 24px;
-    color: #FF5809;
-}
-.bill-main ul li span:nth-child(2){
-    display: inline-block;
-    width: 30%;
-    font-size: 24px;
-    color: green;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.bill-main ul li span:nth-child(4){
-    color: #d0d0d0;
-    font-size: 14px;
-    position: absolute;
-    right: 10px;
-}
-
-
-
-
-/*遮罩层*/
-.shade{
     display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #7A7A7A;
-    opacity: 0.7;
-    z-index: 1000;
-    left: -1px;
-    top:1px;
-}
-.shade-hei img{
-    position: absolute;
-    top:30%;
-    width: 100%;
 }
 
-/*绑定银行卡*/
-.binding,.fund{
-    display:none;
+/* 绑定银行卡 */
+.bang-card{
     width: 100%;
     position: absolute;
-}
-.binding-main{
-    margin-top: 50px;
-}
-.binding-msg{
-    display: block;
-    height: 20px;
-    line-height: 20px;
-    padding-left: 10px;
-    color:#CCCBD9;
-    font-size: 12px;
-}
-.binding-main ul li{
-    width: 100%;
-    height: 35px;
-    line-height: 35px;
-    border-top: 1px solid  	#F0F0F0;
-    background: #fff;
+    color:#7B7B7B;
     font-size: 14px;
-    padding-left:10px;
+    font-family: "微软雅黑";
+    display: none;
 }
-.binding-main ul li span{
-    display: block;
-    float: left;
-}
-.binding-main ul li span:nth-child(1){
-    width: 25%;
-    color: 	#7B7B7B;
 
-}
-.binding-main ul li span:nth-child(3){
-    padding:0 5px;
+/* 支付密码 */
+.change-pay{
+    width: 100%;
+    position: absolute;
+    color:#7B7B7B;
     font-size: 14px;
-    color:#FF2D2D;
-}
-.binding-main ul li span:nth-child(2){
-    margin-left: 0px;
-    color: #ADADAD;
-}
-.binding .input{
-    padding-left: 0;
-    width: auto;
+    font-family: "微软雅黑";
+    display: none;
 }
 
-/*总资产*/
-.fund-main{
-    margin-top: 50px;
-}
-.fund .fund-earnings{
-    width: 150px;
-    height: 150px;
-    border: 18px solid #FF69B4;
-    border-radius:100px;
+.tsy{
     text-align: center;
-    line-height: 150px;
-    margin: 70px auto 0;
-}
-.fund .fund-earnings span{
-    display: block;
-    height: 20px;
-    color: 	#808080;
-}
-.fund ul{
-    margin-top: 10%;
-}
-.fund ul li{
-    width: 100%;
-    height: 40px;
     line-height: 40px;
-    position: relative;
-    border-top: 1px solid #DCDCDC;
-    background: #F5F5F5;
-}
-.fund ul li span:nth-child(2){
-    position: absolute;
-    left:30px;
-}
-.fund ul li span:nth-child(3){
-    position: absolute;
-    right: 20px;
-}
-.dot{
-    display: inline-block;
-    width: 11px;
-    height: 11px;
-    margin-left: 10px;
-    background: #666;
-    vertical-align: middle;
-    overflow: hidden;
-    border-radius: 15px;
-}
-
-/*充值*/
-.recharge{
-    display: none;
-}
-.recharge-main{
-
-    width: 100%;
-    margin-top: 50px;
-    position: absolute;
-}
-.recharge-main ul li{
-    width: 100%;
-    height: 35px;
-    line-height: 35px;
-    border-top: 1px solid  	#F0F0F0;
-    background: #fff;
+    width: 50%;
+    height: 40px;
+    margin-left: 25%;
+    background:  #696969;
+    color:white;
     font-size: 14px;
-    padding-left:10px;
-}
-.recharge-main ul li span{
-    display: block;
-    float: left;
-}
-.recharge-main ul li span:nth-child(1){
-    width: 25%;
-    color: 	#7B7B7B;
-}
-
-.recharge-main ul li span:nth-child(3){
-    color: 	#7B7B7B;
+    /*opacity: 0.50;*/
+    display: none;
+    border-radius: 30px;
     position: absolute;
-    right: 20px;
-}
-.recharge-main input{
-    padding: 0;
-    width: auto;
-}
-
-
-.account-main{
-    margin-bottom: 50px;
+    margin-top: 280px;
+    z-index: 1000;
 }

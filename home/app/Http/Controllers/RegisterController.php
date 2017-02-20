@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use DB,Input,Redirect,url,Validator,Request;
 use App\User;
+use App\Binding;
 class RegisterController extends Controller
 {
     /**
@@ -72,6 +73,7 @@ class RegisterController extends Controller
             $user->phone=$data['tell'];
             $user->password=md5($data['password']);
             $user->time=time();
+            $user->pay_pwd ='123456';
             $res = $user->save(); 
             if($res)
             {
@@ -161,7 +163,7 @@ class RegisterController extends Controller
 
 
     /**
-     * 用户修改密码
+     * 用户忘记密码
      * @return [type] [description]
      */
     public function updatepwd()
@@ -204,4 +206,205 @@ class RegisterController extends Controller
         }
     }
 
+
+    /**
+     * 用户完善实名认证
+     * @return [type] [description]
+     */
+    public function shiming()
+    {
+        $data = Request::input();
+        /* 验证数据合法性 */
+        $data1 = preg_match("/^[\x4e00-\x9fa5]+$/",$data['username']); //账户名
+        $data2 = preg_match("/^\d{15}(\d{2}[A-Za-z0-9])?$/",'1234567891012345678');
+        // echo $data1.'=='.$data2;
+        if($data1==0 && $data2==0)
+        {
+            /* 验证成功 */
+            // $phone = Session::get('user');
+            $phone = '18803004760';
+            $res = DB::table('user')->where('phone',$phone)->update(['username'=>$data['username'],'idcard'=>$data['idcard']]);
+            if($res)
+            {
+                $result = ['errCode'=>'1','msg'=>'完善成功'];
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+            else
+            {
+                $result = ['errCode'=>'2','msg'=>'操作失败'];
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+        }
+        else
+        {
+            $result = ['errCode'=>'3','msg'=>'数据不合法'];
+            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    /**
+     * 用户修改密码
+     * @return [type] [description]
+     */
+    public function editpwd()
+    {
+        $data = Request::input();
+        /* 验证数据合法性 */
+        $data1 = preg_match("/[0-9A-Za-z]{6,16}/", $data['pri_password']);
+        $data2 = preg_match("/[0-9A-Za-z]{6,16}/", $data['password']);
+        $data3 = preg_match("/[0-9A-Za-z]{6,16}/", $data['con_password']);
+        if($data1&&$data2&&$data3)
+        {
+            /* 验证原密码 */
+            $phone = '18803004760';
+            $res = DB::table('user')->where('phone',$phone)->get();
+            $resu = json_encode($res);
+            $res = json_decode($resu,true);
+            if($res[0]['password'] == md5($data['pri_password']))
+            {
+                /* 判断原密码跟新密码是否一致 */
+                if($res[0]['password'] == md5($data['password']))
+                {
+                    $result = ['errCode'=>2,'msg'=>'新密码与原始密码一致'];
+                    echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                }
+                else
+                {
+                    /* 判断两次密码是输入一致 */
+                    if($data['password'] == $data['con_password'])
+                    {
+                        /* 修改 */
+                        $re = DB::table('user')->where('phone',$phone)->update(['password'=>md5($data['password'])]);
+                        if($re)
+                        {
+                            $result = ['errCode'=>1,'msg'=>'操作成功'];
+                            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                        }
+                        else
+                        {
+                            $result = ['errCode'=>6,'msg'=>'操作失败'];
+                            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                        }
+                    }
+                    else
+                    {
+                        $result = ['errCode'=>5,'msg'=>'新密码输入不一致'];
+                        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                    }
+                }
+                
+            }
+            else
+            {
+                $result = ['errCode'=>4,'msg'=>'原始密码错误'];
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+        }
+        else
+        {
+            $result = ['errCode'=>3,'msg'=>'数据不合法'];
+            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+
+    /**
+     * 用户修改支付密码
+     * @return [type] [description]
+     */
+    public function editpay()
+    {
+        $data = Request::input();
+        /* 验证数据合法性 */
+        $data1 = preg_match("/[0-9A-Za-z]{6,16}/", $data['pri_paypwd']);
+        $data2 = preg_match("/[0-9A-Za-z]{6,16}/", $data['paypwd']);
+        $data3 = preg_match("/[0-9A-Za-z]{6,16}/", $data['con_paypwd']);
+        if($data1&&$data2&&$data3)
+        {
+            /*验证原始支付密码*/
+            $phone = '18803004760';
+            $res = DB::table('user')->where('phone',$phone)->get();
+            $resu = json_encode($res);
+            $res = json_decode($resu,true);
+            if($res[0]['pay_pwd'] == md5($data['pri_paypwd']))
+            {
+                /* 判断原始密码是否新密码一致 */
+                if($res[0]['pay_pwd'] == md5($data['paypwd']))
+                {
+                    $result = ['errCode'=>3,'msg'=>'新密码与原始密码一致'];
+                    echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                }
+                else
+                {
+                    /* 判断两次密码是否一致 */
+                    if($data['paypwd'] == $data['con_paypwd'])
+                    {
+                        /* 修改 */
+                        $re = DB::table('user')->where('phone',$phone)->update(['pay_pwd'=>md5($data['con_paypwd'])]);
+                        if($re)
+                        {
+                            $result = ['errCode'=>1,'msg'=>'操作成功'];
+                            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                        }
+                        else
+                        {
+                            $result = ['errCode'=>6,'msg'=>'操作失败'];
+                            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                        }
+                    }
+                    else
+                    {
+                        $result = ['errCode'=>3,'msg'=>'新密码输入不一致'];
+                        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                    }
+                }
+            }
+            else
+            {
+                $result = ['errCode'=>3,'msg'=>'原密码错误'];
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+        }
+        else
+        {
+            $result = ['errCode'=>3,'msg'=>'数据不合法'];
+            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    /**
+     * 用户绑卡
+     * @return [type] [description]
+     */
+    public function bankcard()
+    {
+        $data = Request::input();
+        $data1 = preg_match("/([0-9]){18,19}/", $data['card_num']);
+        if($data1)
+        {
+            /* 入库操作 */
+            $binding = new Binding();
+            $binding->user_id = 2;
+            $binding->card_num=$data['card_num'];
+            $binding->bank=$data['bank'];
+            $res = $binding->save();
+            if($res)
+            {
+                $result = ['errCode'=>1,'msg'=>'操作成功'];
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+            else
+            {
+                $result = ['errCode'=>3,'msg'=>'操作失败'];
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
+
+        }
+        else
+        {
+            $result = ['errCode'=>2,'msg'=>'数据不合法'];
+            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+        }
+
+    }
 }
