@@ -1,0 +1,352 @@
+/* CSS Document */
+@charset "utf-8";
+*{ margin:0; padding:0; list-style:none;}
+input[type="button"],
+input[type="submit"],
+input[type="reset"]
+{
+    -webkit-appearance: none;}
+a{ text-decoration:none;}
+body{
+    width:100%;
+    max-width:640px;
+    margin:0 auto;
+    background:#eeeeee;
+    top:0px; bottom:0px; left:0px; right:0px;
+    min-width:320px;}
+.banner{}
+.banner img{
+    width:100%;
+    max-width:640px;
+    margin:0 auto;
+}
+.main{
+    margin-top:15%;
+    width:100%;
+    max-width:640px;
+}
+
+
+
+
+/*我的账户 顶部*/
+.top{
+    width: 100%;
+    height: 180px;
+    background-image:url(/money/home/public/images/orange.jpg) ;
+    background-size:100%;
+}
+.datum{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color: black;
+    line-height:40px;
+    font-family: "微软雅黑";
+
+}
+
+.user{
+
+    color: #F75000;
+    display:block;
+    font-size: 30px;
+    position: absolute;
+    padding: 10px;
+}
+.property{
+    margin-top: 10px;
+    width: 100%;
+    height:80px;
+    /*background:#8E8E8E;*/
+}
+.trem{
+    display: block;
+    height: 40px;
+    line-height:40px ;
+    text-align: center;
+    color: #fff;
+    font-size:20px ;
+}
+.base{
+    display: block;
+    height: 50px;
+}
+.base_info{
+    display: block;
+    height: 50px;
+    width: 33%;
+    float: left;
+    border-right:1px solid #FF7F50;
+}
+.data{
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+.font{
+    color:Black; font-family: '微软雅黑';
+}
+.title{
+    color:#D3D3D3;  font-size:12px;
+}
+.property div{
+    float: left;
+    width: 49%;
+    text-align: center;
+}
+.property div span{
+    display: block;
+    line-height: 30px;
+    color: #F75000;
+    font-family: "微软雅黑";
+    font-size: 20px;
+}
+/*C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe*/
+/*主体部分*/
+.box{
+    height: 130px;
+  width: 100%;
+}
+.xiangxi{
+   width: 100%;
+   height: 40px;
+   border-top:2px solid #A9A9A9 ;
+   background-color: white;
+}
+.x_title{
+    height: 40px;
+    width: 35%;
+    text-align:center;
+    line-height: 40px;
+    font-family: "微软雅黑";
+}
+.x_min{
+    width: 50%;
+    margin-right: 10%;
+    font-size: 13px;
+    font-family: "微软雅黑";
+}
+.button{
+    display: block;
+    float: right;
+    border: 1px #F75000 solid;
+    width:10%;
+    height: 25px;
+    line-height: 25px;
+    margin-right: 12%;
+    margin-top: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
+    color: #F75000;
+    font-family: "微软雅黑";
+}
+.text{
+    width: 60%;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 2px;
+}
+.but{
+    display: block;
+    float: right;
+    border: 1px #F75000 solid;
+    width:20%;
+    height: 25px;
+    line-height: 25px;
+    margin-right: 6%;
+    margin-top: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
+    color: #fff0dd;
+    background-color: #f75000;
+    font-family: "微软雅黑";
+}
+.fonts{
+    display: block;
+    color: #C0C0C0;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+    width: 30%;
+    margin: auto;
+    font-size: 12px;
+    border-radius: 5px;
+    border: 1px #C0C0C0 solid;
+}
+.nav{
+    height: 30px;
+}
+a{
+    color: rgba(216, 255, 238, 0.13);
+}
+.tab{
+    float: left;
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+.this{
+    border-bottom:2px #f75000 solid ;
+}
+.tab_all{
+    width: 100%;
+}
+.referral{
+    display: block;
+    width: 100%;
+    background:white;
+}
+.info{
+    border-top: 1px solid Silver;
+    width: 100%;
+    height: 40px;
+}
+.info_1{
+    float: left;
+    width: 30%;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+.info_2{
+    float: left;
+    width: 70%;
+    display: block;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+.bb{
+    width: 100%;
+    height: 180px;
+    border-top: 8px solid Silver;
+}
+.pro{
+    margin-top: 3px;;
+    display:block;
+    height: 30px;
+    line-height: 30px;
+    width: 20%;
+    background-color:#f75000 ;
+    color: white;
+    font-size: 15px;
+    border: 1px solid #f75000 ;
+    border-radius: 5px;
+    text-align: center;
+    font-family: "微软雅黑";
+}
+.pros{
+    display:block;
+    height: 40px;
+    line-height: 40px;
+    width:100%;
+    border-bottom: 1px solid Gainsboro ;
+}
+.touzi{
+    width: 100%;
+    background-color:LightGrey ;
+    border-top: 1px solid Silver;
+    height: 30px;
+    line-height: 30px;
+}
+.touzi_t{
+    height: 30px;
+    text-indent:1em;
+    float: left;
+    display:block;
+    width: 35%;
+    text-align: left;
+    overflow-y:scroll;
+}
+.touzi_c{
+    height: 30px;
+    overflow-y:scroll;
+    float: left;
+    display:block;
+    width: 65%;
+    text-align: left;
+}
+.jixi{
+    width: 100%;
+    background-color:white ;
+    border-bottom: 1px solid Gray;
+    height: 30px;
+    line-height: 30px;
+}
+.chuli{
+    width: 100%;
+    background-color:LightGrey ;
+    height: 140px;
+}
+.chuli_t{
+    float: left;
+    display: block;
+    width: 35%;
+    height: 140px;
+    line-height: 120px;
+    text-indent:1em;
+}
+.chuli_x{
+    overflow-y:scroll;
+    float: left;
+    display: block;
+    width: 65%;
+    height: 140px;
+    font-size: 13px;
+    font-family: "微软雅黑 Light";
+    line-height: 20px;
+}
+.man{
+    background-color:DarkGray;
+    height: 36px;
+    width: 95%;
+    margin: auto;
+}
+.max{
+    width: 100%;
+    height: 40px;
+}
+.man_1{
+    float: left;
+    display: block;
+    width: 33%;
+    color: DimGray;
+    line-height: 40px;
+    text-align: center;
+}
+.se{
+    background-color:#fff;
+    width: 100%;
+    height: 40px;
+}
+.se_1{
+    background-color:Gainsboro;
+    width: 100%;
+    height: 40px;
+}
+.man_2{
+    float: left;
+    display: block;
+    width: 30%;
+    color:#79ba49 ;
+    line-height: 40px;
+    text-align: center;
+}
+.man_3{
+    float: left;
+    display: block;
+    width: 40%;
+    color:#79ba49 ;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    text-align: center;
+}

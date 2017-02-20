@@ -54,35 +54,42 @@ $(document).ready(function(){
             <a href="http://m.178hui.com/user/index.html"><img src="images/grzx.png"><span>会员中心</span></a>
         </div>
   </div>
-  <div class="m_mall w">
+  <div class="m_mall w" >
   	<div class="mall_title"><span>为您推荐</span><em><a href="#">更多</a></em></div>
-    <div class="mall_list">
+    <div class="mall_list" style="margin:0px;">
     @foreach ($pros as $pro)
     <a href="#" class="mall"><li class="card__item card__item--orange">
-      <div class="card__info">
-      <div class="info-player">
+      <div class="card__info" >
+      <div class="info-player" >
           <p class="info-player__name">{{ $pro->pro_name }}<br><br><small>收益： {{ $pro->yield }}%</small></p>
         </div>
         <br>
-      </div>
+      </div >
     </li></a>
      @endforeach
     </div>
   </div>
+
+ <!--    <div class="m_user w">
+   
+      <a href="login.html">登录</a>
+      <a href="register.html">注册</a>
+      <a href="javascript:void(0);" class="backtop">返回顶部</a>  
+      </div> -->
  
-  <div class="m_user w">
-  	<!--<a href="user.html">忆乡人***</a>
-    <a href="#">退出</a>-->
-    <a href="login.html">登录</a>
-    <a href="register.html">注册</a>
-    <a href="javascript:void(0);" class="backtop">返回顶部</a>  </div>
- 
-  <div class="copyright">Copyright © 2012-2015 天天理财 版权所有</div>
+
 </div>
 
+<br>
+<div style="margin: 50px;">
+    {{--引入导航栏--}}
+@extends('layouts.nav') 
+</div>
 
 </body>
+
 </html>
+
 <script type="text/javascript">
 //返回顶部
 $(document).ready(function(){
