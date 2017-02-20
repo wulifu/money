@@ -45,7 +45,18 @@ class LoginController extends Controller
 			$session['admin']=$data['username'];
 			$admin = $data['username'];
 			$res = $db=\Yii::$app->db ->createCommand()->update('admin',$datas,"admin = '$admin'") ->execute(); 
+ //adtion 0登陆 1添加 2修改 3删除 
+          //type 0用户 1操作
+			$db = \Yii::$app->db->createCommand();
+          $log = array('admin' => Yii::$app->session['admin'], 
+                        'action' => 0, 
+                        'type' => 0, 
+                        'time' => strtotime(date('Y-m-d H:i:s')), 
+                        'object' => '', 
+                        'content' => '', 
 
+              );       
+          $db->insert('admin_log',$log)->execute();
 	     $this->message('登陆成功','?r=index/index',1,1);
 	       }else
 	       {
