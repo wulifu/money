@@ -67,7 +67,7 @@
               });
               
                 
-                location.href='?r=withdrawals/index';
+                // location.href='?r=withdrawals/index';
               
             });
         </script>

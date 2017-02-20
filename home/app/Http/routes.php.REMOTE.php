@@ -32,10 +32,6 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::get('account','AccountController@index');
 <<<<<<< HEAD
-
-Route::any('index','IndexController@index');
-=======
-<<<<<<< HEAD
 Route::any('register','RegisterController@index');//注册页面一
 Route::any('registers','RegisterController@register'); //注册页面二
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
@@ -60,14 +56,10 @@ Route::get('getIsBinding','AccountController@getIsBinding');
 =======
 Route::get('getIsBinding','AccountController@getIsBinding');
 
->>>>>>> 768076f818904746abf8092ca5cfe05fc91b8478
 
 //投资项目
 Route::get('project','ProjectController@index');
 Route::get('details','ProjectController@details');
 
 
-<<<<<<< HEAD
-=======
 >>>>>>> 0b0af6043e194290f54dc889cf49a0c1149e7472
->>>>>>> 768076f818904746abf8092ca5cfe05fc91b8478
