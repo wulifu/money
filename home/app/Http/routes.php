@@ -31,43 +31,36 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('account','AccountController@index');
-<<<<<<< HEAD
+
 
 Route::any('index','IndexController@index');
-=======
-<<<<<<< HEAD
+
 Route::any('register','RegisterController@index');//注册页面一
 Route::any('registers','RegisterController@register'); //注册页面二
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
 Route::any('user_add','RegisterController@add'); //用户添加
 Route::any('login','LoginController@index'); 	//验证用户登录
 Route::any('backpwd','RegisterController@backpassword'); // 重置密码页面
-Route::any('user_updatepwd','RegisterController@updatepwd'); //用户忘记密码
+Route::any('user_updatepwd','RegisterController@updatepwd'); ?//用户忘记密码
 Route::any('user_shiming','RegisterController@shiming'); //用户实名认证
 Route::any('user_editpwd','RegisterController@editpwd'); //用户修改密码
 Route::any('user_editpay','RegisterController@editpay'); //用户修改支付密码
 Route::any('user_bankcard','RegisterController@bankcard'); //用户个人中心绑定银行卡
 
-=======
->>>>>>> 0b0af6043e194290f54dc889cf49a0c1149e7472
 
 
-Route::get('datum','AccountController@datum');
 Route::get('getProperty','AccountController@getProperty');
 Route::get('getBill','AccountController@getBill');
-<<<<<<< HEAD
-Route::get('getIsBinding','AccountController@getIsBinding');
-=======
+Route::get('datum','AccountController@datum');
+
 Route::get('getIsBinding','AccountController@getIsBinding');
 
->>>>>>> 768076f818904746abf8092ca5cfe05fc91b8478
+Route::get('getIsBinding','AccountController@getIsBinding');
+
+
 
 //投资项目
 Route::get('project','ProjectController@index');
-Route::get('details','ProjectController@details');
+Route::get('details','P.rojectController@details');
 
 
-<<<<<<< HEAD
-=======
->>>>>>> 0b0af6043e194290f54dc889cf49a0c1149e7472
->>>>>>> 768076f818904746abf8092ca5cfe05fc91b8478
