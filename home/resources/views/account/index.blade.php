@@ -31,7 +31,7 @@
             <span>总资产 ></span>
         </div>
         <div>
-            <span>20.00</span>
+            <span>{{$earnings}}</span>
             <span>累计总收益</span>
         </div>
     </div>
@@ -281,7 +281,7 @@
                         var status = '提现';
                     }
 
-                    _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg[i].money)+'</span><span style="color:'+color+'">'+status+'</span><span>'+getLocalTime(msg[i].time)+'</span></li>'
+                    _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg[i].time+'</span></li>'
                 }
                 $('.bill-main ul').html(_html);
                 shadeHide();
@@ -340,7 +340,7 @@
             success:function(msg){
                 if(msg.code == 1){
                     $('.earnings').html(msg.data.earnings);
-                    $('.fund .balance').html(msg.data.balance);
+                    $('.fund .balance').html(msg.data.balance.toFixed(2));
                     shadeHide();
                     getinto('fund')
                 }else{

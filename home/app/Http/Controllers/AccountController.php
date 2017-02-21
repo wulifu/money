@@ -13,8 +13,11 @@ class AccountController extends Controller
     //
     public function index(Request $request){
 
-        $user_id = 2;//模拟用户id
+        $user_id = 1;//模拟用户id
         $user = DB::table('user')->select('username','money')->where('user_id',$user_id)->first();
+
+        //用户总收益
+        $earnings = DB::table('money_trend')->select('money')->where(['user_id'=>$user_id,'status'=>2])->sum('money');
 
         $action = $request->input('a','');
 
@@ -24,7 +27,7 @@ class AccountController extends Controller
             $prior = '';
         }
 
-        return view('account.index',['user'=>$user,'action'=>$action,'prior'=>$prior]);
+        return view('account.index',['user'=>$user,'action'=>$action,'prior'=>$prior,'earnings'=>$earnings]);
     }
 
 
@@ -62,6 +65,11 @@ class AccountController extends Controller
         $user_id = 1;//模拟用户id
 
         $data = DB::table('money_trend')->select('money','time','status')->where('user_id',$user_id)->orderBy('time','desc')->skip(0)->take(10)->get();
+
+        foreach($data as $key => $val){
+            $data[$key]->time = date('Y-m-d H:i:s',$val->time);
+        }
+//        var_dump($data);die;
         exit(json_encode($data));
     }
 
@@ -108,6 +116,10 @@ class AccountController extends Controller
         exit(json_encode($result));
     }
 
+    /**
+     * 绑定银行卡
+     * @param Request $request
+     */
     public function binding(Request $request){
 
         $result = ['code'=>0,'error'=>'']; //返回信息
