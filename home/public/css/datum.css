@@ -138,6 +138,7 @@ body{
     color: #fff;
     font-family: "微软雅黑";
     border-radius:10px;
+    cursor:pointer;
 }
 
 /*修改密码*/
@@ -154,12 +155,49 @@ body{
     padding-bottom: 20px;
 }
 .primary{
-    width: 100%;
+    /*width: 100%;*/
     line-height: 30px;
     background: #fff;
     margin-top: 70px;
     padding-left: 10px;
 }
+.primary1{
+    /*width: 100%;*/
+    line-height: 30px;
+    background: #fff;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+.primary1 select{
+    padding-left: 10px;
+    width: 60%;
+    border: none;
+    color:#7B7B7B;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+.primary1 select option{
+    text-align: center;
+    /*width: 50%;*/
+    color:#7B7B7B;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+.primary1 input{
+    border: none;
+    background: transparent;
+    width: 60%;
+    height: 30%;
+    outline: none;
+    font-size: 1em;
+    font-family: "Microsoft YaHei";
+    color: #b3b3b3;
+    letter-spacing: 1px;
+    padding-left: 15px;
+
+}
+
+
 .primary:nth-child(2){
     margin-top: 10px;
 }
@@ -178,4 +216,51 @@ body{
     color: #b3b3b3;
     letter-spacing: 1px;
     padding-left: 15px;
+}
+
+/* 实名认证 */
+.change-name{
+    width: 100%;
+    position: absolute;
+    color:#7B7B7B;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    display: none;
+}
+
+/* 绑定银行卡 */
+.bang-card{
+    width: 100%;
+    position: absolute;
+    color:#7B7B7B;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    display: none;
+}
+
+/* 支付密码 */
+.change-pay{
+    width: 100%;
+    position: absolute;
+    color:#7B7B7B;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    display: none;
+}
+
+.tsy{
+    text-align: center;
+    line-height: 40px;
+    width: 50%;
+    height: 40px;
+    margin-left: 25%;
+    background:  #696969;
+    color:white;
+    font-size: 14px;
+    /*opacity: 0.50;*/
+    display: none;
+    border-radius: 30px;
+    position: absolute;
+    margin-top: 280px;
+    z-index: 1000;
 }

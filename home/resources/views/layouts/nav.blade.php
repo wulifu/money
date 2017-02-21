@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-
-    <link href="{{asset('hui/iconfont.css')}}" rel="stylesheet" type="text/css" />
-
+    <title>Document</title> 
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/css.css">
 

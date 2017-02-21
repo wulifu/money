@@ -40,10 +40,10 @@ use yii\widgets\LinkPager;
                   <div class="layui-form-item">
                     <label class="layui-form-label">日期范围</label>
                     <div class="layui-input-inline">
-                      <input class="layui-input" placeholder="开始日" id="LAY_demorange_s" name="begin_time" value="<?php echo $begin_time ?>">
+                      <input class="layui-input" placeholder="2017-02-13" id="LAY_demorange_s" name="begin_time" >
                     </div>
                     <div class="layui-input-inline">
-                      <input class="layui-input" placeholder="截止日" id="LAY_demorange_e" name="over_time" value="<?php echo $over_time ?>">
+                      <input class="layui-input" placeholder="2017-02-13" id="LAY_demorange_e" name="over_time" >
                     </div>
                     <div class="layui-input-inline" style="width:80px">
                         <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>

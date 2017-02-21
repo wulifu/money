@@ -13,7 +13,7 @@ class AccountController extends Controller
     //
     public function index(Request $request){
 
-        $user_id = 1;//模拟用户id
+        $user_id = 2;//模拟用户id
         $user = DB::table('user')->select('username','money')->where('user_id',$user_id)->first();
 
         $action = $request->input('a','');

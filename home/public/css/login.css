@@ -1,0 +1,90 @@
+body{
+	padding:0;
+	margin:0;
+	background: #e0e0e0;
+	height: 500px;
+	width: 100%;
+}
+
+/* 顶部 */
+.title{
+	height: 80px;
+	width: 100%;
+	background: #f75000;
+}
+.title span{
+	line-height: 80px;
+	display: block;
+}
+.title span h4{
+	display: block;
+	margin-left:40%; 
+	/*line-height: 80px;*/
+	color:white;
+}
+.title span a{
+	float: left;
+	display: block;
+	color:white;
+	text-decoration:none;
+}
+
+.p{
+	height: 30px;
+	width: 100%;
+}
+.p p{
+	text-align: center;
+	line-height: 30px;
+}
+
+
+/* 输入框*/
+.input{
+	background: white;
+	width: 100%;
+	height: 40px;
+	border: 1px solid white;
+}
+
+.input div{
+	line-height: 40px;
+}
+.input div span{
+	margin-left: 10px;
+	margin-right: 5px;
+}
+.input div input{
+	margin-right: 5px;
+	border: none;
+	outline:inherit;
+}
+
+.shu{
+	position: absolute;
+	right: 33%;
+}
+
+/* xx小手 */
+#btn{
+	margin-top: 13px;
+	cursor:pointer;
+	/*color:#f75000;*/
+	position: absolute;
+	right: 8%;
+}
+
+/* 底部 */
+.sub button{
+	width: 92%;
+	height: 40px;
+	line-height:5px;
+	margin-top: 25px;
+	margin-left: 4%;
+	/*margin-right: 10px;*/
+	color:white;
+	border:none;
+	outline:inherit;
+	border-radius: 10px;
+	background: #f75000;
+}
