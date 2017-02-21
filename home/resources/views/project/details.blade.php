@@ -18,10 +18,10 @@
 <div class="top top_max">
     <div class="datum">
         <a href="JavaScript:void (0)" class="return"><span class="user Hui-iconfont" style="font-size: 16px; color: white">&#xe67d;</span></a>
-        <b>{{$val->pro_name}}</b>
+       <b> <a href="project" style="color: white">{{$val->pro_name}}</a></b>
     </div>
     <div class="property">
-        <span class="trem">{{$val->yield}}%<span>
+       <span class="trem">{{$val->yield}}%<span>
         <span class="trem" style="font-size:12px ; margin-top:-10px;">预期年化收益率</span>
     </div>
     <div class="base">

@@ -41,7 +41,7 @@
 @extends('layouts.nav')
 
 <div class="top">
-    <a href=""><span class="user Hui-iconfont">&#xe67d;</span></a>
+    <a href="JavaScript:void(0)" onclick="window.history.go(-1);"><span class="user Hui-iconfont">&#xe67d;</span></a>
     <div class="datum">
         <b>理财 项目</b>
     </div>
