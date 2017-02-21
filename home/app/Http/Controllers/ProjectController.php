@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use Session;
 header("content-type:text/html;charset=utf-8");
 class ProjectController extends Controller
 {
@@ -19,7 +20,7 @@ class ProjectController extends Controller
     //投资项目介绍
     public function details(){
         //获取用户登录信息  session
-        $phone="18235803172";
+        $phone=Session::get('user');
         $last=DB::table('user')->where('phone','=',$phone)->select('money','user_id')->get();
         if(empty($last)){
             $money_last=0;
