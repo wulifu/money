@@ -19,7 +19,7 @@ class ProjectController extends Controller
     //投资项目介绍
     public function details(){
         //获取用户登录信息  session
-        $phone="18235803172";z
+        $phone="18235803172";
         $last=DB::table('user')->where('phone','=',$phone)->select('money','user_id')->get();
         if(empty($last)){
             $money_last=0;

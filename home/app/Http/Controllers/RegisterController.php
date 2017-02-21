@@ -6,7 +6,6 @@ use App\Http\Requests;
 use DB,Input,Redirect,url,Validator,Request;
 use App\User;
 use App\Binding;
-use Session;
 class RegisterController extends Controller
 {
     /**
@@ -218,10 +217,12 @@ class RegisterController extends Controller
         /* 验证数据合法性 */
         $data1 = preg_match("/^[\x4e00-\x9fa5]+$/",$data['username']); //账户名
         $data2 = preg_match("/^\d{15}(\d{2}[A-Za-z0-9])?$/",'1234567891012345678');
+        // echo $data1.'=='.$data2;
         if($data1==0 && $data2==0)
         {
             /* 验证成功 */
-            $phone = Session::get('user');
+            // $phone = Session::get('user');
+            $phone = '18803004760';
             $res = DB::table('user')->where('phone',$phone)->update(['username'=>$data['username'],'idcard'=>$data['idcard']]);
             if($res)
             {
@@ -255,7 +256,7 @@ class RegisterController extends Controller
         if($data1&&$data2&&$data3)
         {
             /* 验证原密码 */
-            $phone = Session::get('user');
+            $phone = '18803004760';
             $res = DB::table('user')->where('phone',$phone)->get();
             $resu = json_encode($res);
             $res = json_decode($resu,true);
@@ -321,7 +322,7 @@ class RegisterController extends Controller
         if($data1&&$data2&&$data3)
         {
             /*验证原始支付密码*/
-            $phone =Session::get('user');
+            $phone = '18803004760';
             $res = DB::table('user')->where('phone',$phone)->get();
             $resu = json_encode($res);
             $res = json_decode($resu,true);
@@ -383,7 +384,7 @@ class RegisterController extends Controller
         {
             /* 入库操作 */
             $binding = new Binding();
-            $binding->user_id = Session::get('user_id');
+            $binding->user_id = 2;
             $binding->card_num=$data['card_num'];
             $binding->bank=$data['bank'];
             $res = $binding->save();
