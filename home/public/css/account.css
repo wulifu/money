@@ -101,6 +101,7 @@ body{
 }
 .title{
     width: 100%;
+    max-width: 640px;
     height: 50px;
     background: #FFA042;
     text-align: center;
