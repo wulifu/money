@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-// use Illuminate\Http\Request;
 use App\Http\Requests;
-use DB,Input,Redirect,url,Validator,Request,Session;
+use DB,Input,Redirect,url,Validator,Request;
 use App\User;
+use Symfony\Component\HttpFoundation\Session\Session;
 class LoginController extends Controller
 {
 
@@ -22,8 +22,8 @@ class LoginController extends Controller
         if(md5($data['password']) == $info[0]['password'])
         {
         	/* 登录成功 存Session */
-        	Session::put('user', $info[0]['phone']);
-        	Session::put('user_id', $info[0]['user_id']);
+          session(['user'=>$info[0]['phone']]);
+          session(['user_id'=>$info[0]['user_id']]);
         	$result = ['errCode'=>1,'msg'=>'登录成功'];
         	echo json_encode($result,JSON_UNESCAPED_UNICODE);
         }
