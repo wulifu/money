@@ -4,8 +4,8 @@
 <meta name="author" content="m.178hui.com" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta name="format-detection" content="telephone=no">
-<title>天天理财</title
-><link href="css/owl.carousel.css" rel="stylesheet">
+<title>天天理财</title>
+	<link href="css/owl.carousel.css" rel="stylesheet">
 <link href="css/public.css" rel="stylesheet" type="text/css" />
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <script src="js/jquery-1.8.3.min.js"></script>

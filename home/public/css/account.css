@@ -1,6 +1,7 @@
 body{
     background-color:#000;
     font-family: "微软雅黑";
+    /*position: relative;*/
 }
 /*我的账户 顶部*/
 .top{
@@ -105,9 +106,12 @@ body{
     text-align: center;
     line-height: 48px;
     font-family: "微软雅黑";
-    position: absolute;
+    /*position: fixed;*/
+    position: fixed;
     color: #fff;
     font-size: 16px;
+    z-index: 1002;
+    /*opacity: 0.8;*/
 }
 .back{
     position:absolute;
@@ -193,13 +197,14 @@ body{
 }
 .bill-main ul li{
     display: block;
-    width: 100%;
+    padding-left: 10px;
+    width: auto;
     height: 50px;
     line-height: 50px;
     border-top: 1px solid #ccc;
     font-family: "微软雅黑";
     font-size: 12px;
-    padding-left: 10px;
+    position: relative;
 }
 
 .bill-main ul li span:nth-child(1){
@@ -208,17 +213,32 @@ body{
 }
 .bill-main ul li span:nth-child(2){
     display: inline-block;
-    width: 30%;
     font-size: 24px;
     color: green;
     margin-left: 20px;
     margin-right: 20px;
+    width: 30%;
+
 }
-.bill-main ul li span:nth-child(4){
+.bill-main ul li span:nth-child(3){
+    display: block;
+    height: 25px;
+    line-height: 25px;
     color: #d0d0d0;
     font-size: 14px;
     position: absolute;
     right: 10px;
+    top: 0;
+}
+.bill-main ul li span:nth-child(4){
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    color: #d0d0d0;
+    font-size: 14px;
+    position: absolute;
+    right: 10px;
+    bottom: 0;
 }
 
 
@@ -242,6 +262,24 @@ body{
     width: 100%;
 }
 
+/*提示框*/
+.hint{
+    width: 60%;
+    height:30px;
+    text-align: center;
+    line-height: 30px;
+    background: 	#000;
+    opacity:0.6;
+    color:#fff;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    border-radius: 10px;
+    position: absolute;
+    top: 60%;
+    left:20%;
+    display: none;
+}
+
 /*绑定银行卡*/
 .binding,.fund{
     display:none;
@@ -260,7 +298,7 @@ body{
     font-size: 12px;
 }
 .binding-main ul li{
-    width: 100%;
+    width: auto;
     height: 35px;
     line-height: 35px;
     border-top: 1px solid  	#F0F0F0;
@@ -283,6 +321,7 @@ body{
     color:#FF2D2D;
 }
 .binding-main ul li span:nth-child(2){
+    /*width: 40%;*/
     margin-left: 0px;
     color: #ADADAD;
 }
@@ -378,6 +417,45 @@ body{
 }
 
 
+/*我的投资项目*/
+.project{
+    display: none;
+    width:100%;
+    position: absolute;
+}
+
+.project-nav{
+    margin-top: 50px;
+    width:100%;
+    height: 40px;
+    background:#FFA042 ;
+    text-align: center;
+}
+
+.project-nav ul{
+    width: 80%;
+    height: 30px;
+    margin-left: 10%;
+}
+
+.project-nav-li{
+    float: left;
+    width: 35%;
+    height: 35px;
+    line-height: 35px;
+    margin-left: 10%;
+    color: #fff;
+    font-size: 14px;
+}
+.project-nav-check{
+    background: #F5F5F5;
+    color: #FFA042;
+    border-radius: 8px;
+}
+
+
+
+/*主页*/
 .account-main{
     margin-bottom: 50px;
 }

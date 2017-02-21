@@ -27,11 +27,7 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
-});
-
-Route::get('account','AccountController@index');
-
+	
 Route::any('register','RegisterController@index');//注册页面一
 Route::any('registers','RegisterController@register'); //注册页面二
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
@@ -43,21 +39,33 @@ Route::any('user_shiming','RegisterController@shiming'); //用户实名认证
 Route::any('user_editpwd','RegisterController@editpwd'); //用户修改密码
 Route::any('user_editpay','RegisterController@editpay'); //用户修改支付密码
 Route::any('user_bankcard','RegisterController@bankcard'); //用户个人中心绑定银行卡
+//投资项目
+Route::get('project','ProjectController@index');
+Route::get('details','ProjectController@details');
+Route::get('payment','ProjectController@payment');
+Route::get('account','AccountController@index');
+
+
 
 
 Route::get('datum','AccountController@datum');
 Route::get('getProperty','AccountController@getProperty');
 Route::get('getBill','AccountController@getBill');
+
+
 Route::get('getIsBinding','AccountController@getIsBinding');
+
 Route::get('getIsBinding','AccountController@getIsBinding');
+
+Route::get('recharge','AccountController@recharge');
+Route::get('binding','AccountController@binding');
+
 
 
 Route::any('index','IndexController@index');
 
+});
 
-//投资项目
-Route::get('project','ProjectController@index');
-Route::get('details','ProjectController@details');
-Route::get('payment','ProjectController@payment');
+
 
 

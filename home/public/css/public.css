@@ -40,11 +40,15 @@ a, div, header, span {
 	background-color: #FFFFFF;
 	float: left;
 	min-width: 320px;
-	width: 97%;
+	width: 100%;
 	margin-top: 1%;
-	margin-right: 1.5%;
+	/*margin-right: 1.5%;*/
 	margin-bottom: 1%;
-	margin-left: 1.5%;
+	/*margin-left: 1.5%;*/
+
+}
+.m_mall{
+	margin-bottom: 50px;
 }
 .m_user {
 	line-height: 40px;

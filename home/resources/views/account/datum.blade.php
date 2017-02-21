@@ -243,7 +243,7 @@ $('.bank_click').click(function(){
             $(".tsy").show(400).delay(2000).hide(300);
             a.hide();
             main.show(400);
-            location.replace(document.referrer);
+            // location.replace(document.referrer);
         }
         else
         {
@@ -282,7 +282,7 @@ $('.shiming-ajax').click(function(){
         $(".tsy").show(400).delay(2000).hide(300);
         a.hide();
         main.show();
-        location.replace(document.referrer);
+        // location.replace(document.referrer);
     },'json')
 })
 
