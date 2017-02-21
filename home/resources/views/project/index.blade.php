@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/pullTorefresh.css">
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <script src="js/iscroll.js"></script>
-    <script src="'js/pullToRefresh.js"></script>
+    <script src="js/pullToRefresh.js"></script>
     <script src="js/colorful.js"></script>
     <script src="js/jquery.1.12.min.js"></script>
     <title>驻马店人社</title>
