@@ -9,13 +9,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" type="text/css" href="css/project.css">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" type="text/css" href="css/pullTorefresh.css">
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <script src="js/iscroll.js"></script>
     <script src="js/pullToRefresh.js"></script>
     <script src="js/colorful.js"></script>
     <script src="js/jquery.1.12.min.js"></script>
-    <title>驻马店人社</title>
+    <title>天天理财</title>
     <style type="text/css" media="all">
         body, html {
             padding: 0;
