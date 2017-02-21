@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-// use Illuminate\Http\Request;
-use App\Http\Requests;
 use DB,Input,Redirect,url,Validator,Request;
+use App\Http\Requests;
 use App\User;
 use App\Binding;
 use Symfony\Component\HttpFoundation\Session\Session;
+
 class RegisterController extends Controller
 {
     /**

@@ -25,14 +25,16 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-Route::group(['middleware' => ['web']], function () {
-	
 Route::any('register','RegisterController@index');//注册页面一
 Route::any('registers','RegisterController@register'); //注册页面二
+
+Route::group(['middleware' => ['web','common']], function () {
+	
+
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
 Route::any('user_add','RegisterController@add'); //用户添加
 Route::any('login','LoginController@index'); 	//验证用户登录
+
 Route::any('backpwd','RegisterController@backpassword'); // 重置密码页面
 Route::any('user_updatepwd','RegisterController@updatepwd'); //用户忘记密码
 Route::any('user_shiming','RegisterController@shiming'); //用户实名认证
@@ -46,6 +48,7 @@ Route::get('payment','ProjectController@payment');
 Route::get('account','AccountController@index');
 
 
+// Route::get('comm','CommonController@index'); //测试
 
 
 Route::get('datum','AccountController@datum');
@@ -61,8 +64,8 @@ Route::get('recharge','AccountController@recharge');
 Route::get('binding','AccountController@binding');
 
 
-
 Route::any('index','IndexController@index');
+
 
 });
 
