@@ -49,12 +49,25 @@ Route::get('datum','AccountController@datum');
 Route::get('getProperty','AccountController@getProperty');
 Route::get('getBill','AccountController@getBill');
 
+
 Route::get('getIsBinding','AccountController@getIsBinding');
 
 Route::get('getIsBinding','AccountController@getIsBinding');
+
+Route::get('recharge','AccountController@recharge');
+Route::get('binding','AccountController@binding');
+
+
+
+Route::any('index','IndexController@index');
 
 
 //投资项目
 Route::get('project','ProjectController@index');
 Route::get('details','ProjectController@details');
+Route::get('payment','ProjectController@payment');
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0211aef00f3a3c4e0af4f186f832ec278fbb4023

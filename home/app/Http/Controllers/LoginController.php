@@ -23,6 +23,7 @@ class LoginController extends Controller
         {
         	/* 登录成功 存Session */
         	Session::put('user', $info[0]['phone']);
+        	Session::put('user_id', $info[0]['user_id']);
         	$result = ['errCode'=>1,'msg'=>'登录成功'];
         	echo json_encode($result,JSON_UNESCAPED_UNICODE);
         }
