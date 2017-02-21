@@ -17,7 +17,7 @@
             </a>
         </li>
         <li>
-            <a href="/p">
+            <a href="/project">
                 <span><i class="Hui-iconfont">&#xe627;</i></span>
                 <span>理财</span>
             </a>
