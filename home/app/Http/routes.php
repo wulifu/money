@@ -46,6 +46,9 @@ Route::any('user_updatepwd','RegisterController@updatepwd'); //用户忘记密�
 
 Route::group(['middleware' => ['web','common']], function () {
 
+
+	Route::get('/','IndexController@index');
+
 	Route::any('user_add','RegisterController@add'); //用户添加
 	Route::any('login','LoginController@index'); 	//验证用户登录
 	Route::any('user_shiming','RegisterController@shiming'); //用户实名认证
