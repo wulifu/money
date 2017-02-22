@@ -41,27 +41,31 @@ $(document).ready(function(){
 	<div class="top w">
    	<div class="m_banner" id="owl">
             <a href="#" class="item"><img src="images/10250290397.png"></a>
-            <a href="http://www.178hui.com" class="item"><img src="images/10225357963.jpg"></a>
+            <a href="#" class="item"><img src="images/10225357963.jpg"></a>
+            <a href="#" class="item"><img src="images/50.png"></a>
       </div>
         <div class="m_nav">
-        	<a href="http://m.178hui.com/mall/index.html"><img src="images/jy.png"><span>交易</span></a>
-            <a href="http://m.178hui.com/baoliao/index.html"><img src="images/dq.png"><span>排行</span></a>
-            <a href="http://m.178hui.com/taobao/index.html"><img src="images/gus.png"><span>固收</span></a>
-            <a href="http://m.178hui.com/article/index.html"><img src="images/gdlc.png"><span>高端理财</span></a>
-            <a href="javascript:void(0);" id="msg_bijia"><img src="images/gs.png"><span>基金公司</span></a>
-            <a href="http://m.178hui.com/qiandao/index.html"><img src="images/qd.png"><span>有奖签到</span></a>
-            <a href="http://m.178hui.com/order/index.html"><img src="images/zhinan.png"><span>新手指南</span></a>
-            <a href="http://m.178hui.com/user/index.html"><img src="images/grzx.png"><span>会员中心</span></a>
+        	<a href="#"><img src="images/jy.png"><span>交易</span></a>
+           <a href="#"><img src="images/dq.png"><span>排行</span></a>
+            <a href="#"><img src="images/gus.png"><span>固收</span></a>
+            <a href="#"><img src="images/gdlc.png"><span>高端理财</span></a>
+            <a href="#"><img src="images/gs.png"><span>基金公司</span></a>
+            <a href="#"><img src="images/qd.png"><span>有奖签到</span></a>
+            <a href="#"><img src="images/zhinan.png"><span>新手指南</span></a>
+            <a href="account"><img src="images/grzx.png"><span>会员中心</span></a>
         </div>
   </div>
   <div class="m_mall w" >
-  	<div class="mall_title"><span>为您推荐</span><em><a href="#">更多</a></em></div>
+  	<div class="mall_title"><span>推荐项目</span><em><a href="project">更多</a></em></div>
     <div class="mall_list" style="margin:0px;">
     @foreach ($pros as $pro)
-    <a href="#" class="mall"><li class="card__item card__item--orange">
+    <a href="details?fin_id={{$pro->fin_id}}" class="mall"><li class="card__item card__item--orange">
       <div class="card__info" >
       <div class="info-player" >
-          <p class="info-player__name">{{ $pro->pro_name }}<br><br><small>收益： {{ $pro->yield }}%</small></p>
+        <img src="images/3.jpg" style="width: 200px height:100px;">
+        <span>
+          <p class="info-player__name"><?php  echo mb_substr("$pro->pro_name ",0,5,'utf-8');  ?><br><small>收益： {{ $pro->yield }}%</small></p>
+          </span>
         </div>
         <br>
       </div >
@@ -70,12 +74,12 @@ $(document).ready(function(){
     </div>
   </div>
 
- <!--    <div class="m_user w">
+   <div class="m_user w">
    
-      <a href="login.html">登录</a>
-      <a href="register.html">注册</a>
+      <a href="register">登录</a>
+      <a href="register">注册</a>
       <a href="javascript:void(0);" class="backtop">返回顶部</a>  
-      </div> -->
+      </div>
  
 
 </div>

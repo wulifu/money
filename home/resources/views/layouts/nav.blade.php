@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <title>Document</title>
+
+    <link href="{{asset('hui/iconfont.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+
+
+    <link href="{{asset('css/css.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('hui/iconfont.css')}}" rel="stylesheet" type="text/css" />
+
+
     <title>Document</title> 
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/css.css">
+
 
 </head>
 <body>
@@ -23,7 +37,7 @@
             </a>
         </li>
         <li>
-            <a href="/account">
+            <a href="account">
                 <span><i class="Hui-iconfont ">&#xe60d;</i></span>
                 <span>我的</span>
             </a>

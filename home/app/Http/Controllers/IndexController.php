@@ -13,7 +13,6 @@ use Illuminate\Support\Collection;
 
 class IndexController extends Controller
 {
-    //
     public function index(){
     	$pros = DB::table('finance_project')->paginate(4);
         return view('index.index', ['pros' => $pros]);
