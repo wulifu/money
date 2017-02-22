@@ -103,7 +103,7 @@
                         </td>
                         <td>
                         <?php
-                        echo number_format($datas['moeny'], 2); 
+                        echo number_format($datas['money'], 2); 
                         ?>
                           
                         </td>

@@ -23,7 +23,7 @@
             </a>
         </li>
         <li>
-            <a href="/account">
+            <a href="account">
                 <span><i class="Hui-iconfont ">&#xe60d;</i></span>
                 <span>我的</span>
             </a>

@@ -29,7 +29,7 @@ class LoginController extends Controller
 	    	$data = Yii::$app->request->post();
 
 	    	$re = Admin::find()->andWhere(['admin' => $data['username'], 'password' => $data['pass']])->count('a_id');
-	    	
+	    	// var_dump($re);die;
 	      
 	       if ($re == 1) {
 	 		$da = Admin::find()->where(['admin' => $data['username']])->asArray()->one();
