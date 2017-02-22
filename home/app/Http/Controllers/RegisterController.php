@@ -77,6 +77,8 @@ class RegisterController extends Controller
             $res = $user->save(); 
             if($res)
             {
+                /* 存取session  内容：用户手机号码 */
+                session(['user'=>$data['tell']]);
                 $result = ['errCode'=>1,'msg'=>'操作成功'];
                 echo json_encode($result,JSON_UNESCAPED_UNICODE);
             }
@@ -172,7 +174,7 @@ class RegisterController extends Controller
         /* 验证数据合法性 */
         $length = preg_match("/^\d{11}$/", $data['tell']); //账户名
         $password = preg_match("/^[\w-\.]{6,12}$/", $data['password']); //密码
-        /* 验证码待开发*/
+        /* 验证码*/
         $data1 = 'mobile='.$data['tell'].'&code='.$data['code'];
         $url = 'https://api.netease.im/sms/verifycode.action';
         $re = $this->sendcode($data1,$url);
@@ -190,6 +192,8 @@ class RegisterController extends Controller
             $res = DB::table('user')->where('phone',$data['tell'])->update(['password'=>md5($data['password'])]);
             if($res)
             {
+                /* 存取session  内容：用户手机号码 */
+                session(['user'=>$data['tell']]);
                 $result = ['errCode'=>1,'msg'=>'修改成功'];
                 echo json_encode($result,JSON_UNESCAPED_UNICODE);
             }
