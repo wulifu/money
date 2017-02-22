@@ -104,6 +104,7 @@ $('.but').click(function(){
 				$('.tsp').html(msg.msg);
 				/* 提示语隐藏 */
 				$(".tsy").show(400).delay(2000).hide(300);
+				shadeHide();
 			}
 		},'json');
 	}

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/des.css">
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery.1.12.min.js"></script>
-    <title>驻马店人社</title>
+    <title>天天理财</title>
 </head>
 <body>
 <!--top开始-->
@@ -158,7 +158,7 @@
     <div class="t_je" style="border: 1px solid lightgrey">
         <span class="t_je_t">账户余额</span>
         <span class="bill_money">{{$last_money}}</span>
-        <span><a href="javascript:void (0)" class="button">充值</a></span>
+        <span><a href="account?a=recharge" class="button">充值</a></span>
     </div>
     <div class="t_je" style="border: 0">
         <span class="t_je_t">实际支付</span>

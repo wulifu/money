@@ -12,7 +12,7 @@ class Common
 		
 		$path = $request->path();
 		$phone = session('user');
-		if($path!='login')
+		if($path!='login' && $path!='user_add')
 		{
 			if(empty($phone) || !isset($phone))
 			{
