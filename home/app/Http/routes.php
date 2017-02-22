@@ -1,42 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
-
-
-Route::group(['middleware' => ['web']], function () {
-    //
-});
-
-Route::get('account','AccountController@index');
-
-
-Route::any('index','IndexController@index');
-
-
 Route::any('register','RegisterController@index');//注册页面一
 Route::any('registers','RegisterController@register'); //注册页面二
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
@@ -48,7 +11,7 @@ Route::group(['middleware' => ['web','common']], function () {
 
 
 	Route::get('/','IndexController@index');
-
+	Route::any('index','IndexController@index');
 	Route::any('user_add','RegisterController@add'); //用户添加
 	Route::any('login','LoginController@index'); 	//验证用户登录
 	Route::any('user_shiming','RegisterController@shiming'); //用户实名认证
@@ -69,5 +32,3 @@ Route::group(['middleware' => ['web','common']], function () {
 
 
 });
-
-
