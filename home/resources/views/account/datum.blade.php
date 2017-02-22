@@ -35,8 +35,11 @@
                 <div>
                     {{--<span><i class="Hui-iconfont">&#xe627;</i></span>--}}
                     <span>姓名</span>
-                    <!-- <span class="jian">王康宁</span> -->
+                    <?php if($info->username == ''){ ?>
                     <span class='jian weishim'>未实名</span>
+                    <?php }else{ ?>
+                    <span class='jian'>{{$info->username}}</span>
+                    <?php } ?>
                 </div>
             </li>
 <!--        <li>
@@ -50,15 +53,18 @@
                 <div>
                     {{--<span><i class="Hui-iconfont">&#xe6ca;</i></span>--}}
                     <span>银行卡</span>
-                    <!-- <span class="jian">未绑定</span> -->
-                    <span class="jian bangka">未绑定</span>
+                    <?php if($show == ''){ ?>
+                    <span class='jian bangka'>未绑定</span>
+                    <?php }else{ ?>
+                    <span class='jian'>已绑定</span>
+                    <?php } ?>
                 </div>
             </li>
             <li>
                 <div>
                     {{--<span><i class="Hui-iconfont">&#xe63a;</i></span>--}}
                     <span>手机号</span>
-                    <span class="jian">15711061688</span>
+                    <span class="jian">{{$info->phone}}</span>
                 </div>
             </li>
         </ul>
@@ -211,9 +217,25 @@
 </div>
 {{--银行卡认证end--}}
 
-
+{{--遮罩层begin--}}
+<div class="shade">
+    <div class="shade-hei">
+        <img src="images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
+    </div>
+</div>
+{{--遮罩层end--}}
 </body>
 <script>
+
+function shadeShow(){  //显示遮罩层
+    $('.shade').show();
+}
+
+function shadeHide(){  //隐藏遮罩层
+    $('.shade').hide();
+}
+
+
 /* 绑卡操作 */
 $('.bank_click').click(function(){
     bank = $('#bank').val();
@@ -232,6 +254,8 @@ $('.bank_click').click(function(){
         $(".tsy").show(400).delay(2000).hide(300);
         return;
     }
+
+    shadeShow();
     /* 发送Ajax请求 */
     url = 'user_bankcard';
     a = $('.bang-card');
@@ -239,11 +263,11 @@ $('.bank_click').click(function(){
     $.get(url,{bank:bank,card_num:card_num},function(msg){
         if(msg.errCode == 1)
         {
-            $('.tsy').html(msg.msg);
-            $(".tsy").show(400).delay(2000).hide(300);
+            // $('.tsy').html(msg.msg);
+            // $(".tsy").show(400).delay(2000).hide(300);
             a.hide();
-            main.show(400);
-            // location.replace(document.referrer);
+            main.show();
+            location.replace(document.referrer);
         }
         else
         {
@@ -273,16 +297,18 @@ $('.shiming-ajax').click(function(){
         $(".tsy").show(400).delay(2000).hide(300);
         return; 
     }
+    shadeShow();
+
     /* 发送请求 */
     url = 'user_shiming';
     main = $('.datum-main');
     a = $('.change-name');
     $.get(url,{username:username,idcard:idcard},function(msg){
-        $('.tsy').html(msg.msg);
-        $(".tsy").show(400).delay(2000).hide(300);
+        // $('.tsy').html(msg.msg);
+        // $(".tsy").show(400).delay(2000).hide(300);
         a.hide();
         main.show();
-        // location.replace(document.referrer);
+        location.replace(document.referrer);
     },'json')
 })
 
@@ -314,6 +340,8 @@ $('.con_update').click(function(){
         return;
     }
 
+    shadeShow();
+
     /* 发送请求 */
     url='user_editpwd';
     a = $('.change-password');
@@ -321,10 +349,11 @@ $('.con_update').click(function(){
     $.get(url,{pri_password:pri_password,password:password,con_password:con_password},function(msg){
         if(msg.errCode==1)
         {
-            $('.tsy').html(msg.msg);
-            $(".tsy").show(400).delay(2000).hide(300);
+            // $('.tsy').html(msg.msg);
+            // $(".tsy").show(400).delay(2000).hide(300);
             a.hide();
             main.show();
+            location.replace(document.referrer);
         }
         else
         {
@@ -360,6 +389,8 @@ $('.con_update').click(function(){
             return;
         }
 
+        shadeShow();
+
         /* 发送请求 */
         url = 'user_editpay';
         main = $('.datum-main');
@@ -367,10 +398,11 @@ $('.con_update').click(function(){
         $.get(url,{pri_paypwd:pri_paypwd,paypwd:paypwd,con_paypwd:con_paypwd},function(msg){
             if(msg.errCode==1)
             {
-                $('.tsy').html(msg.msg);
-                $(".tsy").show(400).delay(2000).hide(300);
+                // $('.tsy').html(msg.msg);
+                // $(".tsy").show(400).delay(2000).hide(300);
                 a.hide();
                 main.show();
+                location.replace(document.referrer);
             }
             else
             {

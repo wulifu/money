@@ -9,10 +9,15 @@ class Common
 {
 	public function handle($request, Closure $next)
 	{
+		
+		$path = $request->path();
 		$phone = session('user');
-		if(empty($phone) || !isset($phone))
+		if($path!='login')
 		{
-			return redirect('register');
+			if(empty($phone) || !isset($phone))
+			{
+				return redirect('register');
+			}
 		}
 		return $next($request);
 	}

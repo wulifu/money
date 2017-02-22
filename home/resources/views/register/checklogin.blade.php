@@ -36,12 +36,28 @@
 			<p class='tsp'>用户已注册请登录</p>
 		</div>
 	</div>
+	{{--遮罩层begin--}}
+<div class="shade">
+    <div class="shade-hei">
+        <img src="images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
+    </div>
+</div>
+{{--遮罩层end--}}
 </body>
 
 <script src="js/jquery.1.12.js"></script>
 <script>
 /* 提示语隐藏 */
 $(".tsy").show(400).delay(2000).hide(300);
+
+
+function shadeShow(){  //显示遮罩层
+    $('.shade').show();
+}
+
+function shadeHide(){  //隐藏遮罩层
+    $('.shade').hide();
+}
 
 	/* 返回上一页面 */
 	function goBack(){
@@ -73,14 +89,14 @@ $('.but').click(function(){
 			$(".tsy").show(400).delay(2000).hide(300);
 			return;
 		}
+
+		shadeShow();
+
 		/* Ajax请求 */
 		url= 'login';
 		$.get(url,{tell:tell,password:password},function(msg){
 			if(msg.errCode==1)
 			{
-				// $('.tsp').html(msg.msg);
-				// /* 提示语隐藏 */
-				// $(".tsy").show(400).delay(2000).hide(300);
 				location.href='index';
 			}
 			else

@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use DB;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 class AccountController extends Controller
 {
     //
@@ -31,9 +32,17 @@ class AccountController extends Controller
     }
 
 
+    /**
+     * 用户个人中心
+     * @return [type] [description]
+     */
     public function datum(){
-//        echo "<a href='/account?a=recharge'>首页</a>";die;
-        return view('account.datum');
+        $user_id = session('user_id');
+        /* 查询用户信息 */
+        $re = DB::table('user')->where('user_id',$user_id)->first();
+        /* 查询用户绑卡信息 */
+        $res = DB::table('binding')->where('user_id',$user_id)->get();
+        return view('account.datum',['info'=>$re,'show'=>$res]);
     }
 
     /**
