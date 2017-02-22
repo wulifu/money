@@ -84,11 +84,12 @@ class AccountController extends Controller
 
     /**
      *  验证是否绑定银行卡或返回绑定信息
+     * @return ['code'=>0:未绑定银行卡,1:可充值,2:未实名认证,'error'=>'错误信息','data'=>'用户信息']
      */
     public function getIsBinding(){
 
         $result = ['code'=>0,'error'=>'']; //返回信息
-        $user_id = session('user_id');//模拟用户id
+        $user_id = session('user_id');//用户id
 
         $binding = DB::table('binding')->where('user_id',$user_id)->first();
         if($binding){
@@ -97,7 +98,14 @@ class AccountController extends Controller
             $result['error'] = 'OK';
             $result['data'] = ['bank_name'=>$bank->bank_name,'bind_id'=>$binding->bind_id,'card_num'=>substr($binding->card_num,-4)];
         }else{
-            $result['error'] = '未绑定银行卡';
+            $user_re = DB::table('user')->select('idcard','username')->where('user_id',$user_id)->first();
+            if(empty($user_re->username) || empty($user_re->idcard)){
+                $result['code'] = 2;
+                $result['error'] = '请先前去个人中心实名认证';
+            }else{
+                $result['error'] = '未绑定银行卡';
+                $result['data'] = ['username'=>$user_re->username,'idcard'=>substr($user_re->idcard,0,6).'******'.substr($user_re->idcard,-4)];
+            }
         }
         exit(json_encode($result));
     }
