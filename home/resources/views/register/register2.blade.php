@@ -40,6 +40,13 @@
 		<div class="tsy" style="display:none">
 			<p class='tsp'></p>
 		</div>
+			{{--遮罩层begin--}}
+<div class="shade">
+    <div class="shade-hei">
+        <img src="images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
+    </div>
+</div>
+{{--遮罩层end--}}
 	</div>
 </body>
 <script src="js/jquery.1.12.js"></script>
@@ -48,6 +55,14 @@
 /* 返回上一页面 */
 function goBack(){
 	window.history.go(-1); 
+}
+
+function shadeShow(){  //显示遮罩层
+    $('.shade').show();
+}
+
+function shadeHide(){  //隐藏遮罩层
+    $('.shade').hide();
 }
 
 /* 验证码 */
@@ -128,21 +143,24 @@ $('.but').click(function(){
 			return;
 		}
 
+		shadeShow();
+
 		/* Ajax请求 */
 		url='user_add';
 		$.get(url,{tell:tell,password:password,code:code},function(msg){
 			if(msg.errCode==1)
 			{
-				$('.tsp').html(msg.msg);
-				/* 提示语隐藏 */
-				$(".tsy").show(400).delay(2000).hide(300);
-				// location.href='';
+				// $('.tsp').html(msg.msg);
+				// /* 提示语隐藏 */
+				// $(".tsy").show(400).delay(2000).hide(300);
+				location.href='index';
 			}
 			else
 			{
 				$('.tsp').html(msg.msg);
 				/* 提示语隐藏 */
 				$(".tsy").show(400).delay(2000).hide(300);
+				shadeHide();
 			}
 		},'json');
 	}
