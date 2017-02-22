@@ -270,13 +270,13 @@
             success:function(msg){
                 var _html = '';
                 for(var i in msg){
-                    if(msg[i].status == 1){
+                    if(msg[i].status == 0){
                         var color = 'green';
                         var status = '充值';
                     }else if(msg[i].status == 2){
                         var color = 'green';
                         var status = '收益';
-                    }else if(msg[i].status == 3){
+                    }else if(msg[i].status == 1){
                         var color = 'red';
                         var status = '提现';
                     }
