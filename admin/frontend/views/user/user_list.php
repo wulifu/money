@@ -112,8 +112,9 @@
                              <?php
                            echo date('Y-m-d H:i:s', $datas['time']); 
                              ?>
+                          
                              </span>
-                        </td>
+                        </td>   
                         
                         <td class="td-manage">
                             <a style="text-decoration:none" onclick="member_stop(this,'10001')" href="javascript:;" title="停用">

@@ -118,7 +118,7 @@ class AccountController extends Controller
 
         if(!empty($bind_id) && is_numeric($recharge_val)){
             $re = DB::table('user')->where('user_id',$user_id)->increment('money',$recharge_val);
-            $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$recharge_val,'status'=>1]);
+            $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$recharge_val,'status'=>0]);
             $result['code'] = 1;
             $result['error'] = 'OK';
         }else{

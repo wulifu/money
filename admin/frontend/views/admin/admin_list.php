@@ -102,7 +102,7 @@
                              <?= $datas['admin']; ?>
                         </td>
                         <td >
-                            <?= $datas['password']; ?>
+                            ******
                         </td>
                         <td >
                          <span class="layui-btn layui-btn-normal layui-btn-mini">

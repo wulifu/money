@@ -17,7 +17,7 @@
             </a>
         </li>
         <li>
-            <a href="/project">
+            <a href="project">
                 <span><i class="Hui-iconfont">&#xe627;</i></span>
                 <span>理财</span>
             </a>
@@ -35,7 +35,6 @@
 <script>
     var url = window.location.pathname;
     $('.nav ul li a').each(function(){
-//        alert(url.indexOf($(this).attr('href')))
         if(url.indexOf($(this).attr('href')) >= 0){
             $(this).find('i').addClass('this');
         }
