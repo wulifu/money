@@ -42,7 +42,8 @@ Route::any('register','RegisterController@index');//注册页面一
 Route::any('registers','RegisterController@register'); //注册页面二
 
 Route::group(['middleware' => ['web','common']], function () {
-	
+
+    Route::get('/','IndexController@index');
 
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
 Route::any('user_add','RegisterController@add'); //用户添加
