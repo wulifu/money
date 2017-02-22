@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Document</title> 
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/css.css">
 
@@ -23,7 +23,7 @@
             </a>
         </li>
         <li>
-            <a href="/account">
+            <a href="account">
                 <span><i class="Hui-iconfont ">&#xe60d;</i></span>
                 <span>我的</span>
             </a>
