@@ -2,13 +2,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Poses-404 for Iphone, Android &nbsp; Smartphone Mobile Website Template | Home : w3layouts</title>
+<title>点击任意处返回</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="The free Poses-404 Iphone web template, Andriod web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
+<a href="index">
 <div class="wrap">
 	<h1><b><b><b>Every day money</b></b></b></h1>
 	<div class="banner">
@@ -21,6 +22,7 @@
 		<!-- <p>Design by <a href="http://w3layouts.com">w3layouts</a></p> -->
 	</div>
 </div>
+</a>
 </body>
 </html>
 <style type="text/css">
