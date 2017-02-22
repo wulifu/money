@@ -14,7 +14,7 @@ class AccountController extends Controller
     //
     public function index(Request $request){
 
-        $user_id = 1;//模拟用户id
+        $user_id = session('user_id');//模拟用户id
         $user = DB::table('user')->select('username','money')->where('user_id',$user_id)->first();
 
         //用户总收益
@@ -53,7 +53,7 @@ class AccountController extends Controller
 
         $result = ['code'=>0,'error'=>'']; //返回信息
 
-        $user_id = 1;//模拟用户id
+        $user_id = session('user_id');//模拟用户id
 
         //用户余额
         $balance = DB::table('user')->select('money')->where('user_id',$user_id)->first();
@@ -71,7 +71,7 @@ class AccountController extends Controller
      * 获取我的账单
      */
     public function getBill(){
-        $user_id = 1;//模拟用户id
+        $user_id = session('user_id');//模拟用户id
 
         $data = DB::table('money_trend')->select('money','time','status')->where('user_id',$user_id)->orderBy('time','desc')->skip(0)->take(10)->get();
 
@@ -88,7 +88,7 @@ class AccountController extends Controller
     public function getIsBinding(){
 
         $result = ['code'=>0,'error'=>'']; //返回信息
-        $user_id = 2;//模拟用户id
+        $user_id = session('user_id');//模拟用户id
 
         $binding = DB::table('binding')->where('user_id',$user_id)->first();
         if($binding){
@@ -109,7 +109,7 @@ class AccountController extends Controller
     public function recharge(Request $request){
 
         $result = ['code'=>0,'error'=>'']; //返回信息
-        $user_id = 1;//模拟用户id
+        $user_id = session('user_id');//模拟用户id
 
         $recharge_val = $request->input('recharge_val');
         $bind_id = $request->input('bind_id');
@@ -132,7 +132,7 @@ class AccountController extends Controller
     public function binding(Request $request){
 
         $result = ['code'=>0,'error'=>'']; //返回信息
-        $user_id = 1;//模拟用户id
+        $user_id = session('user_id');//模拟用户id
 
         $card_num = $request->input('card_num');
         $phone = $request->input('phone');

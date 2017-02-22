@@ -360,8 +360,12 @@
     $('.recharge-affirm').click(function(){
         var recharge_val = $('.recharge_val').val();
         var bind_id = $('bank_name').attr('bind_id');
-        if(recharge_val == '' || isNaN(recharge_val)){
+        if(recharge_val == '' || isNaN(recharge_val) || recharge_val < 1){
             showHint('请输入合法的充值金额')
+            return false;
+        }
+        if(recharge_val > 10000){
+            showHint('单笔金额不得超过10000元')
             return false;
         }
         shadeShow();
