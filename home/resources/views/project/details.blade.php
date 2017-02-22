@@ -7,9 +7,9 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/des.css')}}">
-    <link href="{{asset('hui/iconfont.css')}}" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('js/jquery.1.12.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="css/des.css">
+    <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.1.12.min.js"></script>
     <title>驻马店人社</title>
 </head>
 <body>
@@ -18,10 +18,10 @@
 <div class="top top_max">
     <div class="datum">
         <a href="JavaScript:void (0)" class="return"><span class="user Hui-iconfont" style="font-size: 16px; color: white">&#xe67d;</span></a>
-        <b>{{$val->pro_name}}</b>
+       <b> <a href="project" style="color: white">{{$val->pro_name}}</a></b>
     </div>
     <div class="property">
-        <span class="trem">{{$val->yield}}%<span>
+       <span class="trem">{{$val->yield}}%<span>
         <span class="trem" style="font-size:12px ; margin-top:-10px;">预期年化收益率</span>
     </div>
     <div class="base">
@@ -50,7 +50,7 @@
 <div class="box">
       <div class="xiangxi"><span class="x_title">投资说明</span> <span class="x_min">{{$val->investment_dsc}}</span></div>
       <div class="xiangxi"><span class="x_title">用户余额</span> <span class="x_min">{{$last_money}}</span>
-               <a href="{{asset('account?a=recharge')}}" class="button">充值</a></div>
+               <a href="account?a=recharge" class="button">充值</a></div>
 
     <div class="xiangxi">
         <input type="text" placeholder="请输入投资金额" class="text">
@@ -173,7 +173,7 @@
 {{--遮罩层begin--}}
 <div class="shade img" >
     <div class="shade-hei">
-        <img src="{{asset('images/8acbba7381623d7c2940758bc90613ee.gif')}}" alt="">
+        <img src="images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
     </div>
 </div>
 <div class="shade msg" style="background-color:transparent;">

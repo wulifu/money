@@ -7,15 +7,14 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/project.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/pullTorefresh.css')}}">
-    <link href="{{asset('hui/iconfont.css')}}" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('js/iscroll.js')}}"></script>
-    <script src="{{ asset('js/pullToRefresh.js')}}"></script>
-    <script src="{{ asset('js/colorful.js')}}"></script>
-    <script src="{{ asset('js/jquery.1.12.min.js')}}"></script>
-    <title>驻马店人社</title>
+    <link rel="stylesheet" type="text/css" href="css/project.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
+    <script src="js/iscroll.js"></script>
+    <script src="js/pullToRefresh.js"></script>
+    <script src="js/colorful.js"></script>
+    <script src="js/jquery.1.12.min.js"></script>
+    <title>天天理财</title>
     <style type="text/css" media="all">
         body, html {
             padding: 0;
@@ -41,7 +40,7 @@
 @extends('layouts.nav')
 
 <div class="top">
-    <a href=""><span class="user Hui-iconfont">&#xe67d;</span></a>
+    <a href="JavaScript:void(0)" onclick="window.history.go(-1);"><span class="user Hui-iconfont">&#xe67d;</span></a>
     <div class="datum">
         <b>理财 项目</b>
     </div>

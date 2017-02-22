@@ -78,10 +78,10 @@ $('.but').click(function(){
 		$.get(url,{tell:tell,password:password},function(msg){
 			if(msg.errCode==1)
 			{
-				$('.tsp').html(msg.msg);
-				/* 提示语隐藏 */
-				$(".tsy").show(400).delay(2000).hide(300);
-				// location.href='registers'+'?tell='+tell;
+				// $('.tsp').html(msg.msg);
+				// /* 提示语隐藏 */
+				// $(".tsy").show(400).delay(2000).hide(300);
+				location.href='index';
 			}
 			else
 			{

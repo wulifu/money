@@ -16,7 +16,7 @@
 <body>
 <div class="datum-main">
     <div class="title">
-        <span class="back"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
+        <span class="back backda"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
         <span>个人中心</span>
     </div>
     <div class="memu memu-datum">
@@ -243,7 +243,7 @@ $('.bank_click').click(function(){
             $(".tsy").show(400).delay(2000).hide(300);
             a.hide();
             main.show(400);
-            location.replace(document.referrer);
+            // location.replace(document.referrer);
         }
         else
         {
@@ -282,7 +282,7 @@ $('.shiming-ajax').click(function(){
         $(".tsy").show(400).delay(2000).hide(300);
         a.hide();
         main.show();
-        location.replace(document.referrer);
+        // location.replace(document.referrer);
     },'json')
 })
 
@@ -382,6 +382,10 @@ $('.con_update').click(function(){
 
 
 
+    /* 返回 */
+    $('.backda').click(function(){
+        location.href='account';
+    })
 
     /* 修改支付密码 */
     $('.change-pay-button').click(function(){

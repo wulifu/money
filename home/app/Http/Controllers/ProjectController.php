@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use Symfony\Component\HttpFoundation\Session\Session;
 header("content-type:text/html;charset=utf-8");
 class ProjectController extends Controller
 {
@@ -19,8 +20,12 @@ class ProjectController extends Controller
     //投资项目介绍
     public function details(){
         //获取用户登录信息  session
+<<<<<<< HEAD
         $user_id = 2;
         $phone="18235803172";
+=======
+        $phone=  session('user');
+>>>>>>> 02931e66f1764cd004518ec0001488664605a7c1
         $last=DB::table('user')->where('phone','=',$phone)->select('money','user_id')->get();
         if(empty($last)){
             $money_last=0;

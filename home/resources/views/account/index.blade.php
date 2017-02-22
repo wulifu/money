@@ -27,11 +27,11 @@
     </div>
     <div class="property">
         <div style="border-right: 1px solid #F75000" class="open-property">
-            <span>{{$user->money}}</span>
+            <span class="property-val">{{$user->money}}</span>
             <span>总资产 ></span>
         </div>
         <div>
-            <span>20.00</span>
+            <span>{{$earnings}}</span>
             <span>累计总收益</span>
         </div>
     </div>
@@ -62,7 +62,7 @@
                 <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
             </div>
         </li>
-        <li>
+        <li class="open-project">
             <div>
                 <span><i class="Hui-iconfont">&#xe616;</i></span>
                 <span>我的投资项目</span>
@@ -137,19 +137,19 @@
             </li>
             <li>
                 <span>银行卡号</span>
-                <span> <input type="text" class="input" name="name" placeholder="请输入银行卡号" pattern="[0-9A-Za-z]{6,16}" required/></span>
+                <span> <input type="text" class="input card_num" name="name" placeholder="请输入银行卡号" pattern="^\d{19}$" required/></span>
             </li>
             <li>
                 <span>预留手机</span>
-                <span><input type="text" class="input" name="name" placeholder="银行预留手机号" pattern="[0-9A-Za-z]{6,16}" required/></span>
+                <span><input type="text" class="input phone" name="name" placeholder="银行预留手机号" pattern="^1[3|4|5|7|8][0-9]{9}$" required/></span>
             </li>
-            <li>
+            <li >
                 <span>验证码</span>
-                <span><input type="text" style="border-right: 1px solid #BEBEBE;" class="input" name="name" placeholder="请输入短信验证码" pattern="[0-9A-Za-z]{6,16}" required/></span>
+                <span style="width: 45%;"><input type="text" style="border-right: 1px solid #BEBEBE;width:95%;" class="input auth_code" name="name" placeholder="请输入短信验证码" pattern="[0-9A-Za-z]{5}" required/></span>
                 <span>获取验证码</span>
             </li>
         </ul>
-        <div class="quit">
+        <div class="quit binding-affirm">
             <span>绑定</span>
         </div>
     </div>
@@ -211,18 +211,53 @@
             </li>
             <li>
                 <span>充值金额</span>
-                <span> <input type="text" class="input" name="name" placeholder="请输入充值金额" pattern="[0-9]{1,10}" required/></span>
+                <span> <input type="text" class="input recharge_val" name="recharge_val" placeholder="请输入充值金额" pattern="[0-9]{1,10}" required/></span>
             </li>
         </ul>
-        <div class="quit">
+        <div class="quit recharge-affirm">
             <span>充值</span>
         </div>
     </div>
 </div>
 {{--充值end--}}
+
+{{--提示框--}}
+<div class="hint">提示框调试</div>
+
+{{--我的投资项目页面--}}
+<div class="project">
+    <div class="title">
+        <span class="back back-account-main-project"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
+        <span>我的投资项目</span>
+    </div>
+    <div class="project-nav">
+        <ul>
+            <li class="project-nav-li project-nav-check">进行中</li>
+            <li class="project-nav-li">已结算</li>
+        </ul>
+    </div>
+</div>
+
 </body>
 <script src="/js/account.js"></script>
 <script>
+
+    $(function(){
+        var action = "{{$action}}";
+        var prior = "{{$prior}}";
+
+        if(action == 'recharge'){
+            open_recharge(prior);
+        }
+    })
+
+    $('.open-project').click(function(){
+        getinto('project');
+    })
+
+    $('.back-account-main-project').click(function(){
+        back('project');
+    })
 
     //我的账单页面
     $('.open-bill').click(function(){
@@ -246,11 +281,15 @@
                         var status = '提现';
                     }
 
-                    _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg[i].money)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg[i].time+'</span></li>'
+                    _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg[i].time+'</span></li>'
                 }
                 $('.bill-main ul').html(_html);
                 shadeHide();
                 getinto('bill');
+            },
+            error:function(msg){
+                shadeHide();
+                showHint('查询失败');
             }
         })
     })
@@ -260,7 +299,10 @@
 
     //充值页面
     $('.open-recharge').click(function(){
+        open_recharge();
+    })
 
+    function open_recharge(){
         shadeShow();
         $.ajax({
             type:'GET',
@@ -268,18 +310,22 @@
             dataType:'json',
             success:function(msg){
                 if(msg.code == 1){
-                    $('.bank_name').html(msg.data.bank_name);
+                    $('.bank_name').html(msg.data.bank_name).attr('bind_id',msg.data.bind_id);
                     shadeHide();
                     getinto('recharge')
                 }else{
+                    shadeHide();
                     getinto('binding')
                 }
 
+            },
+            error:function(msg){
+                shadeHide();
+                showHint('查询失败');
             }
         })
+    }
 
-
-    })
     $('.back-account-main-binding').click(function(){
         back('binding')
     })
@@ -294,16 +340,106 @@
             success:function(msg){
                 if(msg.code == 1){
                     $('.earnings').html(msg.data.earnings);
-                    $('.fund .balance').html(msg.data.balance);
+                    $('.fund .balance').html(msg.data.balance.toFixed(2));
                     shadeHide();
                     getinto('fund')
                 }else{
                     alert(no);
                 }
 
+            },
+            error:function(msg){
+                shadeHide();
+                showHint('查询失败');
             }
         })
 
+    })
+
+    //充值提交
+    $('.recharge-affirm').click(function(){
+        var recharge_val = $('.recharge_val').val();
+        var bind_id = $('bank_name').attr('bind_id');
+        if(recharge_val == '' || isNaN(recharge_val)){
+            showHint('请输入合法的充值金额')
+            return false;
+        }
+        shadeShow();
+        $.ajax({
+            type:'get',
+            url:"/recharge",
+            data:'recharge_val='+recharge_val+'&bind_id='+bind_id,
+            dataType:'json',
+            async:'false',
+            success:function(msg){
+                showHint('充值成功')
+                var prior = "{{$prior}}";
+                if(prior == ''){
+                    $('.property-val').html(Number($('.property-val').html())+Number(recharge_val))
+                    back('recharge')
+                    shadeHide();
+                }else{
+                    window.history.back(-1);
+                }
+
+            },
+            error:function(msg){
+                showHint('操作失败，请稍后再试')
+                shadeHide();
+            }
+        })
+    })
+
+    $('.binding-affirm').click(function(){
+
+        var card_num = $('.card_num').val();
+        var phone = $('.phone').val();
+        var auth_code = $('.auth_code').val();
+
+        var reg = /^\d{19}$/g;
+        if(!reg.test(card_num)){
+            showHint('请填写正确银行卡号')
+            return false
+        }
+
+        var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+        if(!reg.test(phone)){
+            showHint('请填写正确手机号')
+            return false
+        }
+
+        var reg = /^\d{5}$/;
+        if(!reg.test(auth_code)){
+            showHint('请填写正确验证码')
+            return false
+        }
+        shadeShow();
+        $.ajax({
+            type:'get',
+            url:"/binding",
+            data:'card_num='+card_num+'&phone='+phone+'&auth_code',
+            async:false,
+            dataType:'json',
+            success:function(msg){
+                if(msg.code == 1){
+                    var prior = "{{$prior}}";
+                    if(prior == ''){
+                        showHint('绑定成功')
+                        shadeHide()
+                    }else{
+                        window.history.back(-1);
+                    }
+
+                }else{
+                    showHint(msg.error)
+                    shadeHide()
+                }
+            },
+            error:function(msg){
+                showHint('请求超时，请检查网络')
+                shadeHide()
+            }
+        })
     })
 </script>
 </html>
