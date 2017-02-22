@@ -279,7 +279,7 @@
                     }else if(msg[i].status == 1){
                         var color = 'red';
                         var status = '提现';
-                    }else if(msg[i].status == 1){
+                    }else if(msg[i].status == 3){
                         var color = 'red';
                         var status = '投资';
                     }else{
