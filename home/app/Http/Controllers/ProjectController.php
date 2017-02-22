@@ -54,7 +54,7 @@ class ProjectController extends Controller
         DB::table('user')->where('user_id','=',$data['user_id'])->update(['money'=>$data['new_money']]);
         //添加投资历史清单
         $re= DB::table('finance_detailed')->insert(['user_id'=>$data['user_id'],'fin_id'=>$data['fin_id'],'money'=>$data['money'],'time'=>time()]);
-        DB::table('money_trend')->insert(['user_id'=>$data['user_id'],'money'=>$data['money'],'time'=>time(),'status'=>0]);
+        DB::table('money_trend')->insert(['user_id'=>$data['user_id'],'money'=>$data['money'],'time'=>time(),'status'=>3]);
         //返回状态码
         $msg=array();
         if($re){
