@@ -135,6 +135,30 @@ class AccountController extends Controller
         exit(json_encode($result));
     }
 
+    public function fetch(Request $request){
+        $result = ['code'=>0,'error'=>'']; //返回信息
+        $user_id = session('user_id');//模拟用户id
+
+        $fetch_val = $request->input('fetch_val');
+        $bind_id = $request->input('bind_id');
+
+        if(!empty($bind_id) && is_numeric($fetch_val)){
+            $userr_money = DB::table('user')->select('money')->where('user_id',$user_id)->first();
+            if($userr_money->money >= $fetch_val){
+                $re = DB::table('user')->where('user_id',$user_id)->decrement('money',$fetch_val);
+                $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$fetch_val,'status'=>1]);
+                $result['code'] = 1;
+                $result['error'] = 'OK';
+            }else{
+                $result['error'] = '余额不足';
+            }
+
+        }else{
+            $result['error'] = '充值失败';
+        }
+        exit(json_encode($result));
+    }
+
     /**
      * 绑定银行卡
      * @param Request $request

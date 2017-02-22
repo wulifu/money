@@ -55,7 +55,7 @@
                 <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
             </div>
         </li>
-        <li>
+        <li class="open-fetch">
             <div>
                 <span><i class="Hui-iconfont">&#xe63a;</i></span>
                 <span>提现</span>
@@ -222,9 +222,9 @@
 {{--充值end--}}
 
 {{--提现begin--}}
-<div class="recharge">
+<div class="fetch">
     <div class="title">
-        <span class="back back-account-main-recharge"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
+        <span class="back back-account-main-fetch"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
         <span>提现</span>
     </div>
     <div class="recharge-main">
@@ -235,12 +235,12 @@
                 <span> > </span>
             </li>
             <li>
-                <span>充值金额</span>
-                <span> <input type="text" class="input recharge_val" name="recharge_val" placeholder="请输入充值金额" pattern="[0-9]{1,10}" required/></span>
+                <span>提现金额</span>
+                <span> <input type="text" class="input fetch_val" name="recharge_val" placeholder="请输入提现金额" pattern="[0-9]{1,10}" required/></span>
             </li>
         </ul>
-        <div class="quit recharge-affirm">
-            <span>充值</span>
+        <div class="quit fetch-affirm">
+            <span>提现</span>
         </div>
     </div>
 </div>
@@ -330,10 +330,10 @@
 
     //充值页面
     $('.open-recharge').click(function(){
-        open_recharge();
+        open_recharge('recharge');
     })
 
-    function open_recharge(){
+    function open_recharge(action){
         shadeShow();
         $.ajax({
             type:'GET',
@@ -341,9 +341,9 @@
             dataType:'json',
             success:function(msg){
                 if(msg.code == 1){
-                    $('.bank_name').html(msg.data.bank_name).attr('bind_id',msg.data.bind_id);
+                    $('.bank_name').html(msg.data.bank_name+'（尾号'+msg.data.card_num+'）').attr('bind_id',msg.data.bind_id);
                     shadeHide();
-                    getinto('recharge')
+                    getinto(action)
                 }else if(msg.code == 0){
                     $('.binding_username').html(msg.data.username);
                     $('.binding_idcard').html(msg.data.idcard);

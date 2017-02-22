@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('getIsBinding','AccountController@getIsBinding');
 	Route::get('recharge','AccountController@recharge');
 	Route::get('binding','AccountController@binding');
+	Route::get('fetch','AccountController@fetch');
 
 
 });
