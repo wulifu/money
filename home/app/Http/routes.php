@@ -14,6 +14,7 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::any('index','IndexController@index');
 	Route::any('user_add','RegisterController@add'); //用户添加
 	Route::any('login','LoginController@index'); 	//验证用户登录
+	Route::any('sign_out','LoginController@signout'); //用户安全退出
 	Route::any('user_shiming','RegisterController@shiming'); //用户实名认证
 	Route::any('user_editpwd','RegisterController@editpwd'); //用户修改密码
 	Route::any('user_editpay','RegisterController@editpay'); //用户修改支付密码
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('getIsBinding','AccountController@getIsBinding');
 	Route::get('recharge','AccountController@recharge');
 	Route::get('binding','AccountController@binding');
+	Route::get('fetch','AccountController@fetch');
 
 
 

@@ -89,7 +89,7 @@
         </ul>
     </div>
     <div class="quit">
-        <span>安全退出</span>
+        <span class='sign_out'>安全退出</span>
     </div>
 </div>
 <p class='tsy'>提示层</p>
@@ -235,6 +235,16 @@ function shadeHide(){  //隐藏遮罩层
     $('.shade').hide();
 }
 
+/* 安全退出 */
+$('.sign_out').click(function(){
+    url = 'sign_out';
+    $.get(url,function(msg){
+        if(msg=='')
+        {
+            location.href='register';
+        }
+    });
+})
 
 /* 绑卡操作 */
 $('.bank_click').click(function(){
