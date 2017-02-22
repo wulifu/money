@@ -64,13 +64,19 @@ class MoneytrendController extends controller
             $where[] = ['between', 'money', $min_money, $max_money];
         }
 
-        /* 按条件查询 */
-        $list['data'] = $data->where($where)->asArray()->all();
+
         /* 统计数量 */
         $count = Money_trend::find()->where($where)->count();
         $list['count'] = $count;
         /* 生成分页 */
         $pagination = $this->actionGetpage(3,$count);
+
+        /* 按条件查询 */
+        $list['data'] = $data->where($where)
+                             ->offset($pagination->offset)
+                             ->limit($pagination->limit)
+                             ->asArray()
+                             ->all();
 
         /* 循环取用户名 */
         foreach ($list['data'] as $key => $val) {
@@ -80,7 +86,6 @@ class MoneytrendController extends controller
 
         /* 数据分页 */
     	$list['pagination'] = $pagination;
-
         /* 搜索默认值 */
         $list['username'] = $username;
         if($begin_time !='' && $over_time!='')
@@ -96,7 +101,6 @@ class MoneytrendController extends controller
 
         $list['min_money'] = $min_money;
         $list['max_money'] = $max_money;
-
     	return $this->render('index',$list);
     }  
 
@@ -171,18 +175,17 @@ class MoneytrendController extends controller
         $res = $info->delete();
         if($res)
         {
-            //adtion 0登陆 1添加 2修改 3删除 
-          //type 0用户 1操作
+              //adtion 0登陆 1添加 2修改 3删除 
+            //type 0用户 1操作
             $db = \Yii::$app->db->createCommand();
-          $log = array('admin' => Yii::$app->session['admin'], 
+            $log = array('admin' => \Yii::$app->session['admin'], 
                         'action' => 3, 
                         'type' => 1, 
                         'time' => strtotime(date('Y-m-d H:i:s')), 
                         'object' => 'id='.$id, 
                         'content' => '资金动向记录', 
-
-              );       
-          $db->insert('admin_log',$log)->execute();
+            );
+            $db->insert('admin_log',$log)->execute();
             echo 1;
         }
         else
@@ -206,7 +209,7 @@ class MoneytrendController extends controller
             $db = \Yii::$app->db->createCommand();
              //adtion 0登陆 1添加 2修改 3删除 
           //type 0用户 1操作
-          $log = array('admin' => Yii::$app->session['admin'], 
+          $log = array('admin' => \Yii::$app->session['admin'], 
                         'action' => 3, 
                         'type' => 1, 
                         'time' => strtotime(date('Y-m-d H:i:s')), 
