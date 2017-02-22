@@ -14,8 +14,8 @@ class LoginController extends Controller
    */
    public function index()
    {
-	$data =  Request::input();
-	/* 查询用户 */
+      	$data =  Request::input();
+      	/* 查询用户 */
         $user = new User();
         $info = $user->where('phone','=',$data['tell'])->get()->toArray();
         /* 判断密码 */
@@ -33,5 +33,13 @@ class LoginController extends Controller
         	$result = ['errCode'=>2,'msg'=>'密码输入错误'];
         	echo json_encode($result,JSON_UNESCAPED_UNICODE);
         }
+   }
+
+   /* 安全退出 */
+   public function signout()
+   {
+      session()->forget('user_id');
+      session()->forget('user');
+      echo session('user');
    }
 }

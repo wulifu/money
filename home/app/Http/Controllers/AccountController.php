@@ -38,6 +38,8 @@ class AccountController extends Controller
      */
     public function datum(){
         $user_id = session('user_id');
+        // echo $user_id;
+        // die;
         /* 查询用户信息 */
         $re = DB::table('user')->where('user_id',$user_id)->first();
         /* 查询用户绑卡信息 */
