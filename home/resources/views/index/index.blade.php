@@ -45,10 +45,10 @@ $(document).ready(function(){
             <a href="#" class="item"><img src="images/50.png"></a>
       </div>
         <div class="m_nav">
+        <a href="project"><img src="images/gus.png"><span>理财</span></a>
+            <a href="account?a=recharge"><img src="images/gdlc.png"><span>充值</span></a>
         	<a href="#"><img src="images/jy.png"><span>交易</span></a>
            <a href="#"><img src="images/dq.png"><span>排行</span></a>
-            <a href="#"><img src="images/gus.png"><span>固收</span></a>
-            <a href="#"><img src="images/gdlc.png"><span>高端理财</span></a>
             <a href="#"><img src="images/gs.png"><span>基金公司</span></a>
             <a href="#"><img src="images/qd.png"><span>有奖签到</span></a>
             <a href="#"><img src="images/zhinan.png"><span>新手指南</span></a>
