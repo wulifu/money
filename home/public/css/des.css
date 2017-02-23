@@ -120,14 +120,20 @@ body{
    background-color: white;
 }
 .x_title{
+    float: left;
+    display: block;
     height: 40px;
-    width: 35%;
-    text-align:center;
+    width: 15%;
+    text-indent: 1em;
     line-height: 40px;
     font-family: "微软雅黑";
 }
 .x_min{
+    color: #d3d3d3;
+    float: left;
+    display: block;
     width: 50%;
+    line-height: 40px;
     margin-right: 10%;
     font-size: 13px;
     font-family: "微软雅黑";
@@ -148,6 +154,8 @@ body{
     font-family: "微软雅黑";
 }
 .text{
+    margin-left: 2%;
+    text-indent: 1em;
     width: 60%;
     height: 30px;
     line-height: 30px;

@@ -36,28 +36,36 @@
                 进行中
               @elseif($val->status==0)
                 已完成
+              @elseif($val->status==2)
+                返款中
               @endif
             </span>
             <span class="data title" >投资状态</span>
         </span>
         <span class="base_info" style="border: 0">
-            <span class="data font">{{$val->money}}</span>
-            <span class="data title">投资金额</span>
+            <span class="data font">{{$val->money - $money}}</span>
+            <span class="data title">剩余金额</span>
         </span>
     </div>
 </div>
 {{--介绍项目--}}
 <div class="box">
       <div class="xiangxi"><span class="x_title">投资说明</span> <span class="x_min">{{$val->investment_dsc}}</span></div>
-      <div class="xiangxi"><span class="x_title">用户余额</span> <span class="x_min">{{$last_money}}</span>
-               <a href="account?a=recharge" class="button">充值</a></div>
-
+      <div class="xiangxi"><span class="x_title">用户余额</span>
+          @if($last_money>100)
+          <span class="x_min" style="color: green">{{$last_money}}</span>
+          @else
+              <span class="x_min" style="color: red">{{$last_money}}</span>
+          @endif
+              <a href="account?a=recharge" class="button">充值</a></div>
     <div class="xiangxi">
         <input type="text" placeholder="请输入投资金额" class="text">
         @if($val->status==1)
         <a href="javascript:void (0)" class="but buts" >立即投资</a>
         @elseif($val->status==0)
         <a href="javascript:void (0)" class="but" style="background-color: grey">募捐完成</a>
+        @elseif($val->status==2)
+        <a href="javascript:void (0)" class="but" style="background-color: grey">返款中</a>
         @endif
     </div>
     <a href="javascript:void (0)" class="a"><span class="fonts">点击查看更多信息</span></a>
@@ -124,7 +132,7 @@
                 <div class="se">
                     <span class="man_2">{{$phone[$key]}}</span>
                     <span class="man_2">{{$value->money}}</span>
-                    <span class="man_3" style="text-align: left;">{{date('Y.m.d H:i:s',$value->time)}}</span>
+                    <span class="man_3" style="text-align: left;">{{date('Y.m.d H:i:s',$value->time+8*3600)}}</span>
                 </div>
                 @endforeach
             </div>
@@ -250,7 +258,7 @@
     })
     $(".buts").click(function(){
         var text=$(".text").val();
-        if(text>100){
+        if(text>=100){
             $(".t_je_s").html(text)
             $('.box').hide();
             $('.datails').hide();

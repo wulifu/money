@@ -53,7 +53,7 @@
                     <div class="title"><a href="details?fin_id={{$val->fin_id}}">{{$val->pro_name}}</a></div>
                     <div class="cent">
                         <div class="data"><span class="trem">{{$val->yield}}%</span><span class="font">{{$val->term}}天</span><span  class="font">{{$val->money}}</span></div>
-                        <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >剩余金额</span></div>
+                        <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
                     </div>
                 </div>
             </li>

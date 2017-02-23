@@ -183,11 +183,12 @@ class ProjectController extends Controller
      */
     public function actionUpdate(){
         $fin_id=yii::$app->request->get('fin_id');
-        $res=yii::$app->db->createCommand()->update('finance_project',['status'=>0],"fin_id='$fin_id'")->execute();
+        $res=yii::$app->db->createCommand()->update('finance_project',['status'=>2],"fin_id='$fin_id'")->execute();
+             yii::$app->db->createCommand()->update('finance_detailed',['status'=>2],"fin_id='$fin_id'")->execute();
         if($res){
-                   //adtion 0登陆 1添加 2修改 3删除 
+          //adtion 0登陆 1添加 2修改 3删除
           //type 0用户 1操作
-            $db = \Yii::$app->db->createCommand();
+          $db = \Yii::$app->db->createCommand();
           $log = array('admin' => Yii::$app->session['admin'], 
                         'action' => 2, 
                         'type' => 1, 
