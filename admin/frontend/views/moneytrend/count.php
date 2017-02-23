@@ -65,18 +65,6 @@
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
-
-
-            
-              
-              document.getElementById('LAY_demorange_s').onclick = function(){
-                start.elem = this;
-                laydate(start);
-              }
-              document.getElementById('LAY_demorange_e').onclick = function(){
-                end.elem = this
-                laydate(end);
-              }
               
             });
 
