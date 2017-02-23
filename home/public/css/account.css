@@ -380,11 +380,10 @@ body{
 }
 
 /*充值*/
-.recharge{
+.recharge,.fetch{
     display: none;
 }
 .recharge-main{
-
     width: 100%;
     margin-top: 50px;
     position: absolute;

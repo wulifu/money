@@ -168,35 +168,6 @@ use yii\widgets\LinkPager;
               lement = layui.element();//面包导航
               laypage = layui.laypage;//分页
               layer = layui.layer;//弹出层
-
-              var start = {
-                min: laydate.now()
-                ,max: '2099-06-16 23:59:59'
-                ,istoday: false
-                ,choose: function(datas){
-                  end.min = datas; //开始日选好后，重置结束日的最小日期
-                  end.start = datas //将结束日的初始值设定为开始日
-                }
-              };
-              
-              var end = {
-                min: laydate.now()
-                ,max: '2099-06-16 23:59:59'
-                ,istoday: false
-                ,choose: function(datas){
-                  start.max = datas; //结束日选好后，重置开始日的最大日期
-                }
-              };
-              
-              document.getElementById('LAY_demorange_s').onclick = function(){
-                start.elem = this;
-                laydate(start);
-              }
-              document.getElementById('LAY_demorange_e').onclick = function(){
-                end.elem = this
-                laydate(end);
-              }
-              
             });
 
             layui.use(['element','layer','form'], function(){
@@ -204,8 +175,6 @@ use yii\widgets\LinkPager;
               lement = layui.element();//面包导航
               layer = layui.layer;//弹出层
               form = layui.form();
-
-
             })
 
             //批量删除提交
@@ -243,7 +212,7 @@ use yii\widgets\LinkPager;
             function member_del(obj,id){
                 layer.confirm('确认要删除吗？',function(index){
                     url = '?r=moneytrend/del';
-                    $.get(url,{id:index},function(msg){
+                    $.get(url,{id:id},function(msg){
                         if(msg==1)
                         {
                             //发异步删除数据

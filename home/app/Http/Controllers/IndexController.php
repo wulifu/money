@@ -17,4 +17,5 @@ class IndexController extends Controller
     	$pros = DB::table('finance_project')->paginate(4);
         return view('index.index', ['pros' => $pros]);
     }
+   
 }

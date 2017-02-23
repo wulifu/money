@@ -43,7 +43,7 @@ class AccountController extends Controller
         /* 查询用户信息 */
         $re = DB::table('user')->where('user_id',$user_id)->first();
         /* 查询用户绑卡信息 */
-        $res = DB::table('binding')->where('user_id',$user_id)->get();
+        $res = DB::table('binging')->where('user_id',$user_id)->get();
         return view('account.datum',['info'=>$re,'show'=>$res]);
     }
 
@@ -86,11 +86,12 @@ class AccountController extends Controller
 
     /**
      *  验证是否绑定银行卡或返回绑定信息
+     * @return ['code'=>0:未绑定银行卡,1:可充值,2:未实名认证,'error'=>'错误信息','data'=>'用户信息']
      */
     public function getIsBinding(){
 
         $result = ['code'=>0,'error'=>'']; //返回信息
-        $user_id = session('user_id');//模拟用户id
+        $user_id = session('user_id');//用户id
 
         $binding = DB::table('binding')->where('user_id',$user_id)->first();
         if($binding){
@@ -99,7 +100,14 @@ class AccountController extends Controller
             $result['error'] = 'OK';
             $result['data'] = ['bank_name'=>$bank->bank_name,'bind_id'=>$binding->bind_id,'card_num'=>substr($binding->card_num,-4)];
         }else{
-            $result['error'] = '未绑定银行卡';
+            $user_re = DB::table('user')->select('idcard','username')->where('user_id',$user_id)->first();
+            if(empty($user_re->username) || empty($user_re->idcard)){
+                $result['code'] = 2;
+                $result['error'] = '请先前去个人中心实名认证';
+            }else{
+                $result['error'] = '未绑定银行卡';
+                $result['data'] = ['username'=>$user_re->username,'idcard'=>substr($user_re->idcard,0,6).'******'.substr($user_re->idcard,-4)];
+            }
         }
         exit(json_encode($result));
     }
@@ -121,6 +129,30 @@ class AccountController extends Controller
             $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$recharge_val,'status'=>0]);
             $result['code'] = 1;
             $result['error'] = 'OK';
+        }else{
+            $result['error'] = '充值失败';
+        }
+        exit(json_encode($result));
+    }
+
+    public function fetch(Request $request){
+        $result = ['code'=>0,'error'=>'']; //返回信息
+        $user_id = session('user_id');//模拟用户id
+
+        $fetch_val = $request->input('fetch_val');
+        $bind_id = $request->input('bind_id');
+
+        if(!empty($bind_id) && is_numeric($fetch_val)){
+            $userr_money = DB::table('user')->select('money')->where('user_id',$user_id)->first();
+            if($userr_money->money >= $fetch_val){
+                $re = DB::table('user')->where('user_id',$user_id)->decrement('money',$fetch_val);
+                $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$fetch_val,'status'=>1]);
+                $result['code'] = 1;
+                $result['error'] = 'OK';
+            }else{
+                $result['error'] = '余额不足';
+            }
+
         }else{
             $result['error'] = '充值失败';
         }

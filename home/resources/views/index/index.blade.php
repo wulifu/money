@@ -10,7 +10,6 @@
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
-
 <script src="layer/layer.js"></script>
 
 <script type="text/javascript">
@@ -74,6 +73,8 @@ $(document).ready(function(){
     </div>
   </div>
 
+  </div>
+  
    <div class="m_user w">
    
       <a href="register">登录</a>

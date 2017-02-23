@@ -55,7 +55,7 @@
                 <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
             </div>
         </li>
-        <li>
+        <li class="open-fetch">
             <div>
                 <span><i class="Hui-iconfont">&#xe63a;</i></span>
                 <span>提现</span>
@@ -122,11 +122,11 @@
         <ul>
             <li style="border-top:none">
                 <span>姓名</span>
-                <span>胖子</span>
+                <span class="binding_username">胖子</span>
             </li>
             <li>
                 <span>身份证号</span>
-                <span>142625*****</span>
+                <span class="binding_idcard">142625*****</span>
             </li>
         </ul>
         <span class="binding-msg">银行卡信息</span>
@@ -221,6 +221,31 @@
 </div>
 {{--充值end--}}
 
+{{--提现begin--}}
+<div class="fetch">
+    <div class="title">
+        <span class="back back-account-main-fetch"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
+        <span>提现</span>
+    </div>
+    <div class="recharge-main">
+        <ul>
+            <li style="border-top:none">
+                <span><i class="Hui-iconfont">&#xe6a7;</i></span>
+                <span class="bank_name">中国工商银行</span>
+                <span> > </span>
+            </li>
+            <li>
+                <span>提现金额</span>
+                <span> <input type="text" class="input fetch_val" name="recharge_val" placeholder="请输入提现金额" pattern="[0-9]{1,10}" required/></span>
+            </li>
+        </ul>
+        <div class="quit fetch-affirm">
+            <span>提现</span>
+        </div>
+    </div>
+</div>
+{{--提现end--}}
+
 {{--提示框--}}
 <div class="hint">提示框调试</div>
 
@@ -305,10 +330,10 @@
 
     //充值页面
     $('.open-recharge').click(function(){
-        open_recharge();
+        open_recharge('recharge');
     })
 
-    function open_recharge(){
+    function open_recharge(action){
         shadeShow();
         $.ajax({
             type:'GET',
@@ -316,12 +341,17 @@
             dataType:'json',
             success:function(msg){
                 if(msg.code == 1){
-                    $('.bank_name').html(msg.data.bank_name).attr('bind_id',msg.data.bind_id);
+                    $('.bank_name').html(msg.data.bank_name+'（尾号'+msg.data.card_num+'）').attr('bind_id',msg.data.bind_id);
                     shadeHide();
-                    getinto('recharge')
-                }else{
+                    getinto(action)
+                }else if(msg.code == 0){
+                    $('.binding_username').html(msg.data.username);
+                    $('.binding_idcard').html(msg.data.idcard);
                     shadeHide();
                     getinto('binding')
+                }else{
+                    shadeHide();
+                    showHint(msg.error);
                 }
 
             },
@@ -389,7 +419,8 @@
                     back('recharge')
                     shadeHide();
                 }else{
-                    window.history.back(-1);
+                    location.href=prior;
+
                 }
 
             },
@@ -435,9 +466,10 @@
                     var prior = "{{$prior}}";
                     if(prior == ''){
                         showHint('绑定成功')
-                        shadeHide()
+                        location.replace(document.referrer);
+                        //shadeHide()
                     }else{
-                        window.history.back(-1);
+                        location.href=prior;
                     }
 
                 }else{

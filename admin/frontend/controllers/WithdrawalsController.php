@@ -94,11 +94,20 @@ class WithdrawalsController extends controller
     {
         $request = \Yii::$app->request;
         $id = $request->get('id');
+        $user_id = $request->get('user_id');
         $info = Withdrawals::find()->where(['w_id'=>$id])->one();
         $info->status = 1;
         $res = $info->save();
         if($res){
             echo 1;
+            /* 入库资金动向 */
+            $db = \Yii::$app->db->createCommand();
+            $arr = array('user_id' => $user_id,
+                        'money' => $info['money'], 
+                        'time' => time(), 
+                        'status' => '1', 
+            );
+            $db->insert('money_trend',$arr)->execute();
         }else{
             echo 0;
         }
@@ -110,6 +119,7 @@ class WithdrawalsController extends controller
     {
         $request = \Yii::$app->request;
         $list['id'] = $request->get('id');
+        $list['user_id'] = $request->get('user_id');
         return $this->render('edit',$list);
     }
 
@@ -121,12 +131,16 @@ class WithdrawalsController extends controller
         $data = $request->get();
         $content = $data['content'];
         $id = $data['id'];
+        $user_id = $data['user_id'];
         $info = Withdrawals::find()->where(['w_id'=>$id])->one();
         $info->msg = $content;
         $info->status = 2;
         $res = $info->save();
         if($res)
         {
+            $result = User::find()->where(['user_id'=>$user_id])->one();
+            $result->money = $info['money'] + $result['money'];
+            $result->save();
             echo 1;
         }
         else
