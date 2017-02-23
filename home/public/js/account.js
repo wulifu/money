@@ -53,6 +53,46 @@ $('.back-account-main-recharge').click(function(){
     back('recharge')   //关闭总资产页面
 })
 
+$('.open-fetch').click(function(){
+    open_recharge('fetch');
+    //getinto('fetch');
+})
 
+$('.fetch-affirm').click(function(){
+    var fetch_val = $('.fetch_val').val();
+    var bind_id = $('bank_name').attr('bind_id');
+    if(fetch_val == '' || isNaN(fetch_val) || fetch_val < 1){
+        showHint('请输入合法的提现金额')
+        return false;
+    }
+    if(fetch_val > 10000){
+        showHint('单笔金额不得超过10000元')
+        return false;
+    }
+    shadeShow();
+    $.ajax({
+        type: 'get',
+        url: "/fetch",
+        data: 'fetch_val=' + fetch_val + '&bind_id=' + bind_id,
+        dataType: 'json',
+        async: 'false',
+        success:function(msg){
+            if(msg.code == 1){
+                showHint('提现金额将在2小时内到账')
+                $('.property-val').html(Number($('.property-val').html())-Number(fetch_val))
+                back('fetch')
+                shadeHide();
+            }else{
+                showHint(msg.error);
+                shadeHide();
+            }
+        },
+        error:function(msg){
+            showHint('操作失败，请稍后再试')
+            shadeHide();
+        }
+    })
+
+})
 
 

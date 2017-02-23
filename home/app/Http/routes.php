@@ -5,7 +5,7 @@ Route::any('registers','RegisterController@register'); //注册页面二
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
 Route::any('backpwd','RegisterController@backpassword'); // 重置密码页面
 Route::any('user_updatepwd','RegisterController@updatepwd'); //用户忘记密码
-
+Route::any('hot','HotController@hot');
 
 Route::group(['middleware' => ['web','common']], function () {
 
@@ -30,6 +30,8 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('getIsBinding','AccountController@getIsBinding');
 	Route::get('recharge','AccountController@recharge');
 	Route::get('binding','AccountController@binding');
+	Route::get('fetch','AccountController@fetch');
+
 
 
 });

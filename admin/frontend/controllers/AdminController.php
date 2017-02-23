@@ -84,8 +84,6 @@ class AdminController extends CommonController
 
               );       
           $db->insert('admin_log',$log)->execute();
-
-
           $this->message('新建成功','?r=admin/index',1,1);
         }
     }
