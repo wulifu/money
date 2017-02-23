@@ -15,8 +15,7 @@ class IndexController extends Controller
 {
     public function index(){
     	$pros = DB::table('finance_project')->paginate(4);
-    	$news = DB::table('news')->paginate(8);
-        return view('index.index', ['pros' => $pros],['news' => $news]);
+        return view('index.index', ['pros' => $pros]);
     }
    
 }

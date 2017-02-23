@@ -72,29 +72,7 @@ $(document).ready(function(){
      @endforeach
     </div>
   </div>
-  <div class="m_mall w" style="margin-top: -41px; ">
-    <div class="mall_title"><span>热点关注</span><em></div>
-      <div class="memu">
-    <ul>
-        @foreach ($news as $new)
-        <li class="open-bill">
-            <div>
-                <span><i class="Hui-iconfont">&#xe627;</i></span>
-                <span style="color: #8B2323;">  <?php
-                        echo mb_substr($new->title,0,14,'utf-8'); 
-                           ?>
-                             ……
-                           </span>
-                <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
-            </div>
-        </li>
-         @endforeach
-        </ul>
-        </div>
-   
-   
-   
-    </div>
+
   </div>
   
    <div class="m_user w">
