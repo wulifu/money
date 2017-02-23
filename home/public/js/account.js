@@ -78,7 +78,7 @@ $('.fetch-affirm').click(function(){
         async: 'false',
         success:function(msg){
             if(msg.code == 1){
-                showHint('提现金额将在2小时内到账')
+                showHint('提现已提交至审核')
                 $('.property-val').html(Number($('.property-val').html())-Number(fetch_val))
                 back('fetch')
                 shadeHide();
@@ -93,6 +93,10 @@ $('.fetch-affirm').click(function(){
         }
     })
 
+})
+
+$('.back-account-main-fetch').click(function(){
+    back('fetch');
 })
 
 

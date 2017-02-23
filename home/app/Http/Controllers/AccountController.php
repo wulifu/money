@@ -135,6 +135,10 @@ class AccountController extends Controller
         exit(json_encode($result));
     }
 
+    /**
+     * 提现
+     * @param Request $request
+     */
     public function fetch(Request $request){
         $result = ['code'=>0,'error'=>'']; //返回信息
         $user_id = session('user_id');//模拟用户id
@@ -146,7 +150,7 @@ class AccountController extends Controller
             $userr_money = DB::table('user')->select('money')->where('user_id',$user_id)->first();
             if($userr_money->money >= $fetch_val){
                 $re = DB::table('user')->where('user_id',$user_id)->decrement('money',$fetch_val);
-                $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$fetch_val,'status'=>1]);
+                $res = DB::table('withdrawals')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$fetch_val,'band_id'=>$bind_id]);
                 $result['code'] = 1;
                 $result['error'] = 'OK';
             }else{

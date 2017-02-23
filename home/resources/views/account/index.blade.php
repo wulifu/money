@@ -27,11 +27,11 @@
     </div>
     <div class="property">
         <div style="border-right: 1px solid #F75000" class="open-property">
-            <span class="property-val">{{$user->money}}</span>
+            <span class="property-val">{{round($user->money,2)}}</span>
             <span>总资产 ></span>
         </div>
         <div>
-            <span>{{$earnings}}</span>
+            <span>{{round($earnings,2)}}</span>
             <span>累计总收益</span>
         </div>
     </div>
@@ -106,6 +106,9 @@
                 <span>收益</span>
                 <span>2017-02-15</span>
             </li>
+        </ul>
+        <ul class="bill-more">
+            <li>查看更多</li>
         </ul>
     </div>
 </div>
@@ -314,7 +317,7 @@
 
                     _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg[i].time+'</span></li>'
                 }
-                $('.bill-main ul').html(_html);
+                $('.bill-main ul:first').html(_html);
                 shadeHide();
                 getinto('bill');
             },
@@ -335,6 +338,7 @@
 
     function open_recharge(action){
         shadeShow();
+        var prior = "{{$prior}}";
         $.ajax({
             type:'GET',
             url:"{{ action('AccountController@getIsBinding') }}",
@@ -343,7 +347,12 @@
                 if(msg.code == 1){
                     $('.bank_name').html(msg.data.bank_name+'（尾号'+msg.data.card_num+'）').attr('bind_id',msg.data.bind_id);
                     shadeHide();
-                    getinto(action)
+                    if(prior != ''){
+                        getinto('recharge')
+                    }else{
+                        getinto(action)
+                    }
+
                 }else if(msg.code == 0){
                     $('.binding_username').html(msg.data.username);
                     $('.binding_idcard').html(msg.data.idcard);

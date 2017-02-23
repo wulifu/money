@@ -202,7 +202,7 @@ body{
     width: auto;
     height: 50px;
     line-height: 50px;
-    border-top: 1px solid #ccc;
+    border-bottom : 1px solid #ccc;
     font-family: "微软雅黑";
     font-size: 12px;
     position: relative;
@@ -242,7 +242,11 @@ body{
     bottom: 0;
 }
 
-
+.bill-more li{
+    border: none;
+    text-align: center;
+    color: #A9A9A9;
+}
 
 
 /*遮罩层*/
