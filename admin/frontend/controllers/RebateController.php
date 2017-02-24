@@ -83,6 +83,7 @@ class RebateController extends Controller
                 }
                 //修改状态2
                 yii::$app->db->createCommand()->update('finance_detailed',['status'=>0],"status='2'")->execute();
+                yii::$app->db->createCommand()->update('finance_project',['status'=>2],"status='2'")->execute();
             }
         }
     }
