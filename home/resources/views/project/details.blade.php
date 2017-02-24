@@ -53,9 +53,9 @@
       <div class="xiangxi"><span class="x_title">投资说明</span> <span class="x_min">{{$val->investment_dsc}}</span></div>
       <div class="xiangxi"><span class="x_title">用户余额</span>
           @if($last_money>100)
-          <span class="x_min" style="color: green">{{$last_money}}</span>
+          <span class="x_min" style="color: green; width:30%">{{$last_money}}</span>
           @else
-              <span class="x_min" style="color: red">{{$last_money}}</span>
+              <span class="x_min" style="color: red; width:30%">{{$last_money}}</span>
           @endif
               <a href="account?a=recharge" class="button">充值</a></div>
     <div class="xiangxi">
