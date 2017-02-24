@@ -234,7 +234,7 @@
         <ul>
             <li style="border-top:none">
                 <span><i class="Hui-iconfont">&#xe6a7;</i></span>
-                <span class="bank_name">中国工商银行</span>
+                <span class="bank_name fetch_band_id">中国工商银行</span>
                 <span> > </span>
             </li>
             <li>
@@ -264,6 +264,42 @@
             <li class="project-nav-li">已结算</li>
         </ul>
     </div>
+    <div class="project-achieve">
+        <div style="margin-top: 0px" id="wrapper">
+            <ul class="uls">
+                <li class="li">
+                    <div class="project_">
+                        <div class="project-title">
+                            <a href="details?fin_id=1">天使基金</a>
+                            <span>我的投资金额：200 元</span>
+                        </div>
+                        <div class="cent">
+                            <div class="data"><span class="trem">5%</span><span class="font">20天</span><span  class="font">100</span></div>
+                            <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="project_">
+                        <div class="project-title"><a href="details?fin_id=1">天使基金</a></div>
+                        <div class="cent">
+                            <div class="data"><span class="trem">5%</span><span class="font">20天</span><span  class="font">100</span></div>
+                            <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="li">
+                    <div class="project_">
+                        <div class="project-title"><a href="details?fin_id=1">天使基金</a></div>
+                        <div class="cent">
+                            <div class="data"><span class="trem">5%</span><span class="font">20天</span><span  class="font">100</span></div>
+                            <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 </body>
@@ -279,13 +315,7 @@
         }
     })
 
-    $('.open-project').click(function(){
-        getinto('project');
-    })
 
-    $('.back-account-main-project').click(function(){
-        back('project');
-    })
 
     //我的账单页面
     $('.open-bill').click(function(){

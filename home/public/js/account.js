@@ -60,7 +60,7 @@ $('.open-fetch').click(function(){
 
 $('.fetch-affirm').click(function(){
     var fetch_val = $('.fetch_val').val();
-    var bind_id = $('bank_name').attr('bind_id');
+    var bind_id = $('fetch_band_id').attr('bind_id');
     if(fetch_val == '' || isNaN(fetch_val) || fetch_val < 1){
         showHint('请输入合法的提现金额')
         return false;
@@ -96,11 +96,45 @@ $('.fetch-affirm').click(function(){
 })
 
 $('.back-account-main-fetch').click(function(){
-    back('fetch');
+    back('fetch');   //关闭提现页面
 })
 
 $('.not').click(function(){
     showHint('此功能还未开放 敬请期待')
+})
+
+/*打开我的投资项目页面*/
+$('.open-project').click(function(){
+    shadeShow();
+    $.ajax({
+        type:'get',
+        url:'myProject',
+        dataType:'json',
+        success:function(msg){
+            if(msg.code == 1){
+                var _html = '';
+                for( var i in msg.data){
+                    _html += '<li class="li"><div class="project_"><div class="project-title"><a href="details?fin_id='+msg.data[i].fin_id+'">'+msg.data[i].pro_name+'</a><span>我的投资金额：'+msg.data[i].money_sum+' 元</span></div><div class="cent"><div class="data"><span class="trem">'+msg.data[i].yield+'%</span><span class="font">'+msg.data[i].term+'天</span><span  class="font">'+msg.data[i].money+'</span></div><div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div></div></div></li>';
+                }
+                $('.project-achieve ul').html(_html);
+                getinto('project');
+                shadeHide();
+            }else{
+                shadeHide();
+                showHint(msg.error);
+            }
+        },
+        error:function(){
+            showHint('查询失败');
+            shadeHide();
+        }
+    })
+
+
+})
+
+$('.back-account-main-project').click(function(){
+    back('project');
 })
 
 

@@ -3,6 +3,15 @@ body{
     font-family: "微软雅黑";
     /*position: relative;*/
 }
+
+
+/*主页*/
+.account-main{
+    margin-bottom: 50px;
+}
+
+
+
 /*我的账户 顶部*/
 .top{
     width: 100%;
@@ -458,8 +467,101 @@ body{
 }
 
 
+/*我的投资项目列表*/
+#wrapper {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    max-width:640px;
+}
+.project_{
+    border-top: solid 3px #E8E8D0;
+    background: #FFFFFF;
+    width: 100%;
+    max-width: 640px;
+    height: 120px;
+}
+.project-title{
+    text-indent: 2em;
+    border-bottom: #F0F0F0 1px solid;
 
-/*主页*/
-.account-main{
-    margin-bottom: 50px;
+    /*background: #FFED97;*/
+    width: 100%;
+    max-width: 640px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+}
+.project-title a{
+    font-weight: bold;
+    font-family: "微软雅黑 Light";
+    font-size: 18px;
+    text-align: left;
+}
+.project-title span{
+    position: absolute;
+    right: 20px;
+    font-size: 14px;
+    color:#FFA042;
+}
+
+a{color:black}
+.cent{
+    width: 100%;
+    max-width: 640px;
+    height: 80px;
+}
+.data{
+    width: 100%;
+    max-width: 640px;
+    height: 40px;
+    line-height: 40px;
+}
+.trem{
+    /*text-indent: 2em;*/
+    float: left;
+    width: 30%;
+    height: 40px;
+    display: block;
+    font-size: 18px;
+    color: #F75000;
+    text-align: left;
+}
+.font{
+    float: left;
+    width: 35%;
+    height: 40px;
+    display: block;
+    font-size: 16px;
+}
+.name{
+    width: 100%;
+    max-width: 640px;
+    height: 40px;
+    line-height: 40px;
+}
+.lv{
+    /*text-indent: 0.5em;*/
+    float: left;
+    width: 30%;
+    height: 40px;
+    display: block;
+    color: #9D9D9D;
+    font-size: 13px;
+    text-align: left;
+    /*margin-right: 5%;*/
+}
+.nv{
+    float: left;
+    width: 35%;
+    height: 40px;
+    display: block;
+    color: #9D9D9D;
+    font-size: 13px;
+    text-align: center;
+}
+
+.data span,.name span{
+    text-align: center;
 }
