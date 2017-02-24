@@ -63,6 +63,11 @@
     </ul>
 
 </div>
+<div class="shade msg" style="background-color:transparent;">
+    <div class="shade_text">
+        <p class="p" style="color: white; text-align: center">已经到底了!!</p>
+    </div>
+</div>
 </body>
 <script>
     var i=2;
@@ -82,7 +87,11 @@
                 jie.append($("#child"+i).load(url+" .uls"));
                 i++;
             }else{
-                alert("已经到底部了!!");
+                $('.msg').show();
+                function img(){
+                    $('.msg').hide();
+                }
+                setInterval(img,3000)
             }
             wrapper.refresh();
         }, 3000);
