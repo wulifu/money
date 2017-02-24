@@ -256,7 +256,12 @@ body{
     text-align: center;
     color: #A9A9A9;
 }
-
+.quan{
+    display: none;
+    margin-left: 50%;
+    margin-top: 25px;
+    position: relative;
+}
 
 /*遮罩层*/
 .shade{
@@ -279,6 +284,7 @@ body{
 /*提示框*/
 .hint{
     width: 60%;
+    max-width: 384px;
     height:30px;
     text-align: center;
     line-height: 30px;
@@ -288,7 +294,7 @@ body{
     font-size: 14px;
     font-family: "微软雅黑";
     border-radius: 10px;
-    position: absolute;
+    position: fixed;
     top: 60%;
     left:20%;
     display: none;
