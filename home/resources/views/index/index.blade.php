@@ -39,9 +39,9 @@ $(document).ready(function(){
     </div>
 	<div class="top w">
    	<div class="m_banner" id="owl">
-            <a href="#" class="item"><img src="images/10250290397.png"></a>
-            <a href="#" class="item"><img src="images/10225357963.jpg"></a>
-            <a href="#" class="item"><img src="images/50.png"></a>
+            <a href="#" class="item"><img src="images/123.jpg"></a>
+            <a href="#" class="item"><img src="images/888.jpg"></a>
+            <a href="#" class="item"><img src="images/50.jpg"></a>
       </div>
         <div class="m_nav">
         <a href="project"><img src="images/gus.png"><span>理财</span></a>
