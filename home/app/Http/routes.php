@@ -23,6 +23,7 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('project','ProjectController@index');
 	Route::get('details','ProjectController@details');
 	Route::get('payment','ProjectController@payment');
+	Route::any('money_true','ProjectController@money_true');
 	Route::get('account','AccountController@index');
 	Route::get('getProperty','AccountController@getProperty');
 	Route::get('getBill','AccountController@getBill');
