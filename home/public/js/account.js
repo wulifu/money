@@ -36,6 +36,13 @@ function showHint(msg){
     var t = setTimeout("$('.hint').fadeOut(1000)",3000);
 }
 
+$(function(){
+    if(window.screen.width > document.body.scrollWidth){
+        $('.hint').css('left',(window.screen.width-384)/2)
+    }
+
+})
+
 /**
  * 时间戳转日期格式
  * @param nS
@@ -130,11 +137,83 @@ $('.open-project').click(function(){
         }
     })
 
-
 })
 
 $('.back-account-main-project').click(function(){
-    back('project');
+    back('project');   //关闭我的投资项目列表
+
+    $('.achieve').addClass('project-nav-check').siblings().removeClass('project-nav-check');
+    $('.over').attr('isclick',0);
+    $('.project-over').hide();
+    $('.project-achieve').show();
 })
+//我的投资项目tab切换
+$('.over').click(function(){
+    $(this).addClass('project-nav-check').siblings().removeClass('project-nav-check');
+    $('.project-achieve').hide();
+    if($(this).attr('isclick') == 0){
+        shadeShow();
+        $.ajax({
+            type:'get',
+            url:'myProject?type=1',
+            dataType:'json',
+            success:function(msg){
+                if(msg.code == 1){
+                    if(msg.data == ''){
+                        showHint('暂无数据');
+                        shadeHide();
+                    }else{
+                        var _html = '';
+                        for( var i in msg.data){
+                            _html += '<li class="li"><div class="project_"><div class="project-title"><a href="details?fin_id='+msg.data[i].fin_id+'">'+msg.data[i].pro_name+'</a><span>我的投资金额：'+msg.data[i].money_sum.toFixed(2)+' 元 &nbsp; 我的收益：'+msg.data[i].profit_sum.toFixed(2)+'</span></div><div class="cent"><div class="data"><span class="trem">'+msg.data[i].yield+'%</span><span class="font">'+msg.data[i].term+'天</span><span  class="font">'+msg.data[i].money+'</span></div><div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div></div></div></li>';
+                        }
+                        $('.project-over ul').html(_html);
+                        //getinto('project');
+                        shadeHide();
+                    }
+                }else{
+                    shadeHide();
+                    showHint(msg.error);
+                }
+            },
+            error:function(){
+                showHint('查询失败');
+                shadeHide();
+            }
+        })
+        $(this).attr('isclick',1)
+    }else{
+        $('.project-over').show();
+        $('.project-achieve').hide();
+    }
+
+})
+//我的投资项目tab切换
+$('.achieve').click(function(){
+    $(this).addClass('project-nav-check').siblings().removeClass('project-nav-check');
+    $('.project-over').hide();
+    $('.project-achieve').show();
+})
+
+function smallLoadingIcon(ele) { //小的loading图标
+    var spinner = new Spinner({
+        lines: 12,
+        length: 5,
+        width: 2,
+        radius: 4,
+        color: '#333',
+        speed: 1,
+        trail: 50,
+        shadow: false,
+        hwaccel: false,
+        className: 'spinner',
+        top: 0,
+        left: 0
+    });
+    var target = $(ele+' .spin')[0];
+    spinner.spin(target);
+    return spinner;
+}
+smallLoadingIcon('.w-load');
 
 

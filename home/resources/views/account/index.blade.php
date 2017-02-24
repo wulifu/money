@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/css.css">
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <script src="/js/jquery-1.7.2.min.js"></script>
-
+    <script src="/js/spin.min.js"></script>
     <title>我的账户</title>
 </head>
 <body>
@@ -93,7 +93,7 @@
 {{--主体end--}}
 
 {{--我的账单begin--}}
-<div class="bill" >
+<div class="bill" skip="10">
     <div class="title">
         <span class="back back-account-main"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
         <span>我的账单</span>
@@ -108,8 +108,14 @@
             </li>
         </ul>
         <ul class="bill-more">
-            <li>查看更多</li>
+            <li style="border: none" class="bill-more-click">
+                <p class="gengduo">查看更多</p>
+                <div class="quan">
+                    <div class="w-load"><div class="spin"></div></div>
+                </div>
+            </li>
         </ul>
+
     </div>
 </div>
 {{--我的账单end--}}
@@ -260,8 +266,8 @@
     </div>
     <div class="project-nav">
         <ul>
-            <li class="project-nav-li project-nav-check">进行中</li>
-            <li class="project-nav-li">已结算</li>
+            <li class="project-nav-li achieve project-nav-check">进行中</li>
+            <li class="project-nav-li over" isclick="0">已结算</li>
         </ul>
     </div>
     <div class="project-achieve">
@@ -279,24 +285,12 @@
                         </div>
                     </div>
                 </li>
-                <li class="li">
-                    <div class="project_">
-                        <div class="project-title"><a href="details?fin_id=1">天使基金</a></div>
-                        <div class="cent">
-                            <div class="data"><span class="trem">5%</span><span class="font">20天</span><span  class="font">100</span></div>
-                            <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
-                        </div>
-                    </div>
-                </li>
-                <li class="li">
-                    <div class="project_">
-                        <div class="project-title"><a href="details?fin_id=1">天使基金</a></div>
-                        <div class="cent">
-                            <div class="data"><span class="trem">5%</span><span class="font">20天</span><span  class="font">100</span></div>
-                            <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
-                        </div>
-                    </div>
-                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="project-over">
+        <div style="margin-top: 0px" id="wrapper">
+            <ul class="uls">
             </ul>
         </div>
     </div>
@@ -326,30 +320,39 @@
             url:"{{ action('AccountController@getBill') }}",
             dataType:'json',
             success:function(msg){
-                var _html = '';
-                for(var i in msg){
-                    if(msg[i].status == 0){
-                        var color = 'green';
-                        var status = '充值';
-                    }else if(msg[i].status == 2){
-                        var color = 'green';
-                        var status = '收益';
-                    }else if(msg[i].status == 1){
-                        var color = 'red';
-                        var status = '提现';
-                    }else if(msg[i].status == 3){
-                        var color = 'red';
-                        var status = '投资';
-                    }else{
-                        var color = 'red';
-                        var status = '理财有风险，投资需谨慎';
-                    }
+                if(msg.code == 1){
 
-                    _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg[i].time+'</span></li>'
+                    var _html = '';
+                    for(var i in msg.data){
+                        if(msg.data[i].status == 0){
+                            var color = 'green';
+                            var status = '充值';
+                        }else if(msg.data[i].status == 2){
+                            var color = 'green';
+                            var status = '收益';
+                        }else if(msg.data[i].status == 1){
+                            var color = 'red';
+                            var status = '提现';
+                        }else if(msg.data[i].status == 3){
+                            var color = 'red';
+                            var status = '投资';
+                        }else if(msg.data[i].status == 4){
+                            var color = 'red';
+                            var status = '投资回款';
+                        }else{
+                            var color = 'red';
+                            var status = '理财有风险，投资需谨慎';
+                        }
+
+                        _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg.data[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg.data[i].time+'</span></li>'
+                    }
+                    $('.bill-main ul:first').html(_html);
+                    shadeHide();
+                    getinto('bill');
+                }else{
+                    shadeHide();
+                    showHint(msg.error)
                 }
-                $('.bill-main ul:first').html(_html);
-                shadeHide();
-                getinto('bill');
             },
             error:function(msg){
                 shadeHide();
@@ -357,7 +360,63 @@
             }
         })
     })
+
+    //我的账单查看更多
+    $('.bill-more-click').click(function(){
+        var skip = $('.bill').attr('skip');
+        $('.gengduo').hide();
+        $('.quan').show();
+        $.ajax({
+            type:'get',
+            url:"{{ action('AccountController@getBill') }}",
+            data:'skip='+skip,
+            dataType:'json',
+            success:function(msg){
+                if(msg.code == 1){
+                    var _html = '';
+                    for(var i in msg.data){
+                        if(msg.data[i].status == 0){
+                            var color = 'green';
+                            var status = '充值';
+                        }else if(msg.data[i].status == 2){
+                            var color = 'green';
+                            var status = '收益';
+                        }else if(msg.data[i].status == 1){
+                            var color = 'red';
+                            var status = '提现';
+                        }else if(msg.data[i].status == 3){
+                            var color = 'red';
+                            var status = '投资';
+                        }else if(msg.data[i].status == 4){
+                            var color = 'red';
+                            var status = '投资回款';
+                        }else{
+                            var color = 'red';
+                            var status = '理财有风险，投资需谨慎';
+                        }
+
+                        _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg.data[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg.data[i].time+'</span></li>'
+                    }
+                    $('.gengduo').show();
+                    $('.quan').hide();
+                    $('.bill-main ul:first').append(_html);
+                    $('.bill').attr('skip', Number($('.bill').attr('skip'))+10)
+                }else if(msg.code == 2){
+                    $('.gengduo').show();
+                    $('.quan').hide();
+                    showHint(msg.error);
+                }
+            },
+            error:function(msg){
+                $('.gengduo').show();
+                $('.quan').hide();
+                showHint('查询失败');
+            }
+        })
+    })
+
     $('.back-account-main').click(function(){
+        $('.bill').attr('skip',10)
         back('bill')   //关闭我的账单页面
     })
 
