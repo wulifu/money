@@ -151,12 +151,12 @@ body{
     font-family: "微软雅黑 Light";
     border-bottom: #F0F0F0 1px solid;
     font-size: 18px;
-    /*background: #FFED97;*/
     width: 100%;
     max-width: 640px;
     height: 40px;
     line-height: 40px;
     text-align: left;
+    text-indent: 1em;
 }
 
 a{color:black}
