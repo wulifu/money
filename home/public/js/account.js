@@ -99,4 +99,8 @@ $('.back-account-main-fetch').click(function(){
     back('fetch');
 })
 
+$('.not').click(function(){
+    showHint('此功能还未开放 敬请期待')
+})
+
 

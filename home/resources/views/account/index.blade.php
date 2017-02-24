@@ -73,14 +73,14 @@
 </div>
 <div class="memu memu-two">
     <ul>
-        <li>
+        <li class="not">
             <div>
                 <span><i class="Hui-iconfont">&#xe6b6;</i></span>
                 <span>我的</span>
                 <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
             </div>
         </li>
-        <li>
+        <li  class="not">
             <div>
                 <span><i class="Hui-iconfont">&#xe6ab;</i></span>
                 <span>邀请好友</span>
