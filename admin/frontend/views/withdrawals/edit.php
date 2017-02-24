@@ -25,6 +25,7 @@
                         <input type="text" id="level-id" name="level-id" disabled="" value="<?php echo $id ?>" class="layui-input">
                     </div>
                 </div>
+                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                 <div class="layui-form-item">
                     <label for="level-name" class="layui-form-label">
                         <span class="x-red">*</span>消息
@@ -57,8 +58,9 @@
               form.on('submit(save)', function(data){
                 content = $("input[name='level-name']").val();
                 id = $("input[name='level-id']").val();
+                user_id = $("input[name='user_id']").val();
                 url = '?r=withdrawals/updatemsg';
-                $.get(url,{content:content,id:id});
+                $.get(url,{content:content,id:id,user_id:user_id});
                 // 获得frame索引
                 var index = parent.layer.getFrameIndex(window.name);
                 //关闭当前frame

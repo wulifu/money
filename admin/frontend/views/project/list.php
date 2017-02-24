@@ -40,8 +40,7 @@ use yii\helpers\Url;
         <tr>
            <td><?php echo $val['phone']?></td>
            <td><?php echo $val['money']?></td>
-           <td><?php echo $val['time']?></td>
-
+           <td><?php echo date("Y-m-d H:i:s",$val['time'])?></td>
         </tr>
 
         <?php }?>

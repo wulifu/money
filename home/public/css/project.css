@@ -147,6 +147,8 @@ body{
     height: 120px;
 }
 .title{
+    font-weight: bold;
+    font-family: "微软雅黑 Light";
     border-bottom: #F0F0F0 1px solid;
     font-size: 18px;
     /*background: #FFED97;*/
@@ -170,6 +172,7 @@ a{color:black}
     line-height: 40px;
 }
 .trem{
+    text-indent: 2em;
     float: left;
     width: 30%;
     height: 40px;
@@ -192,6 +195,7 @@ a{color:black}
     line-height: 40px;
 }
 .lv{
+    text-indent: 0.5em;
     float: left;
     width: 30%;
     height: 40px;

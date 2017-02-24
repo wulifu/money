@@ -85,7 +85,7 @@ use yii\widgets\LinkPager;
                             <?php echo $value['w_id'] ?>
                         </td>
                         <td>
-                            <u style="cursor:pointer" onclick="member_show('张三','member-show.html','10001','360','400')">
+                            <u style="cursor:pointer">
                                 <?php echo $value['username'] ?>
                             </u>
                         </td>
@@ -104,11 +104,11 @@ use yii\widgets\LinkPager;
                             <?php echo date('Y-m-d',$value['time']) ?>
                         </td>
                         <td class="td-manage">
-                            <a title="审核失败" href="javascript:;" onclick="member_edit('编辑','?r=withdrawals/template&id=<?php echo $value['w_id'] ?>',<?php echo $value['w_id'] ?>)"
+                            <a title="审核失败" href="javascript:;" onclick="member_edit('编辑','?r=withdrawals/template&id=<?php echo $value['w_id'] ?>&user_id=<?php echo $value['user_id'] ?>',<?php echo $value['w_id'] ?>)"
                             class="ml-5" style="text-decoration:none">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a title="审核通过" href="javascript:;" onclick="ajaxUpdata(this,<?php echo $value['w_id'] ?>)" 
+                            <a title="审核通过" href="javascript:;" onclick="ajaxUpdata(this,<?php echo $value['w_id'] ?>,<?php echo $value['user_id'] ?>)" 
                             style="text-decoration:none">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
@@ -157,9 +157,9 @@ use yii\widgets\LinkPager;
 
 
             /* 即点即改修改状态 (审核成功) */
-             function ajaxUpdata (obj,id) {
+             function ajaxUpdata (obj,id,user_id) {
                 url = '?r=withdrawals/updata';
-                $.get(url,{id:id},function(msg){
+                $.get(url,{id:id,user_id:user_id},function(msg){
                     if(msg)
                     {
                         $(obj).parents("tr").remove();
