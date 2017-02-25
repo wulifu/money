@@ -36,28 +36,36 @@
                 进行中
               @elseif($val->status==0)
                 已完成
+              @elseif($val->status==2)
+                返款中
               @endif
             </span>
             <span class="data title" >投资状态</span>
         </span>
         <span class="base_info" style="border: 0">
-            <span class="data font">{{$val->money}}</span>
-            <span class="data title">投资金额</span>
+            <span class="data font">{{$val->money - $money}}</span>
+            <span class="data title">剩余金额</span>
         </span>
     </div>
 </div>
 {{--介绍项目--}}
 <div class="box">
       <div class="xiangxi"><span class="x_title">投资说明</span> <span class="x_min">{{$val->investment_dsc}}</span></div>
-      <div class="xiangxi"><span class="x_title">用户余额</span> <span class="x_min">{{$last_money}}</span>
-               <a href="account?a=recharge" class="button">充值</a></div>
-
+      <div class="xiangxi"><span class="x_title">用户余额</span>
+          @if($last_money>100)
+          <span class="x_min" style="color: green; width:30%">{{$last_money}}</span>
+          @else
+              <span class="x_min" style="color: red; width:30%">{{$last_money}}</span>
+          @endif
+              <a href="account?a=recharge" class="button">充值</a></div>
     <div class="xiangxi">
         <input type="text" placeholder="请输入投资金额" class="text">
         @if($val->status==1)
         <a href="javascript:void (0)" class="but buts" >立即投资</a>
         @elseif($val->status==0)
         <a href="javascript:void (0)" class="but" style="background-color: grey">募捐完成</a>
+        @elseif($val->status==2)
+        <a href="javascript:void (0)" class="but" style="background-color: grey">返款中</a>
         @endif
     </div>
     <a href="javascript:void (0)" class="a"><span class="fonts">点击查看更多信息</span></a>
@@ -124,7 +132,7 @@
                 <div class="se">
                     <span class="man_2">{{$phone[$key]}}</span>
                     <span class="man_2">{{$value->money}}</span>
-                    <span class="man_3" style="text-align: left;">{{date('Y.m.d H:i:s',$value->time)}}</span>
+                    <span class="man_3" style="text-align: left;">{{date('Y.m.d H:i:s',$value->time+8*3600)}}</span>
                 </div>
                 @endforeach
             </div>
@@ -191,15 +199,36 @@
         <p class="p" style="color: white; text-align: center">投资成功</p>
     </div>
 </div>
+<div class="shade error" style="background-color:transparent;">
+    <div class="shade_text">
+        <p class="p" style="color: white; text-align: center">支付失败</p>
+    </div>
+</div>
 <div class="shade msg0" style="background-color:transparent;">
     <div class="shade_text">
         <p class="p" style="color: white; text-align: center">投资失败</p>
     </div>
 </div>
+<div style="display: none" class="money">
+<div class="shade money" ></div>
+<div class="shade_text">
+    <div class="money_text" >
+        <div class="pwd">
+            <a href="JavaScript:void(0)"><span class=" close Hui-iconfont " style="color: black">&#xe6a6;</span></a>
+            <span class="money_pro">输入密码</span>
+        </div>
+        <div class="money_num">
+            <input type="password" class="password" >
+        </div>
+        <button class="panment true">确认密码</button>
+    </div>
+</div>
+</div>
 {{--遮罩层end--}}
 </body>
 </html>
 <script>
+
     //转移符转化为html
     $(function(){$('p').each(function(){$(this).html($(this).text())})})
     //计时器
@@ -250,7 +279,7 @@
     })
     $(".buts").click(function(){
         var text=$(".text").val();
-        if(text>100){
+        if(text>=100){
             $(".t_je_s").html(text)
             $('.box').hide();
             $('.datails').hide();
@@ -277,35 +306,55 @@
         $('.tab_all spans').eq(_index).show().siblings().hide();
     })
     //ajax投资
-    $(".panment").click(function(){
-        var money=$('.t_je_s').html()
-        var bill_money=$('.bill_money').html()
-            if(parseInt(money) > parseInt(bill_money)){
-            $('.bill').show();
-            function bill(){
-                $('.bill').hide();
-            }
-            setInterval(bill,3000)
-        }else{
-            $('.img').show();
-            var user_id=$('.user_id').val();
-            var fin_id=$('.check').html();
-            var new_money=bill_money-money;
-        $.get('payment',{new_money:new_money,money:money,fin_id:fin_id,user_id:user_id},function(msg){
-             if(msg.code==1){
-                 $('.img').hide()
-                 setInterval(msg1,4000)
-                 $('.msg1').show();
-                 function msg1(){$('.msg1').hide()}
-                 location.reload()
-             }else{
-                 $('.img').hide()
-                 $('.msg0').show();
-                 function msg1(){$('.msg0').hide()}
-                 setInterval(msg0,4000)
-             }
-        },'json')
-        }
 
+    $(".panment").click(function(){
+        $(".money").show();
+        $("input").focus();
+    })
+    $(".true").click(function(){
+        var pwd=$(".password").val();
+        var user_id=$('.user_id').val();
+        $.get('money_true',{pay_pwd:pwd,user_id:user_id},function(msg){
+            if(msg==1){
+                $(".money").hide();
+                var money=$('.t_je_s').html()
+                var bill_money=$('.bill_money').html()
+                    if(parseInt(money) > parseInt(bill_money)){
+                    $('.bill').show();
+                    function bill(){
+                        $('.bill').hide();
+                    }
+                    setInterval(bill,3000)
+                }else{
+                    $('.img').show();
+                    var user_id=$('.user_id').val();
+                    var fin_id=$('.check').html();
+                    var new_money=bill_money-money;
+                $.get('payment',{new_money:new_money,money:money,fin_id:fin_id,user_id:user_id},function(msg){
+                     if(msg.code==1){
+
+                         $('.img').hide()
+                         setInterval(msg1,4000)
+                         $('.msg1').show();
+                         function msg1(){$('.msg1').hide()}
+                         location.reload()
+                     }else{
+                         $('.img').hide()
+                         $('.msg0').show();
+                         function msg1(){$('.msg0').hide()}
+                         setInterval(msg0,4000)
+                     }
+                },'json')
+                }
+            }else{
+                $(".money").hide();
+                $('.error').show();
+                function money(){$('.error').hide()}
+                setInterval(money,4000)
+            }
+        })
+    })
+    $(".close").click(function(){
+        $(".money").hide();
     })
 </script>

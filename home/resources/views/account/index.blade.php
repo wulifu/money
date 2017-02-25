@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/css.css">
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
     <script src="/js/jquery-1.7.2.min.js"></script>
-
+    <script src="/js/spin.min.js"></script>
     <title>我的账户</title>
 </head>
 <body>
@@ -27,11 +27,11 @@
     </div>
     <div class="property">
         <div style="border-right: 1px solid #F75000" class="open-property">
-            <span class="property-val">{{$user->money}}</span>
+            <span class="property-val">{{round($user->money,2)}}</span>
             <span>总资产 ></span>
         </div>
         <div>
-            <span>{{$earnings}}</span>
+            <span>{{round($earnings,2)}}</span>
             <span>累计总收益</span>
         </div>
     </div>
@@ -73,14 +73,14 @@
 </div>
 <div class="memu memu-two">
     <ul>
-        <li>
+        <li class="not">
             <div>
                 <span><i class="Hui-iconfont">&#xe6b6;</i></span>
                 <span>我的</span>
                 <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
             </div>
         </li>
-        <li>
+        <li  class="not">
             <div>
                 <span><i class="Hui-iconfont">&#xe6ab;</i></span>
                 <span>邀请好友</span>
@@ -93,7 +93,7 @@
 {{--主体end--}}
 
 {{--我的账单begin--}}
-<div class="bill" >
+<div class="bill" skip="10">
     <div class="title">
         <span class="back back-account-main"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
         <span>我的账单</span>
@@ -107,6 +107,15 @@
                 <span>2017-02-15</span>
             </li>
         </ul>
+        <ul class="bill-more">
+            <li style="border: none" class="bill-more-click">
+                <p class="gengduo">查看更多</p>
+                <div class="quan">
+                    <div class="w-load"><div class="spin"></div></div>
+                </div>
+            </li>
+        </ul>
+
     </div>
 </div>
 {{--我的账单end--}}
@@ -231,7 +240,7 @@
         <ul>
             <li style="border-top:none">
                 <span><i class="Hui-iconfont">&#xe6a7;</i></span>
-                <span class="bank_name">中国工商银行</span>
+                <span class="bank_name fetch_band_id">中国工商银行</span>
                 <span> > </span>
             </li>
             <li>
@@ -257,9 +266,33 @@
     </div>
     <div class="project-nav">
         <ul>
-            <li class="project-nav-li project-nav-check">进行中</li>
-            <li class="project-nav-li">已结算</li>
+            <li class="project-nav-li achieve project-nav-check">进行中</li>
+            <li class="project-nav-li over" isclick="0">已结算</li>
         </ul>
+    </div>
+    <div class="project-achieve">
+        <div style="margin-top: 0px" id="wrapper">
+            <ul class="uls">
+                <li class="li">
+                    <div class="project_">
+                        <div class="project-title">
+                            <a href="details?fin_id=1">天使基金</a>
+                            <span>我的投资金额：200 元</span>
+                        </div>
+                        <div class="cent">
+                            <div class="data"><span class="trem">5%</span><span class="font">20天</span><span  class="font">100</span></div>
+                            <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="project-over">
+        <div style="margin-top: 0px" id="wrapper">
+            <ul class="uls">
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -276,13 +309,7 @@
         }
     })
 
-    $('.open-project').click(function(){
-        getinto('project');
-    })
 
-    $('.back-account-main-project').click(function(){
-        back('project');
-    })
 
     //我的账单页面
     $('.open-bill').click(function(){
@@ -293,30 +320,39 @@
             url:"{{ action('AccountController@getBill') }}",
             dataType:'json',
             success:function(msg){
-                var _html = '';
-                for(var i in msg){
-                    if(msg[i].status == 0){
-                        var color = 'green';
-                        var status = '充值';
-                    }else if(msg[i].status == 2){
-                        var color = 'green';
-                        var status = '收益';
-                    }else if(msg[i].status == 1){
-                        var color = 'red';
-                        var status = '提现';
-                    }else if(msg[i].status == 3){
-                        var color = 'red';
-                        var status = '投资';
-                    }else{
-                        var color = 'red';
-                        var status = '理财有风险，投资需谨慎';
-                    }
+                if(msg.code == 1){
 
-                    _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg[i].time+'</span></li>'
+                    var _html = '';
+                    for(var i in msg.data){
+                        if(msg.data[i].status == 0){
+                            var color = 'green';
+                            var status = '充值';
+                        }else if(msg.data[i].status == 2){
+                            var color = 'green';
+                            var status = '收益';
+                        }else if(msg.data[i].status == 1){
+                            var color = 'red';
+                            var status = '提现';
+                        }else if(msg.data[i].status == 3){
+                            var color = 'red';
+                            var status = '投资';
+                        }else if(msg.data[i].status == 4){
+                            var color = 'red';
+                            var status = '投资回款';
+                        }else{
+                            var color = 'red';
+                            var status = '理财有风险，投资需谨慎';
+                        }
+
+                        _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg.data[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg.data[i].time+'</span></li>'
+                    }
+                    $('.bill-main ul:first').html(_html);
+                    shadeHide();
+                    getinto('bill');
+                }else{
+                    shadeHide();
+                    showHint(msg.error)
                 }
-                $('.bill-main ul').html(_html);
-                shadeHide();
-                getinto('bill');
             },
             error:function(msg){
                 shadeHide();
@@ -324,7 +360,63 @@
             }
         })
     })
+
+    //我的账单查看更多
+    $('.bill-more-click').click(function(){
+        var skip = $('.bill').attr('skip');
+        $('.gengduo').hide();
+        $('.quan').show();
+        $.ajax({
+            type:'get',
+            url:"{{ action('AccountController@getBill') }}",
+            data:'skip='+skip,
+            dataType:'json',
+            success:function(msg){
+                if(msg.code == 1){
+                    var _html = '';
+                    for(var i in msg.data){
+                        if(msg.data[i].status == 0){
+                            var color = 'green';
+                            var status = '充值';
+                        }else if(msg.data[i].status == 2){
+                            var color = 'green';
+                            var status = '收益';
+                        }else if(msg.data[i].status == 1){
+                            var color = 'red';
+                            var status = '提现';
+                        }else if(msg.data[i].status == 3){
+                            var color = 'red';
+                            var status = '投资';
+                        }else if(msg.data[i].status == 4){
+                            var color = 'red';
+                            var status = '投资回款';
+                        }else{
+                            var color = 'red';
+                            var status = '理财有风险，投资需谨慎';
+                        }
+
+                        _html += '<li> <span><i class="Hui-iconfont">&#xe6b7;</i></span><span style="color:'+color+'">'+parseFloat(msg.data[i].money).toFixed(2)+'</span><span style="color:'+color+'">'+status+'</span><span>'+msg.data[i].time+'</span></li>'
+                    }
+                    $('.gengduo').show();
+                    $('.quan').hide();
+                    $('.bill-main ul:first').append(_html);
+                    $('.bill').attr('skip', Number($('.bill').attr('skip'))+10)
+                }else if(msg.code == 2){
+                    $('.gengduo').show();
+                    $('.quan').hide();
+                    showHint(msg.error);
+                }
+            },
+            error:function(msg){
+                $('.gengduo').show();
+                $('.quan').hide();
+                showHint('查询失败');
+            }
+        })
+    })
+
     $('.back-account-main').click(function(){
+        $('.bill').attr('skip',10)
         back('bill')   //关闭我的账单页面
     })
 
@@ -335,6 +427,7 @@
 
     function open_recharge(action){
         shadeShow();
+        var prior = "{{$prior}}";
         $.ajax({
             type:'GET',
             url:"{{ action('AccountController@getIsBinding') }}",
@@ -343,7 +436,12 @@
                 if(msg.code == 1){
                     $('.bank_name').html(msg.data.bank_name+'（尾号'+msg.data.card_num+'）').attr('bind_id',msg.data.bind_id);
                     shadeHide();
-                    getinto(action)
+                    if(prior != ''){
+                        getinto('recharge')
+                    }else{
+                        getinto(action)
+                    }
+
                 }else if(msg.code == 0){
                     $('.binding_username').html(msg.data.username);
                     $('.binding_idcard').html(msg.data.idcard);

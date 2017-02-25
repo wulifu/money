@@ -131,9 +131,11 @@ use yii\helpers\Html;
             <td ><span class="status" style="display: none"><?php echo $val['status']?></span>
                 <?PhP  if( $val['status']==1) {
                    echo '  <span class="img">进行中</span>';
-               } else {
+               } else if($val['status']==0){
                     echo ' <span class="img">已完成</span>';
-               } ?>
+               }else{
+                    echo ' <span class="img">返款中</span>';
+                } ?>
             </td>
             <td>
                 <?PhP echo $val['money_sum']?>

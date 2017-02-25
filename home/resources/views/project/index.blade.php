@@ -53,7 +53,7 @@
                     <div class="title"><a href="details?fin_id={{$val->fin_id}}">{{$val->pro_name}}</a></div>
                     <div class="cent">
                         <div class="data"><span class="trem">{{$val->yield}}%</span><span class="font">{{$val->term}}天</span><span  class="font">{{$val->money}}</span></div>
-                        <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >剩余金额</span></div>
+                        <div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div>
                     </div>
                 </div>
             </li>
@@ -62,6 +62,11 @@
         <div id="jie"></div>
     </ul>
 
+</div>
+<div class="shade msg" style="background-color:transparent;">
+    <div class="shade_text">
+        <p class="p" style="color: white; text-align: center">已经到底了!!</p>
+    </div>
 </div>
 </body>
 <script>
@@ -82,7 +87,11 @@
                 jie.append($("#child"+i).load(url+" .uls"));
                 i++;
             }else{
-                alert("已经到底部了!!");
+                $('.msg').show();
+                function img(){
+                    $('.msg').hide();
+                }
+                setInterval(img,3000)
             }
             wrapper.refresh();
         }, 3000);

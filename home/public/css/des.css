@@ -120,15 +120,21 @@ body{
    background-color: white;
 }
 .x_title{
+    float: left;
+    display: block;
     height: 40px;
-    width: 35%;
-    text-align:center;
+    width: 25%;
+    text-indent: 1em;
     line-height: 40px;
     font-family: "微软雅黑";
 }
 .x_min{
-    width: 50%;
-    margin-right: 10%;
+    color: #d3d3d3;
+    float: left;
+    display: block;
+    width: 65%;
+    line-height: 40px;
+    margin-right: 5%;
     font-size: 13px;
     font-family: "微软雅黑";
 }
@@ -148,6 +154,8 @@ body{
     font-family: "微软雅黑";
 }
 .text{
+    margin-left: 2%;
+    text-indent: 1em;
     width: 60%;
     height: 30px;
     line-height: 30px;
@@ -470,6 +478,46 @@ a{
     background-color: black;
     border:1px solid #7A7A7A;
     border-radius: 20px;
+}
+.pwd{
+    text-align: center;
+    height: 25%;
+    border-bottom: 1px solid lightgrey;
+}
+.close{
+    display: block;
+    float: left;
+    width: 10%;
+    line-height: 300%;
+}
+.money_pro{
+    display: block;
+    float: left;
+    width: 80%;
+    line-height: 300%;
+}
+.money_num{
+    display: block;
+    width: 98%;
+    height:30%;
+
+}
+.money_num input{
+    display: block;
+    font-size: 20px;
+    border: 2px solid lightgrey;
+    width: 70%;
+    height:100%;
+    margin-left: 15%;
+}
+.money_text{
+    z-index: 10000;
+    position: absolute;
+    top: 25%;
+    height: 30%;
+    width: 70%;
+    left: 15%;
+    background-color: #fff;
 }
 .bill_money{
     background-color: white;

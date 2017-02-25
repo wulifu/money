@@ -27,12 +27,12 @@ class ProjectController extends Controller
         }else{
             $last=json_encode($last);
             $last=json_decode($last,true);
-            $money_last=$last[0]['money'];
+            $money_last=round($last[0]['money'],2);
             $user_id=$last[0]['user_id'];
         }
         $fin_id=\Request::get('fin_id');
         $res=DB::table('finance_project')->where('fin_id','=',$fin_id)->get();
-        $array=DB::table('finance_detailed')->where('fin_id','=',$fin_id)->get();
+        $array=DB::table('finance_detailed')->where('fin_id','=',$fin_id)->orderBy('time', 'desc')->get();
         $phones=array();
         $money=0;
         foreach($array as $key=>$val){
@@ -66,4 +66,18 @@ class ProjectController extends Controller
         }
         exit(json_encode($msg));
     }
+
+    //确认支付密码
+    public function money_true(){
+        $data=\Request::all();
+        $pay_pwd=md5($data['pay_pwd']);
+        $user_id=$data['user_id'];
+        $res=DB::table('user')->where(['pay_pwd'=>$pay_pwd,'user_id'=>$user_id])->first();
+        if($res){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
 }

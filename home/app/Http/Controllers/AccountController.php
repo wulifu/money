@@ -72,16 +72,30 @@ class AccountController extends Controller
     /**
      * 获取我的账单
      */
-    public function getBill(){
+    public function getBill(Request $request){
         $user_id = session('user_id');//模拟用户id
+        $skip = $request->input('skip',0);
+        $result = ['code'=>0,'error'=>''];
 
-        $data = DB::table('money_trend')->select('money','time','status')->where('user_id',$user_id)->orderBy('time','desc')->skip(0)->take(10)->get();
+        $data = DB::table('money_trend')->select('money','time','status')->where('user_id',$user_id)->orderBy('time','desc')->skip($skip)->take(10)->get();
+        if($data){
+            foreach($data as $key => $val){
+                $data[$key]->time = date('Y-m-d H:i:s',$val->time);
+                $result['code'] = 1;
+                $result['data'] = $data;
+            }
+        }else{
+            if($skip == 0){
+                $result['code'] = 0;
+                $result['error'] = '查询失败';
+            }else{
+                $result['code'] = 2;
+                $result['error'] = '没有更多数据了';
+            }
 
-        foreach($data as $key => $val){
-            $data[$key]->time = date('Y-m-d H:i:s',$val->time);
         }
-//        var_dump($data);die;
-        exit(json_encode($data));
+
+        exit(json_encode($result));
     }
 
     /**
@@ -135,18 +149,22 @@ class AccountController extends Controller
         exit(json_encode($result));
     }
 
+    /**
+     * 提现
+     * @param Request $request
+     */
     public function fetch(Request $request){
         $result = ['code'=>0,'error'=>'']; //返回信息
         $user_id = session('user_id');//模拟用户id
 
         $fetch_val = $request->input('fetch_val');
-        $bind_id = $request->input('bind_id');
+        //$bind_id = $request->input('bind_id');
 
-        if(!empty($bind_id) && is_numeric($fetch_val)){
+        if(is_numeric($fetch_val)){
             $userr_money = DB::table('user')->select('money')->where('user_id',$user_id)->first();
             if($userr_money->money >= $fetch_val){
                 $re = DB::table('user')->where('user_id',$user_id)->decrement('money',$fetch_val);
-                $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$fetch_val,'status'=>1]);
+                $res = DB::table('withdrawals')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$fetch_val]);
                 $result['code'] = 1;
                 $result['error'] = 'OK';
             }else{
@@ -178,6 +196,36 @@ class AccountController extends Controller
         }else{
             $result['error'] = '操作失败，请重试';
         }
+
+        exit(json_encode($result));
+    }
+
+    /**
+     * 我的投资项目
+     * @param Request $request
+     */
+    public function myProject(Request $request){
+        $type = $request->input('type','');  // 请求类型
+        $user_id = session('user_id');  //用户id
+        $result = ['code'=>0,'error'=>''];  //返回信息
+//        echo $type;die;
+        if(empty($type)){
+            $fin_idList = DB::table('finance_detailed')->distinct()->lists('fin_id');
+            $project_list = DB::table('finance_project')->select('fin_id','pro_name','yield','term','money')->where('status',1)->whereIn('fin_id',$fin_idList)->get();
+            foreach($project_list as $key => $val){
+                $project_list[$key]->money_sum = DB::table('finance_detailed')->select('money')->where(['user_id'=>$user_id,'fin_id'=>$val->fin_id])->sum('money');
+            }
+        }else{
+            $fin_idList = DB::table('finance_detailed')->distinct()->lists('fin_id');
+            $project_list = DB::table('finance_project')->select('fin_id','pro_name','yield','term','money')->where('status',0)->whereIn('fin_id',$fin_idList)->get();
+            foreach($project_list as $key => $val){
+                $project_list[$key]->money_sum = DB::table('finance_detailed')->select('money')->where(['user_id'=>$user_id,'fin_id'=>$val->fin_id])->sum('money');
+                $project_list[$key]->profit_sum = DB::table('finance_detailed')->select('profit')->where(['user_id'=>$user_id,'fin_id'=>$val->fin_id])->sum('profit');
+            }
+        }
+        $result['code'] = 1;
+        $result['error'] = 'ok';
+        $result['data'] = $project_list;
 
         exit(json_encode($result));
     }

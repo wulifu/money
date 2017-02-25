@@ -5,7 +5,7 @@ Route::any('registers','RegisterController@register'); //注册页面二
 Route::any('checkcode','RegisterController@checkcode');//发送验证码
 Route::any('backpwd','RegisterController@backpassword'); // 重置密码页面
 Route::any('user_updatepwd','RegisterController@updatepwd'); //用户忘记密码
-Route::any('hot','HotController@hot');
+
 
 Route::group(['middleware' => ['web','common']], function () {
 
@@ -23,6 +23,7 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('project','ProjectController@index');
 	Route::get('details','ProjectController@details');
 	Route::get('payment','ProjectController@payment');
+	Route::any('money_true','ProjectController@money_true');
 	Route::get('account','AccountController@index');
 	Route::get('getProperty','AccountController@getProperty');
 	Route::get('getBill','AccountController@getBill');
@@ -31,9 +32,12 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('recharge','AccountController@recharge');
 	Route::get('binding','AccountController@binding');
 	Route::get('fetch','AccountController@fetch');
+
 	//抽奖
 	Route::any('user_prize','PrizeController@index'); //用户抽奖
 	Route::any('user_prizeadd','PrizeController@prizeadd'); //用户抽奖
+
+	Route::get('myProject','AccountController@myProject');
 
 
 });
