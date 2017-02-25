@@ -43,7 +43,7 @@ class AccountController extends Controller
         /* 查询用户信息 */
         $re = DB::table('user')->where('user_id',$user_id)->first();
         /* 查询用户绑卡信息 */
-        $res = DB::table('binging')->where('user_id',$user_id)->get();
+        $res = DB::table('binding')->where('user_id',$user_id)->get();
         return view('account.datum',['info'=>$re,'show'=>$res]);
     }
 

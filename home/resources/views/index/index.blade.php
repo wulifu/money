@@ -49,7 +49,7 @@ $(document).ready(function(){
         	<a href="#"><img src="images/jy.png"><span>交易</span></a>
            <a href="#"><img src="images/dq.png"><span>排行</span></a>
             <a href="#"><img src="images/gs.png"><span>基金公司</span></a>
-            <a href="#"><img src="images/qd.png"><span>有奖签到</span></a>
+            <a href="user_prize"><img src="images/qd.png"><span>有奖签到</span></a>
             <a href="#"><img src="images/zhinan.png"><span>新手指南</span></a>
             <a href="account"><img src="images/grzx.png"><span>会员中心</span></a>
         </div>
