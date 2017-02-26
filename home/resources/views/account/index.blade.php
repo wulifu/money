@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="rate">
-        <span>今日收益0.00元&nbsp;年化收益率 3.89%</span>
+        <span>今日收益{{round($today_earnings,2)}}元&nbsp;年化收益率 3.89%</span>
     </div>
 </div>
 <div class="memu">
@@ -193,7 +193,12 @@
             <li>
                 <span class="dot" style="background:  	#DA70D6"></span>
                 <span>理财资产</span>
-                <span>0.00</span>
+                <span class="project_money">0.00</span>
+            </li>
+            <li>
+                <span class="dot" style="background:#00FF00"></span>
+                <span>理财收益</span>
+                <span class="project_earnings">0.00</span>
             </li>
             <li>
                 <span class="dot" style="background:  	#FFFF00"></span>
@@ -337,7 +342,7 @@
                             var color = 'red';
                             var status = '投资';
                         }else if(msg.data[i].status == 4){
-                            var color = 'red';
+                            var color = 'green';
                             var status = '投资回款';
                         }else{
                             var color = 'red';
@@ -388,7 +393,7 @@
                             var color = 'red';
                             var status = '投资';
                         }else if(msg.data[i].status == 4){
-                            var color = 'red';
+                            var color = 'green';
                             var status = '投资回款';
                         }else{
                             var color = 'red';
@@ -476,6 +481,8 @@
                 if(msg.code == 1){
                     $('.earnings').html(msg.data.earnings);
                     $('.fund .balance').html(msg.data.balance.toFixed(2));
+                    $('.fund .project_money').html(msg.data.project_money.toFixed(2));
+                    $('.fund .project_earnings').html(msg.data.project_earnings.toFixed(2));
                     shadeHide();
                     getinto('fund')
                 }else{
