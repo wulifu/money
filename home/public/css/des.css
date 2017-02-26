@@ -479,6 +479,46 @@ a{
     border:1px solid #7A7A7A;
     border-radius: 20px;
 }
+.pwd{
+    text-align: center;
+    height: 25%;
+    border-bottom: 1px solid lightgrey;
+}
+.close{
+    display: block;
+    float: left;
+    width: 10%;
+    line-height: 300%;
+}
+.money_pro{
+    display: block;
+    float: left;
+    width: 80%;
+    line-height: 300%;
+}
+.money_num{
+    display: block;
+    width: 98%;
+    height:30%;
+
+}
+.money_num input{
+    display: block;
+    font-size: 20px;
+    border: 2px solid lightgrey;
+    width: 70%;
+    height:100%;
+    margin-left: 15%;
+}
+.money_text{
+    z-index: 10000;
+    position: absolute;
+    top: 25%;
+    height: 30%;
+    width: 70%;
+    left: 15%;
+    background-color: #fff;
+}
 .bill_money{
     background-color: white;
     float: left;

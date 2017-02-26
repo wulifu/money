@@ -168,7 +168,7 @@
 {{--遮罩层begin--}}
 <div class="shade">
     <div class="shade-hei">
-        <img src="/images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
+        <img src="images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
     </div>
 </div>
 {{--遮罩层end--}}

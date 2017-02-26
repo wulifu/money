@@ -66,4 +66,18 @@ class ProjectController extends Controller
         }
         exit(json_encode($msg));
     }
+
+    //确认支付密码
+    public function money_true(){
+        $data=\Request::all();
+        $pay_pwd=md5($data['pay_pwd']);
+        $user_id=$data['user_id'];
+        $res=DB::table('user')->where(['pay_pwd'=>$pay_pwd,'user_id'=>$user_id])->first();
+        if($res){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
 }
