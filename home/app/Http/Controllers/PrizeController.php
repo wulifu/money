@@ -25,26 +25,7 @@ class PrizeController extends Controller
 		$res = json_decode($a,true);
 		if(isset($res['username']) && isset($res['money']) && $res['money'] >5000)
 		{
-			/* 查询最新开奖时间 */
-			$user = new Prize();
-	        $result = $user->where('user_id',$user_id)->get()->toArray();
-	        $time = [];
-	        foreach ($result as $key => $value) {
-	        	$time[] = $value['time'];
-	        }
-	        sort($time);
-	        $last_time = array_pop($time);
-	        $now_time = time();
-	        $poor = $now_time-$last_time;   
-
-			if($poor>60*60*24)
-	        {
-				return view('prize.index');
-			}
-			else{
-				return redirect('/');
-			}
-
+			return view('prize.index');
 		}
 		else
 		{
@@ -52,40 +33,68 @@ class PrizeController extends Controller
 		}
 	}
 
-
 	public function prizeadd(Request $request)
 	{
 		$user_id = session('user_id');
-    	$item = $request->input('item');
-		$prize = '';
-		switch ($item) {
-			case '1':
-				$prize = 888;
-				break;
-			case '2':
-				$prize = 388;
-				break;
-			case '3':
-				$prize = 188;
-				break;
-			case '4':
-				$prize = 88;
-				break;
-			case '5':
-				$prize = 8;
-				break;
+		/* 先查看Cookie */
+		$second = isset($_COOKIE['second']) ? $_COOKIE['second'] : 0;
+		if($second==1)
+		{
+			$result['errCode'] = 1;
+			echo json_encode($result);
+			exit;
 		}
 
-		/* 修改用户余额 */
-		$info = DB::table('user')->where('user_id',$user_id)->first();
-		$money = $info['money'] + $prize;
-		$re = DB::table('user')->where('user_id',$user_id)->increment('money',$money);
-		/* 入中奖纪录表 */
-		$prize = new Prize();
-		$prize->user_id=$user_id;
-		$prize->prize_size=$prize;
-		$prize->time=time();
-		$prize->save();
+		/* 查询最新开奖时间 */
+		$user = new Prize();
+        $result = $user->where('user_id',$user_id)->get()->toArray();
+        $time = [];
+        foreach ($result as $key => $value) {
+        	$time[] = $value['time'];
+        }
+        sort($time);
+        $last_time = array_pop($time);
+        $now_time = time();
+        $poor = $now_time-$last_time;   
+		if($poor>60*60*24)
+        {
+	    	$item = $request->input('item');
+			$prize = '';
+			switch ($item) {
+				case '1':
+					$prize = 888;
+					break;
+				case '2':
+					$prize = 388;
+					break;
+				case '3':
+					$prize = 188;
+					break;
+				case '4':
+					$prize = 88;
+					break;
+				case '5':
+					$prize = 8;
+					break;
+			}
+
+			/* 修改用户余额 */
+			$info = DB::table('user')->where('user_id',$user_id)->first();
+			$res = json_encode($info);
+			$info = json_decode($res,true);
+			$money = $info['money'] + $prize;
+			
+			DB::table('user')->where('user_id','=',$user_id)->update(['money'=>$money]);
+			/* 入中奖纪录表 */
+			DB::table('prize')->insert(['user_id'=>$user_id,'time'=>time(),'prize_size'=>$prize]);
+			/* 存取Cookie */
+			setcookie('second','1',time()+3*24*3600);
+		}
+		else
+		{
+			$result['errCode'] = 1;
+			echo json_encode($result);
+		}
 	}
 
 

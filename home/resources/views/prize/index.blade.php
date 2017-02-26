@@ -202,6 +202,7 @@ $(function (){
 				swal({   title: "获得"+txt+"红包",   imageUrl: "images/gx.png" });
 				
 				bRotate = !bRotate;
+				// location.href='index';
 			}
 		})
 	};
@@ -248,33 +249,39 @@ $(function (){
 	$('.pointer').click(function (){
 
 		if(bRotate)return;
-		var item = rnd(1,5);
+		var item = rnd(3,5);
+
+		$.get('user_prizeadd',{item:item},function(msg){
+			if(msg.errCode==1)
+			{
+				alert('一天一次哦，24小时后再来抽奖吧');
+				location.href='index';
+				return;
+			}
+		},'json');
 
 		switch (item) {
-			case 1:
-				//var angle = [26, 88, 137, 185, 235, 287, 337];
-				rotateFn(1, 55, '888元');
-				break;
-			case 2:
-				//var angle = [88, 137, 185, 235, 287];
-				rotateFn(2, 140, '388元');
-				break;
-			case 3:
-				//var angle = [137, 185, 235, 287];
-				rotateFn(3, 199, '188元');
-				break;
-			case 4:
-				//var angle = [137, 185, 235, 287];
-				rotateFn(4, 269, '88元');
-				break;
-			case 5:
-				//var angle = [185, 235, 287];
-				rotateFn(5, 341, '8元');
-				break;
-			
-		}
-		$.get('user_prizeadd',{item:item},function(msg){
-		},'json');
+				case 1:
+					//var angle = [26, 88, 137, 185, 235, 287, 337];
+					rotateFn(1, 55, '888元');
+					break;
+				case 2:
+					//var angle = [88, 137, 185, 235, 287];
+					rotateFn(2, 140, '388元');
+					break;
+				case 3:
+					//var angle = [137, 185, 235, 287];
+					rotateFn(3, 199, '188元');
+					break;
+				case 4:
+					//var angle = [137, 185, 235, 287];
+					rotateFn(4, 269, '88元');
+					break;
+				case 5:
+					//var angle = [185, 235, 287];
+					rotateFn(5, 341, '8元');
+					break;
+				}
 	});
 });
 function rnd(n, m){
