@@ -19,6 +19,14 @@ class AccountController extends Controller
 
         //用户总收益
         $earnings = DB::table('money_trend')->select('money')->where(['user_id'=>$user_id,'status'=>2])->sum('money');
+        $today_earnings_re = DB::table('money_trend')->select('money')->where(['user_id'=>$user_id,'status'=>2])->where('time','>',time()-21*60)->orderBy('m_id','desc')->first();
+
+        if(!empty($today_earnings_re)){
+            $today_earnings = $today_earnings_re->money;
+        }else{
+            $today_earnings = 0;
+        }
+
 
         $action = $request->input('a','');
 
@@ -28,7 +36,7 @@ class AccountController extends Controller
             $prior = '';
         }
 
-        return view('account.index',['user'=>$user,'action'=>$action,'prior'=>$prior,'earnings'=>$earnings]);
+        return view('account.index',['user'=>$user,'action'=>$action,'prior'=>$prior,'earnings'=>$earnings,'today_earnings'=>$today_earnings]);
     }
 
 
@@ -63,9 +71,15 @@ class AccountController extends Controller
         //用户总收益
         $earnings = DB::table('money_trend')->select('money')->where(['user_id'=>$user_id,'status'=>2])->sum('money');
 
+        //用户投资金额
+        $project_money = DB::table('finance_detailed')->join('finance_project','finance_detailed.fin_id','=','finance_project.fin_id')->select('finance_detailed.money')->where(['finance_detailed.user_id'=>$user_id,'finance_project.status'=>1])->sum('finance_detailed.money');
+
+        //理财总收益
+        $project_earnings = DB::table('finance_detailed')->join('finance_project','finance_detailed.fin_id','=','finance_project.fin_id')->select('finance_detailed.profit')->where(['finance_detailed.user_id'=>$user_id,'finance_project.status'=>0])->sum('finance_detailed.profit');
+
         $result['code'] = 1;
         $result['error'] = 'ok';
-        $result['data'] = ['earnings'=>$earnings,'balance'=>$balance->money];
+        $result['data'] = ['earnings'=>$earnings,'balance'=>$balance->money,'project_money'=>$project_money,'project_earnings'=>$project_earnings];
         exit(json_encode($result));
     }
 
@@ -80,7 +94,7 @@ class AccountController extends Controller
         $data = DB::table('money_trend')->select('money','time','status')->where('user_id',$user_id)->orderBy('time','desc')->skip($skip)->take(10)->get();
         if($data){
             foreach($data as $key => $val){
-                $data[$key]->time = date('Y-m-d H:i:s',$val->time);
+                $data[$key]->time = date('Y-m-d H:i:s',$val->time+8*60*60);
                 $result['code'] = 1;
                 $result['data'] = $data;
             }
