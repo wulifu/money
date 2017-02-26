@@ -32,6 +32,11 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('recharge','AccountController@recharge');
 	Route::get('binding','AccountController@binding');
 	Route::get('fetch','AccountController@fetch');
+
+	//抽奖
+	Route::any('user_prize','PrizeController@index'); //用户抽奖
+	Route::any('user_prizeadd','PrizeController@prizeadd'); //用户抽奖
+
 	Route::get('myProject','AccountController@myProject');
 
 

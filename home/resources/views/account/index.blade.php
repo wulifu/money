@@ -168,7 +168,7 @@
 {{--遮罩层begin--}}
 <div class="shade">
     <div class="shade-hei">
-        <img src="/images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
+        <img src="images/8acbba7381623d7c2940758bc90613ee.gif" alt="">
     </div>
 </div>
 {{--遮罩层end--}}
@@ -220,7 +220,7 @@
             </li>
             <li>
                 <span>充值金额</span>
-                <span> <input type="text" class="input recharge_val" name="recharge_val" placeholder="请输入充值金额" pattern="[0-9]{1,10}" required/></span>
+                <span> <input type="text" class="input recharge_val" onfocus="" name="recharge_val" placeholder="请输入充值金额" pattern="[0-9]{1,10}" required/></span>
             </li>
         </ul>
         <div class="quit recharge-affirm">
@@ -437,6 +437,7 @@
                     $('.bank_name').html(msg.data.bank_name+'（尾号'+msg.data.card_num+'）').attr('bind_id',msg.data.bind_id);
                     shadeHide();
                     if(prior != ''){
+//                        $('.recharge_val').focus();
                         getinto('recharge')
                     }else{
                         getinto(action)
