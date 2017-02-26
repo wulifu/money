@@ -79,7 +79,7 @@ class RebateController extends Controller
                         ,'fin_id'=>$v['fin_id'],'money'=>$money_profit, 'time'=>$val['time'], 'profit'=>$profit,'status'=>3,])->execute();
                     //用户流水账
                     yii::$app->db->createCommand()->insert('money_trend',['user_id'=>$val['user_id']
-                        ,'money'=>$money_profit, 'time'=>time(),'status'=>4])->execute();
+                        ,'money'=>$money_profit+$profit, 'time'=>time(),'status'=>4])->execute();
                 }
                 //修改状态2
                 yii::$app->db->createCommand()->update('finance_detailed',['status'=>0],"status='2'")->execute();
