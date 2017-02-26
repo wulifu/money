@@ -72,8 +72,9 @@ class RebateController extends Controller
                 $user_money=$user_id->asArray()->all();
                 foreach($user_money as $key=>$val){
                     //计算利息
-                    $profit=round($val['money']*$day_yield*($v['release_time']/24/3600+$v['term']-$val['time']/24/3600-$v['rebate_time']),2);
-                    $money_profit=$val['money']+$profit[$key][$val['user_id']];
+                    $profit=round(($val['money']*$day_yield*($v['release_time']/24/3600+$v['term']-$val['time']/24/3600-$v['rebate_time'])),2);
+                    var_dump($profit);die;
+                    $money_profit=$val['money']+$profit;
                     ///资金入库记录
                     yii::$app->db->createCommand()->insert('finance_detailed',['user_id'=>$val['user_id']
                         ,'fin_id'=>$v['fin_id'],'money'=>$money_profit, 'time'=>$val['time'], 'profit'=>$profit,'status'=>3,])->execute();
@@ -83,7 +84,7 @@ class RebateController extends Controller
                 }
                 //修改状态2
                 yii::$app->db->createCommand()->update('finance_detailed',['status'=>0],"status='2'")->execute();
-                yii::$app->db->createCommand()->update('finance_project',['status'=>2],"status='2'")->execute();
+                yii::$app->db->createCommand()->update('finance_project',['status'=>0],"status='2'")->execute();
             }
         }
     }

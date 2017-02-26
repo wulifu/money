@@ -215,7 +215,7 @@
     <div class="money_text" >
         <div class="pwd">
             <a href="JavaScript:void(0)"><span class=" close Hui-iconfont " style="color: black">&#xe6a6;</span></a>
-            <span class="money_pro">输入密码</span>
+            <span class="money_pro">支付密码</span>
         </div>
         <div class="money_num">
             <input type="password" class="password" >
@@ -257,7 +257,7 @@
                     $(".time").html(day + "天" + hour + ":" + minutes + ":" + seconds);
                     timeIndex++;
                 } else {
-                    $(".time").html(day + "天" + hour + ":" + minutes + ":" + seconds);
+                    $(".time").html(0 + "天" + 0 + ":" + 00 + ":" + 00);
                 }
             }else {
                 $(".time").html(0 + "天" + 0 + ":" + 00 + ":" + 00);
@@ -332,7 +332,6 @@
                     var new_money=bill_money-money;
                 $.get('payment',{new_money:new_money,money:money,fin_id:fin_id,user_id:user_id},function(msg){
                      if(msg.code==1){
-
                          $('.img').hide()
                          setInterval(msg1,4000)
                          $('.msg1').show();
