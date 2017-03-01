@@ -23,6 +23,7 @@
 		<div class='input'>
 			<div>
 				<input type="hidden" name="tell" value="<?php echo $tell ?>">
+				<input type="hidden" name="uid" value="<?php echo $uid ?>">
 				<span>验证码　</span> <input type="text" name="code" size="20" placeholder="请输入短信验证码"/><span class='shu'>|</span><input type="button" id="btn" onclick="time(this)" value="获取验证码" />
 			</div>
 		</div>
@@ -126,6 +127,7 @@ $('.but').click(function(){
 	{
 		tell = $("input[name='tell']").val();
 		code = $("input[name='code']").val();
+		uid = $("input[name='uid']").val();
 		password = $("input[name='password']").val();
 		if(code=='')
 		{
@@ -147,7 +149,7 @@ $('.but').click(function(){
 
 		/* Ajax请求 */
 		url='user_add';
-		$.get(url,{tell:tell,password:password,code:code},function(msg){
+		$.get(url,{tell:tell,uid:uid,password:password,code:code},function(msg){
 			if(msg.errCode==1)
 			{
 				// $('.tsp').html(msg.msg);

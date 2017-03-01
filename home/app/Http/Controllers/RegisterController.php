@@ -25,10 +25,15 @@ class RegisterController extends Controller
     {
     	/* 接收第一个页面过来的手机号码 */
     	$list['tell'] = Request::get('tell');
+        $list['uid'] = Request::get('uid');
     	if(!isset($list['tell']))
     	{
     		$list['tell'] = '';
     	}
+        if(!isset($list['uid']))
+        {
+            $list['uid'] = '';
+        }
 
         /* 查询是否新用户注册 */
         $user = new User();
@@ -55,43 +60,119 @@ class RegisterController extends Controller
         $length = preg_match("/^\d{11}$/", $data['tell']); //账户名
         $password = preg_match("/^[\w-\.]{6,12}$/", $data['password']); //密码
         /* 验证码待开发*/
-        $data1 = 'mobile='.$data['tell'].'&code='.$data['code'];
-        $url = 'https://api.netease.im/sms/verifycode.action';
-        $re = $this->sendcode($data1,$url);
-        $res = json_decode($re,true);
-        if($res['code']!=200)
+//        $data1 = 'mobile='.$data['tell'].'&code='.$data['code'];
+//        $url = 'https://api.netease.im/sms/verifycode.action';
+//        $re = $this->sendcode($data1,$url);
+//        $res = json_decode($re,true);
+//        if($res['code']!=200)
+//        {
+//            $result = ['errCode'=>4,'msg'=>'验证码错误'];
+//            echo json_encode($result,JSON_UNESCAPED_UNICODE);
+//            exit;
+//        }
+        if($data['uid'])
         {
-            $result = ['errCode'=>4,'msg'=>'验证码错误'];
-            echo json_encode($result,JSON_UNESCAPED_UNICODE);
-            exit;
-        }
-
-        if($length && $password)
-        {
-            /* 入库操作 */
-            $user = new User();
-            $user->phone=$data['tell'];
-            $user->password=md5($data['password']);
-            $user->time=time();
-            $user->pay_pwd ='123456';
-            $res = $user->save(); 
-            if($res)
+            $uid = base64_decode($data['uid']);
+            $re = DB::table('user')->where('user_id',$uid)->first();
+            get_object_vars($re);
+            if($re)
             {
-                /* 存取session  内容：用户手机号码 */
-                session(['user'=>$data['tell']]);
-                $result = ['errCode'=>1,'msg'=>'操作成功'];
-                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                if($length && $password)
+                {
+                    /* 入库操作 */
+                    $user = new User();
+                    $user->phone=$data['tell'];
+                    $user->password=md5($data['password']);
+                    $user->time=time();
+                    $user->pay_pwd ='123456';
+                    $user->p_id =$uid;
+                    $user->invite_money =10;
+                    $res = $user->save();
+                    if($res)
+                    {
+                        $new_user = DB::table('user')->where('phone',$data['tell'])->first();
+                        DB::table('user')->where('user_id',$uid)->update([
+                            'invite_num' => $re->invite_num+1,
+                            'invite_money' => $re->invite_money+10
+                        ]);
+                        /* 存取session  内容：用户手机号码 */
+                        session(['user'=>$data['tell']]);
+                        session(['user_id'=>$new_user->user_id]);
+                        $result = ['errCode'=>1,'msg'=>'操作成功'];
+                        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                    }
+                    else
+                    {
+                        $result = ['errCode'=>2,'msg'=>'服务器错误,注册失败'];
+                        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                    }
+                }
+                else
+                {
+                    $result = ['errCode'=>3,'msg'=>'数据不合法'];
+                    echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                }
             }
             else
             {
-                $result = ['errCode'=>2,'msg'=>'服务器错误,注册失败'];
-                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                if($length && $password)
+                {
+                    /* 入库操作 */
+                    $user = new User();
+                    $user->phone=$data['tell'];
+                    $user->password=md5($data['password']);
+                    $user->time=time();
+                    $user->pay_pwd ='123456';
+                    $res = $user->save();
+                    if($res)
+                    {
+                        /* 存取session  内容：用户手机号码 */
+                        session(['user'=>$data['tell']]);
+                        $result = ['errCode'=>1,'msg'=>'操作成功'];
+                        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                    }
+                    else
+                    {
+                        $result = ['errCode'=>2,'msg'=>'服务器错误,注册失败'];
+                        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                    }
+                }
+                else
+                {
+                    $result = ['errCode'=>3,'msg'=>'数据不合法'];
+                    echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                }
             }
         }
         else
         {
-            $result = ['errCode'=>3,'msg'=>'数据不合法']; 
-            echo json_encode($result,JSON_UNESCAPED_UNICODE);  
+            if($length && $password)
+            {
+                /* 入库操作 */
+                $user = new User();
+                $user->phone=$data['tell'];
+                $user->password=md5($data['password']);
+                $user->time=time();
+                $user->pay_pwd ='123456';
+                $res = $user->save();
+                if($res)
+                {
+                    /* 存取session  内容：用户手机号码 */
+                    session(['user'=>$data['tell']]);
+                    $result = ['errCode'=>1,'msg'=>'操作成功'];
+                    echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                }
+                else
+                {
+                    $result = ['errCode'=>2,'msg'=>'服务器错误,注册失败'];
+                    echo json_encode($result,JSON_UNESCAPED_UNICODE);
+                }
+            }
+            else
+            {
+                $result = ['errCode'=>3,'msg'=>'数据不合法'];
+                echo json_encode($result,JSON_UNESCAPED_UNICODE);
+            }
         }
     }
 

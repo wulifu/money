@@ -38,6 +38,8 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::any('user_prizeadd','PrizeController@prizeadd'); //用户抽奖
 
 	Route::get('myProject','AccountController@myProject');
+	//微博分享
+	Route::get('invite','AccountController@invite');
 
 
 });

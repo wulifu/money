@@ -15,7 +15,27 @@ class AccountController extends Controller
     public function index(Request $request){
 
         $user_id = session('user_id');//模拟用户id
-        $user = DB::table('user')->select('username','money')->where('user_id',$user_id)->first();
+        $user = DB::table('user')->where('user_id',$user_id)->first();
+        $p_msg = DB::table('user')->where('p_id',$user_id)->get();
+        $str = 0;
+        $user->new_money = 0;
+        if(date('Y-m-d',$user->time)==date('Y-m-d',time()))
+        {
+            $user->new_money = 10;
+        }
+        if($p_msg)
+        {
+            foreach($p_msg as $key => $value)
+            {
+                if(date('Y-m-d',$value->time)==date('Y-m-d',time()))
+                {
+                    $str = $str+1;
+                }
+            }
+            $user->new_money = $str * 10;
+        }
+
+//        print_r($user);die;
 
         //用户总收益
         $earnings = DB::table('money_trend')->select('money')->where(['user_id'=>$user_id,'status'=>2])->sum('money');
@@ -242,5 +262,12 @@ class AccountController extends Controller
         $result['data'] = $project_list;
 
         exit(json_encode($result));
+    }
+
+    //微博分享
+    public function invite()
+    {
+//        $user_id = md5(session('user_id'));
+//        $url = "";
     }
 }

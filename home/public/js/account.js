@@ -105,6 +105,9 @@ $('.fetch-affirm').click(function(){
 $('.back-account-main-fetch').click(function(){
     back('fetch');   //关闭提现页面
 })
+$('.back-account-main-invite').click(function(){
+    back('invite');   //关闭邀请页面
+})
 
 $('.not').click(function(){
     showHint('此功能还未开放 敬请期待')

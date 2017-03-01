@@ -1,3 +1,9 @@
+<?php
+namespace App\Http\Controllers;
+use Symfony\Component\HttpFoundation\Session\Session;
+$uid = base64_encode(session('user_id'));
+
+?>
 <!doctype html>
 <html>
 <head>
@@ -10,8 +16,9 @@
     <link rel="stylesheet" type="text/css" href="css/account.css">
     <link rel="stylesheet" type="text/css" href="css/css.css">
     <link href="hui/iconfont.css" rel="stylesheet" type="text/css" />
-    <script src="/js/jquery-1.7.2.min.js"></script>
-    <script src="/js/spin.min.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/spin.min.js"></script>
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3158961813" type="text/javascript" language="javascript"></script>  <!--新浪微博-->
     <title>我的账户</title>
 </head>
 <body>
@@ -80,7 +87,7 @@
                 <span class="jian"><i class="Hui-iconfont">&#xe6d7;</i></span>
             </div>
         </li>
-        <li  class="not">
+        <li  class="open-invite">
             <div>
                 <span><i class="Hui-iconfont">&#xe6ab;</i></span>
                 <span>邀请好友</span>
@@ -300,8 +307,85 @@
         </div>
     </div>
 </div>
+{{--邀请begin--}}
+<div class="invite">
+    <div class="title">
+        <span class="back back-account-main-invite"><i class="Hui-iconfont">&#xe6d4;</i>&nbsp;返回</span>
+        <span>邀请奖励</span>
+    </div>
+    <div class="invite-top">
+        <div class="invite-datum">
+            <h3 style="color:#FF5809;padding-top: 30px">今日奖励</h3>
+            <h1 style="color:#FF5809;padding-top: 20px">{{$user->new_money}}</h1>
+        </div>
 
+    </div>
+    <div class="memu">
+        <ul>
+            <li class="">
+                <div>
+                    <span><i class="Hui-iconfont">&#xe616;</i></span>
+                    <span style="color:#FF5809">累积奖励</span>
+                    <span class="jian"><i class="Hui-iconfont">{{$user->invite_money}}&nbsp;RMB</i></span>
+                </div>
+            </li>
+            <li class="">
+                <div>
+                    <span><i class="Hui-iconfont">&#xe705;</i></span>
+                    <span style="color: #FF5809">我邀请的好友</span>
+                    <span class="jian"><i class="Hui-iconfont">{{$user->invite_num}}&nbsp;人</i></span>
+                </div>
+            </li>
+            {{--<li class="">--}}
+                {{--<div>--}}
+                    {{--<span><i class="Hui-iconfont">&#xe627;</i></span>--}}
+                    {{--<span style="color: #FF5809">奖励说明</span>--}}
+                    {{--<span class="jian"><i class="Hui-iconfont"></i></span>--}}
+                {{--</div>--}}
+            {{--</li>--}}
+        </ul>
+    </div>
+    <input type="hidden" id="uid" value="<?php echo $uid ?>">
+    <div class="invite-main">
+        {{--<div class="quit">--}}
+            {{--<span>邀请微信好友</span>--}}
+        {{--</div>--}}
+        {{--<div class="quit">--}}
+            {{--<span>邀请QQ好友</span>--}}
+        {{--</div>--}}
+        <div class="quit">
+            <a id="invite" href="javascript:void(0)"><span>分享到新浪微博</span></a>
+        </div>
+        {{--分享--}}
+        {{--<!-- JiaThis Button BEGIN -->--}}
+        {{--<div class="jiathis_style_m"></div>--}}
+        {{--<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_m.js" charset="utf-8"></script>--}}
+        {{--<!-- JiaThis Button END -->--}}
+        <div style="margin-top: 200px;align-content: center">
+            <center>
+                <h3 style="color: #f75000;">邀请奖励详解</h3>
+            </center>
+            <br>
+                <p style="font-size: 14px;color: orange">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当您点击分享按钮选择分享方式，并且分享成功后，若有您的好友通过分享的链接成功注册本网站，那么您和您的好友每人将会获得本网站赠送的十元现金红包！机会不多，赶快分享吧！</p>
+
+        </div>
+    </div>
+
+</div>
+
+{{--邀请end--}}
 </body>
+<!-- JiaThis Button BEGIN -->
+<script "text/javascript">
+var uid = $('#uid').val();
+var jiathis_config = {
+url: "http://www.money.com/register?uid="+uid,
+title: "点击进入天天理财得万元红包",
+summary:"点击链接注册成功将得到10元现金红包，在个人中心可以查看。"
+}
+</script>
+<script src="http://v2.jiathis.com/code/jiathis_r.js?move=0"></script>
+<!-- JiaThis Button END -->
 <script src="/js/account.js"></script>
 <script>
 
@@ -313,7 +397,27 @@
             open_recharge(prior);
         }
     })
-
+    //邀请页面
+    $('.open-invite').click(function(){
+        shadeShow();
+        shadeHide();
+        getinto('invite');
+    })
+    //微博分享
+    $('#invite').click(function(){
+        var uid = $('#uid').val();
+        window.sharetitle = "http://www.money.com/register?uid="+uid+"点击前面连接进入天天理财注册页面！"
+        window.shareUrl = "http://man.lzpphp.com/img//12324235-1487905577.jpg"
+        share()
+    })
+    function share(){
+        //d指的是window
+        (function(s,d,e){try{}catch(e){}
+            var f='http://v.t.sina.com.cn/share/share.php?',
+                    u=d.location.href,
+                    p=['url=',e(u),'&title=',e(window.sharetitle),'&appkey=2924220432','&pic=',e(window.shareUrl)].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',
+                        (s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent);
+    }
 
 
     //我的账单页面

@@ -31,6 +31,7 @@
 			<p class='tsp'></p>
 		</div>
 	</div>
+	<input type="hidden" name="uid" value="<?php echo  @$_GET['uid'] ?>">
 </body>
 
 <script src="js/jquery.1.12.js"></script>
@@ -86,6 +87,7 @@ $('.but').click(function(){
 	if(status == 0)
 	{
 		tell = $("input[name='tell']").val();
+		uid = $("input[name='uid']").val();
 		if(tell=='')
 		{
 			$('.tsp').html('请正确正确手机号码');
@@ -96,7 +98,7 @@ $('.but').click(function(){
 		/* Ajax请求 */
 		url= 'registers';
 		$.get(url,{tell:tell},function(msg){
-			location.href='registers'+'?tell='+tell;
+			location.href='registers'+'?tell='+tell+'&uid='+uid;
 		});
 	}
 })
