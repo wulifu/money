@@ -225,11 +225,9 @@ $uid = base64_encode(session('user_id'));
     </div>
     <div class="recharge-main">
         <ul>
-            <li style="border-top:none">
-                <span><i class="Hui-iconfont">&#xe6a7;</i></span>
-                <span class="bank_name">中国工商银行</span>
-                <span> > </span>
-            </li>
+
+            <p  id="contentss">
+            </p>
             <li>
                 <span>充值金额</span>
                 <span> <input type="text" class="input recharge_val" onfocus="" name="recharge_val" placeholder="请输入充值金额" pattern="[0-9]{1,10}" required/></span>
@@ -537,13 +535,19 @@ summary:"点击链接注册成功将得到10元现金红包，在个人中心可
     function open_recharge(action){
         shadeShow();
         var prior = "{{$prior}}";
+        var content = $('#contentss');
+
+        var html = '';
         $.ajax({
             type:'GET',
             url:"{{ action('AccountController@getIsBinding') }}",
             dataType:'json',
             success:function(msg){
                 if(msg.code == 1){
-                    $('.bank_name').html(msg.data.bank_name+'（尾号'+msg.data.card_num+'）').attr('bind_id',msg.data.bind_id);
+                    $.each(msg.data,function(k,v){
+                       html += '<li style="border-top:none"><span><i class="Hui-iconfont"><input type="radio" name="zhi" class="www" value='+msg.bind_id+' bank_id='+ v.bank_id+'></i></span><span class="bank_name">'+v.bank_name+'</span></li>'
+                    })
+                    content.html(html)
                     shadeHide();
                     if(prior != ''){
 //                        $('.recharge_val').focus();
@@ -605,7 +609,8 @@ summary:"点击链接注册成功将得到10元现金红包，在个人中心可
     //充值提交
     $('.recharge-affirm').click(function(){
         var recharge_val = $('.recharge_val').val();
-        var bind_id = $('bank_name').attr('bind_id');
+        var bind_id = $("input[name='zhi']").attr('value');
+        var bank_id = $("input[name='zhi']:checked").attr('bank_id');
         if(recharge_val == '' || isNaN(recharge_val) || recharge_val < 1){
             showHint('请输入合法的充值金额')
             return false;
@@ -615,30 +620,44 @@ summary:"点击链接注册成功将得到10元现金红包，在个人中心可
             return false;
         }
         shadeShow();
-        $.ajax({
-            type:'get',
-            url:"/recharge",
-            data:'recharge_val='+recharge_val+'&bind_id='+bind_id,
-            dataType:'json',
-            async:'false',
-            success:function(msg){
-                showHint('充值成功')
-                var prior = "{{$prior}}";
-                if(prior == ''){
-                    $('.property-val').html(Number($('.property-val').html())+Number(recharge_val))
-                    back('recharge')
-                    shadeHide();
-                }else{
-                    location.href=prior;
-
+        if(bank_id==2)
+        {
+            $.ajax({
+                type: "get",
+                url: "/alipay",
+                data: 'recharge_val='+recharge_val+'&bind_id='+bind_id+'&bank_id='+bank_id,
+                success: function(msg){
+                    location.href=msg;
                 }
+            });
+        }else
+        {
+            $.ajax({
+                type:'get',
+                url:"/recharge",
+                data:'recharge_val='+recharge_val+'&bind_id='+bind_id,
+                dataType:'json',
+                async:'false',
+                success:function(msg){
+                    showHint('充值成功')
+                    var prior = "{{$prior}}";
+                    if(prior == ''){
+                        $('.property-val').html(Number($('.property-val').html())+Number(recharge_val))
+                        back('recharge')
+                        shadeHide();
+                    }else{
+                        location.href=prior;
 
-            },
-            error:function(msg){
-                showHint('操作失败，请稍后再试')
-                shadeHide();
-            }
-        })
+                    }
+
+                },
+                error:function(msg){
+                    showHint('操作失败，请稍后再试')
+                    shadeHide();
+                }
+            })
+        }
+
     })
 
     $('.binding-affirm').click(function(){
