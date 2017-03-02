@@ -123,10 +123,14 @@ class AccountController extends Controller
 
         $binding = DB::table('binding')->where('user_id',$user_id)->first();
         if($binding){
-            $bank = DB::table('bank')->where('bank_id',$binding->bank)->first();
+            $bank = DB::table('bank')->get();
+            $bank = json_decode(json_encode($bank),true);
             $result['code'] = 1;
             $result['error'] = 'OK';
-            $result['data'] = ['bank_name'=>$bank->bank_name,'bind_id'=>$binding->bind_id,'card_num'=>substr($binding->card_num,-4)];
+//            $result['data'] = ['bank_name'=>$bank->bank_name,'bind_id'=>$binding->bind_id,'card_num'=>substr($binding->card_num,-4)];
+            $result['data']= $bank;
+            $result['card_num']= substr($binding->card_num,-4);
+            $result['bind_id']=$binding->bind_id;
         }else{
             $user_re = DB::table('user')->select('idcard','username')->where('user_id',$user_id)->first();
             if(empty($user_re->username) || empty($user_re->idcard)){
@@ -137,6 +141,7 @@ class AccountController extends Controller
                 $result['data'] = ['username'=>$user_re->username,'idcard'=>substr($user_re->idcard,0,6).'******'.substr($user_re->idcard,-4)];
             }
         }
+//        print_r($result);
         exit(json_encode($result));
     }
 
@@ -243,4 +248,97 @@ class AccountController extends Controller
 
         exit(json_encode($result));
     }
+
+    //支付宝付款
+    public function Alipay(Request $request)
+    {
+        $user_id = session('user_id');//模拟用户id
+
+        $recharge_val = $request->input('recharge_val');
+        $bind_id = $request->input('bind_id');
+        $bank_id = $request->input('bank_id');
+        $sn = 'EC'.rand(1,9999).'cz';
+
+        //合作身份者id，以2088开头的16位纯数字
+        $alipay_config['partner']		= '2088121321528708';
+        //收款支付宝账号
+        $alipay_config['seller_email']	= 'itbing@sina.cn';
+        //安全检验码，以数字和字母组成的32位字符
+        $alipay_config['key']			= '1cvr0ix35iyy7qbkgs3gwymeiqlgromm';
+        //↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+        //签名方式 不需修改
+        $alipay_config['sign_type']    = strtoupper('MD5');
+        //字符编码格式 目前支持 gbk 或 utf-8
+        //$alipay_config['input_charset']= strtolower('utf-8');
+        //ca证书路径地址，用于curl中ssl校验
+        //请保证cacert.pem文件在当前文件夹目录中
+        //$alipay_config['cacert']    = getcwd().'\\cacert.pem';
+        //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
+        $alipay_config['transport']    = 'http';
+        $parameter = array(
+            "service" => "create_direct_pay_by_user",
+            "partner" => $alipay_config['partner'], // 合作身份者id
+            "seller_email" => $alipay_config['seller_email'], // 收款支付宝账号
+            "payment_type"	=> $bank_id, // 支付类型
+            "notify_url"	=> "http://localhost/res.php", // 服务器异步通知页面路径
+            "return_url"	=> "http://www.licai.com/pay_nize", // 页面跳转同步通知页面路径
+            "out_trade_no"	=> $sn, // 商户网站订单系统中唯一订单号
+            "subject"	=> "充值", // 订单名称
+            "total_fee"	=> $recharge_val, // 付款金额
+            "body"	=> "1409phpB", // 订单描述 可选
+            "show_url"	=> "", // 商品展示地址 可选
+            "anti_phishing_key"	=> "", // 防钓鱼时间戳  若要使用请调用类文件submit中的query_timestamp函数
+            "exter_invoke_ip"	=> "", // 客户端的IP地址
+            "_input_charset"	=> 'utf-8', // 字符编码格式
+        );
+
+        // 去除值为空的参数
+        foreach ($parameter as $k => $v) {
+            if (empty($v)) {
+                unset($parameter[$k]);
+            }
+        }
+        // 参数排序
+        ksort($parameter);
+        reset($parameter);
+
+        // 拼接获得sign
+        $str = "";
+        foreach ($parameter as $k => $v) {
+            if (empty($str)) {
+                $str .= $k . "=" . $v;
+            } else {
+                $str .= "&" . $k . "=" . $v;
+            }
+        }
+        $parameter['sign'] = md5($str . $alipay_config['key']);	// 签名
+        $parameter['sign_type'] = $alipay_config['sign_type'];
+        $html = "https://mapi.alipay.com/gateway.do?".$str.'&sign='.$parameter['sign'].'&sign_type='.$parameter['sign_type'];
+
+        return  $html;
+
+    }
+
+    //支付宝同步返回
+    public function pay_synchronize(Request $request)
+    {
+        $user_id = session('user_id');//模拟用户id
+
+        $data = $request->input();
+        if(isset($data['trade_status'])=='TRADE_SUCCESS')
+        {
+
+            $re = DB::table('user')->where('user_id',$user_id)->increment('money',$data['total_fee']);
+            $res = DB::table('money_trend')->insert(['user_id'=>$user_id,'time'=>time(),'money'=>$data['total_fee'],'status'=>0]);
+            if($re && $res)
+            {
+                echo "<script>alert('充值成功');location.href='account'</script>";
+            }else
+            {
+                echo "<script>alert('充值失败');location.href='account'</script>";
+            }
+        }
+    }
+
+
 }

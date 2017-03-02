@@ -32,6 +32,10 @@ Route::group(['middleware' => ['web','common']], function () {
 	Route::get('recharge','AccountController@recharge');
 	Route::get('binding','AccountController@binding');
 	Route::get('fetch','AccountController@fetch');
+    //支付宝
+	Route::get('alipay','AccountController@Alipay');
+    //同步返回
+    Route::any('pay_nize','AccountController@pay_synchronize');
 
 	//抽奖
 	Route::any('user_prize','PrizeController@index'); //用户抽奖

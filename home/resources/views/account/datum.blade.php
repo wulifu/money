@@ -229,7 +229,7 @@
 
 function shadeShow(){  //显示遮罩层
     $('.shade').show();
-}
+}+
 
 function shadeHide(){  //隐藏遮罩层
     $('.shade').hide();
