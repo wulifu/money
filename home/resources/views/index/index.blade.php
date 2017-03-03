@@ -63,7 +63,7 @@ $(document).ready(function(){
       <div class="info-player" >
         <img src="images/3.jpg" style="width: 200px height:100px;">
         <span>
-          <p class="info-player__name"><?php  echo mb_substr("$pro->pro_name ",0,5,'utf-8');  ?><br><small>收益： {{ $pro->yield }}%</small></p>
+          <p class="info-player__name"><?php  echo mb_substr("$pro->pro_name ",0,5,'utf-8');  ?><br><small style='color:red;'>收益： {{ $pro->yield }}%</small></p>
           </span>
         </div>
         <br>
