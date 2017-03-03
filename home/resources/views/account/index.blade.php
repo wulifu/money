@@ -377,7 +377,7 @@ $uid = base64_encode(session('user_id'));
 <script "text/javascript">
 var uid = $('#uid').val();
 var jiathis_config = {
-url: "http://www.money.com/register?uid="+uid,
+url: "http://money.itkang.xin/register?uid="+uid,
 title: "点击进入天天理财得万元红包",
 summary:"点击链接注册成功将得到10元现金红包，在个人中心可以查看。"
 }
@@ -404,7 +404,7 @@ summary:"点击链接注册成功将得到10元现金红包，在个人中心可
     //微博分享
     $('#invite').click(function(){
         var uid = $('#uid').val();
-        window.sharetitle = "http://www.money.com/register?uid="+uid+"点击前面连接进入天天理财注册页面！"
+        window.sharetitle = "http://money.itkang.xin/register?uid="+uid+"点击前面连接进入天天理财注册页面！"
         window.shareUrl = "http://man.lzpphp.com/img//12324235-1487905577.jpg"
         share()
     })

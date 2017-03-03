@@ -168,7 +168,7 @@ $('.over').click(function(){
                     }else{
                         var _html = '';
                         for( var i in msg.data){
-                            _html += '<li class="li"><div class="project_"><div class="project-title"><a href="details?fin_id='+msg.data[i].fin_id+'">'+msg.data[i].pro_name+'</a><span>我的投资金额：'+msg.data[i].money_sum.toFixed(2)+' 元 &nbsp; 我的收益：'+msg.data[i].profit_sum.toFixed(2)+'</span></div><div class="cent"><div class="data"><span class="trem">'+msg.data[i].yield+'%</span><span class="font">'+msg.data[i].term+'天</span><span  class="font">'+msg.data[i].money+'</span></div><div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div></div></div></li>';
+                            _html += '<li class="li"><div class="project_"><div class="project-title"><a href="details?fin_id='+msg.data[i].fin_id+'">'+msg.data[i].pro_name+'</a><span投资金额：'+msg.data[i].money_sum.toFixed(2)+'  &nbsp; 收益：'+msg.data[i].profit_sum.toFixed(2)+'</span></div><div class="cent"><div class="data"><span class="trem">'+msg.data[i].yield+'%</span><span class="font">'+msg.data[i].term+'天</span><span  class="font">'+msg.data[i].money+'</span></div><div class="name"><span class="lv" >预期年化收益率</span><span class="nv" >期限</span  ><span class="nv" >预计金额</span></div></div></div></li>';
                         }
                         $('.project-over ul').html(_html);
                         //getinto('project');
