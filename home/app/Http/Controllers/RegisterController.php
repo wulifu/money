@@ -126,8 +126,10 @@ class RegisterController extends Controller
                     $res = $user->save();
                     if($res)
                     {
+                        $new_user = DB::table('user')->where('phone',$data['tell'])->first();
                         /* 存取session  内容：用户手机号码 */
                         session(['user'=>$data['tell']]);
+                        session(['user_id'=>$new_user->user_id]);
                         $result = ['errCode'=>1,'msg'=>'操作成功'];
                         echo json_encode($result,JSON_UNESCAPED_UNICODE);
                     }
@@ -157,8 +159,10 @@ class RegisterController extends Controller
                 $res = $user->save();
                 if($res)
                 {
+                    $new_user = DB::table('user')->where('phone',$data['tell'])->first();
                     /* 存取session  内容：用户手机号码 */
                     session(['user'=>$data['tell']]);
+                    session(['user_id'=>$new_user->user_id]);
                     $result = ['errCode'=>1,'msg'=>'操作成功'];
                     echo json_encode($result,JSON_UNESCAPED_UNICODE);
                 }

@@ -19,7 +19,7 @@ class AccountController extends Controller
         $p_msg = DB::table('user')->where('p_id',$user_id)->get();
         $str = 0;
         $user->new_money = 0;
-        if(date('Y-m-d',$user->time)==date('Y-m-d',time()))
+        if(date('Y-m-d',$user->time)==date('Y-m-d',time()) && $user->p_id!=0)
         {
             $user->new_money = 10;
         }
